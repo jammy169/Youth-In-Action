@@ -40,6 +40,12 @@ body {
   width: auto;
 }
 
+.logo-upper-left {
+  width: 32px !important;
+  height: 32px !important;
+  object-fit: contain;
+}
+
 .nav-links {
   display: flex;
   align-items: center;

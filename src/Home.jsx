@@ -1,8 +1,11 @@
 import React from 'react';
 import './Home.css';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="home">
       {/* Hero Section */}
@@ -19,7 +22,7 @@ const Home = () => {
             <span className="text-white">In</span>
             <span className="text-orange">Action</span>
           </h1>
-          <h2>Grow Lead Inspire</h2>
+          <h2>Grow. Lead. Inspire.</h2>
           <motion.button 
             className="explore-button"
             whileHover={{ scale: 1.05 }}
@@ -72,16 +75,16 @@ const Home = () => {
           <h2>Our Youth Impact</h2>
           <div className="impact-stats">
             <div className="stat">
-              <h3>5,000+</h3>
-              <p>Young Leaders</p>
+              <h3>500+</h3>
+              <p>	Active Youth Volunteers</p>
             </div>
             <div className="stat">
-              <h3>30+</h3>
-              <p>Countries</p>
+              <h3>15+</h3>
+              <p>	Communities Engaged</p>
             </div>
             <div className="stat">
-              <h3>100+</h3>
-              <p>Youth Projects</p>
+              <h3>50+</h3>
+              <p>	Youth-Led Projects</p>
             </div>
           </div>
         </div>
@@ -90,11 +93,12 @@ const Home = () => {
       {/* Call to Action */}
       <section className="cta">
         <h2>Ready to Make an Impact?</h2>
-        <p>Join YouthInAction and become part of the next generation of leaders</p>
+        <p>YouthInAction: Empowering you to lead, inspire, and take action.</p>
         <motion.button 
           className="cta-button"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => navigate('/join')}
         >
           Start Your Journey
         </motion.button>

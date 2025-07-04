@@ -83,6 +83,16 @@ Home Page Styles
   transform: translateY(-2px);
 }
 
+.logo-upper-left {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 36px;
+  height: 36px;
+  z-index: 2;
+  background: transparent;
+}
+
 /* Features Section */
 .features {
   padding: 5rem 5%;

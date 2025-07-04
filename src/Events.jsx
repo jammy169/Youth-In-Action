@@ -8,7 +8,7 @@ const events = [
     title: 'Youth Leadership Summit',
     date: '2023-03-15',
     image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3',
-    description: 'Inspiring talks and networking with global youth leaders.',
+    description: 'Inspiring talks and networking with Youths.',
     featured: true,
   },
   {
