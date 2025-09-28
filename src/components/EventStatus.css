@@ -1,0 +1,213 @@
+/* EventStatus Component Styles */
+.event-status {
+  display: inline-flex;
+  align-items: center;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.status-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.status-label {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+}
+
+.override-indicator {
+  font-size: 0.7rem;
+  margin-left: 4px;
+  opacity: 0.8;
+}
+
+/* Variants */
+.event-status.compact .status-badge {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+
+.event-status.compact .status-icon {
+  font-size: 0.85rem;
+}
+
+.event-status.compact .status-label {
+  font-size: 0.7rem;
+}
+
+.event-status.large .status-badge {
+  padding: 10px 16px;
+  font-size: 1rem;
+}
+
+.event-status.large .status-icon {
+  font-size: 1.2rem;
+}
+
+.event-status.large .status-label {
+  font-size: 0.9rem;
+}
+
+.event-status.large .override-indicator {
+  font-size: 0.8rem;
+}
+
+/* Status-specific styles */
+.event-status.upcoming .status-badge {
+  animation: pulse-green 2s infinite;
+}
+
+.event-status.ongoing .status-badge {
+  animation: pulse-orange 2s infinite;
+}
+
+.event-status.finished .status-badge {
+  opacity: 0.8;
+}
+
+.event-status.canceled .status-badge {
+  animation: pulse-red 2s infinite;
+}
+
+/* Hover effects */
+.event-status:hover .status-badge {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Animations */
+@keyframes pulse-green {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+  }
+}
+
+@keyframes pulse-orange {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.1);
+  }
+}
+
+@keyframes pulse-red {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 4px rgba(244, 67, 54, 0.1);
+  }
+}
+
+/* Card integration */
+.event-status.card-integration {
+  margin-bottom: 12px;
+}
+
+.event-status.card-integration .status-badge {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Header integration */
+.event-status.header-integration {
+  margin-left: auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .status-badge {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .status-icon {
+    font-size: 0.9rem;
+  }
+  
+  .status-label {
+    font-size: 0.75rem;
+  }
+  
+  .event-status.large .status-badge {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+  
+  .event-status.large .status-icon {
+    font-size: 1.1rem;
+  }
+  
+  .event-status.large .status-label {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .status-badge {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+  
+  .status-icon {
+    font-size: 0.8rem;
+  }
+  
+  .status-label {
+    font-size: 0.7rem;
+  }
+  
+  .event-status.large .status-badge {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .event-status.large .status-icon {
+    font-size: 1rem;
+  }
+  
+  .event-status.large .status-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .status-badge {
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Accessibility */
+.event-status:focus-within .status-badge {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .event-status .status-badge {
+    background: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+    box-shadow: none !important;
+  }
+}
+

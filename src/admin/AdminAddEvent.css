@@ -1,0 +1,197 @@
+/* Container for the form */
+.admin-form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Heading for the form */
+.admin-form-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #4CAF50;
+}
+
+/* Styling for all form inputs and textarea */
+.admin-form-container input,
+.admin-form-container textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Placeholder styling */
+.admin-form-container input::placeholder,
+.admin-form-container textarea::placeholder {
+    color: #888;
+}
+
+/* Focus state for inputs */
+.admin-form-container input:focus,
+.admin-form-container textarea:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Styling for the submit button */
+.admin-form-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-form-container button[type="submit"]:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* DateTime Input Styling */
+.datetime-inputs {
+    margin-bottom: 1rem;
+}
+
+.datetime-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #4CAF50;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Image Upload Section */
+.image-upload-section {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+}
+
+.image-upload-label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #4CAF50;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.file-upload-option {
+    margin-bottom: 1rem;
+}
+
+.file-upload-label {
+    display: block;
+    padding: 12px;
+    background-color: #3a3a3a;
+    border: 2px dashed #4CAF50;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    color: #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.file-upload-label:hover {
+    background-color: #4a4a4a;
+    border-color: #45a049;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-info {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #1a1a1a;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.file-info p {
+    margin: 0;
+    color: #4CAF50;
+}
+
+.image-preview {
+    max-width: 200px;
+    max-height: 150px;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.or-divider {
+    text-align: center;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.or-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #333;
+}
+
+.or-divider span {
+    background-color: #2a2a2a;
+    padding: 0 1rem;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.url-input-option input {
+    margin-bottom: 0;
+}
+
+/* Disabled button state */
+.admin-form-container button[type="submit"]:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.admin-form-container button[type="submit"]:disabled:hover {
+    background-color: #666;
+    transform: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .admin-form-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+    
+    .image-preview {
+        max-width: 150px;
+        max-height: 100px;
+    }
+}

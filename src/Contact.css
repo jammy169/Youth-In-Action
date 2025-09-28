@@ -1,0 +1,91 @@
+/* Contact.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #1C1C1E; /* Dark background */
+  color: #f4f4f9; /* Light text color */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.contact-container {
+  min-height: calc(100vh - 30px);
+  margin-top: 30px;
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+  background-color: #1C1C1E;
+  text-align: center;
+}
+
+
+h1 {
+  color: #ffffff; /* White color for the heading */
+  margin-bottom: 1rem;
+  font-size: 2.5rem; /* Increase heading size */
+}
+
+p {
+  color: #ddd; /* Light gray for the paragraph */
+  margin-bottom: 2rem;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.2rem; /* Increase font size */
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px; /* Set a max width for the form */
+  background-color: rgba(255, 255, 255, 0.9); /* Light background for the form */
+  padding: 2rem; /* Add padding */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #5A4AE3; /* Highlight border on focus */
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #888; /* Placeholder color */
+}
+
+.contact-form button {
+  padding: 0.8rem;
+  background-color: #4CAF50; /* Button color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem; /* Increase button font size */
+}
+
+.contact-form button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
