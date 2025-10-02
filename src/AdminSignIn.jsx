@@ -16,7 +16,8 @@ const AdminSignIn = () => {
     setErrorMessage('');
 
     try {
-      await signInAsAdmin(email, password);
+      const result = await signInAsAdmin(email, password);
+      console.log('Admin sign-in successful:', result);
       navigate('/admin');
     } catch (error) {
       console.error('Admin sign-in error:', error);

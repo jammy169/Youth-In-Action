@@ -23,6 +23,7 @@ import EventList from '../components/EventList';
 import EventDetails from '../components/EventDetails';
 import EventRegistration from '../components/EventRegistration';
 import EmailTest from '../components/EmailTest';
+import ProtectedAdminRoute from '../components/ProtectedAdminRoute';
 
 // Admin Pages
 import AdminAddEvent from '../admin/AdminAddEvent';
@@ -62,12 +63,32 @@ function App() {
           <Route path="/register/:eventId" element={<EventRegistration />} />
         </Route>
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/add-event" element={<AdminAddEvent />} />
-        <Route path="/admin/edit-event/:id" element={<AdminEditEvent />} />
-        <Route path="/admin/registrations" element={<AdminRegistrations />} />
-        <Route path="/admin/feedback" element={<AdminFeedback />} />
+        {/* Protected Admin Routes */}
+        <Route path="/admin" element={
+          <ProtectedAdminRoute>
+            <AdminDashboard />
+          </ProtectedAdminRoute>
+        } />
+        <Route path="/admin/add-event" element={
+          <ProtectedAdminRoute>
+            <AdminAddEvent />
+          </ProtectedAdminRoute>
+        } />
+        <Route path="/admin/edit-event/:id" element={
+          <ProtectedAdminRoute>
+            <AdminEditEvent />
+          </ProtectedAdminRoute>
+        } />
+        <Route path="/admin/registrations" element={
+          <ProtectedAdminRoute>
+            <AdminRegistrations />
+          </ProtectedAdminRoute>
+        } />
+        <Route path="/admin/feedback" element={
+          <ProtectedAdminRoute>
+            <AdminFeedback />
+          </ProtectedAdminRoute>
+        } />
         
         {/* Test Routes */}
         <Route path="/test-email" element={<EmailTest />} />

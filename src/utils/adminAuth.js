@@ -1,6 +1,13 @@
 // Admin Authentication Utility
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { SECURE_ADMIN_EMAILS, isSecureAdmin } from './secureAdminSetup';
+import { 
+  isUserLockedOut, 
+  recordFailedAttempt, 
+  clearFailedAttempts, 
+  startAdminSession,
+  logSecurityEvent 
+} from './adminSecurity';
 
 // Admin email addresses - now managed securely
 const ADMIN_EMAILS = SECURE_ADMIN_EMAILS;
@@ -36,26 +43,45 @@ export const isAuthenticatedAdmin = () => {
 };
 
 /**
- * Sign in as admin
+ * Sign in as admin with security checks
  * @param {string} email - Admin email
  * @param {string} password - Admin password
  * @returns {Promise<Object>} - User object if successful
  */
 export const signInAsAdmin = async (email, password) => {
   try {
+    // Check if user is locked out
+    if (isUserLockedOut(email)) {
+      const error = new Error('Account temporarily locked due to multiple failed attempts. Please try again later.');
+      logSecurityEvent('admin_login_locked_out', { email });
+      throw error;
+    }
+    
     const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     
     if (!isAdmin(user)) {
       await signOut(auth);
+      recordFailedAttempt(email);
+      logSecurityEvent('admin_login_unauthorized', { email });
       throw new Error('Access denied. Admin privileges required.');
     }
     
-    console.log('Admin signed in successfully:', user.email);
-    return user;
+    // Clear failed attempts on successful login
+    clearFailedAttempts(email);
+    
+    // Start admin session
+    const sessionId = startAdminSession(user);
+    
+    logSecurityEvent('admin_login_success', { email, sessionId });
+    console.log('✅ Admin signed in successfully:', user.email);
+    return { user, sessionId };
   } catch (error) {
-    console.error('Admin sign-in error:', error);
+    // Record failed attempt for security
+    recordFailedAttempt(email);
+    logSecurityEvent('admin_login_failed', { email, error: error.message });
+    console.error('❌ Admin sign-in error:', error);
     throw error;
   }
 };
