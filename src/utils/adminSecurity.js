@@ -30,6 +30,12 @@ export const ADMIN_SECURITY_CONFIG = {
  */
 const loginAttempts = new Map();
 
+// Clear all lockouts for development (temporary)
+export const clearAllLockouts = () => {
+  loginAttempts.clear();
+  console.log('🧹 All admin lockouts cleared for development');
+};
+
 /**
  * Track admin sessions
  */
@@ -228,6 +234,12 @@ export const cleanupSecurityData = () => {
 
 // Run cleanup every 5 minutes
 setInterval(cleanupSecurityData, 5 * 60 * 1000);
+
+// Make clearAllLockouts available globally for development
+if (typeof window !== 'undefined') {
+  window.clearAdminLockouts = clearAllLockouts;
+  console.log('🔧 Development: Use clearAdminLockouts() in console to clear all lockouts');
+}
 
 export default {
   ADMIN_SECURITY_CONFIG,
