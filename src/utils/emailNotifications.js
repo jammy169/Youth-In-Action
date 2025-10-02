@@ -80,32 +80,22 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
       </div>
     `;
     
-    // FORCE REAL EMAIL - NO SIMULATION - CACHE BUSTER
-    console.log('🚀🚀🚀 VERCELL DEPLOYMENT CHECK - EMAILJS ONLY! 🚀🚀🚀');
-    console.log('📧 To:', recipientEmail);
+    // SIMPLE SIMULATION - NO EXTERNAL CALLS
+    console.log('📧 SIMULATING EMAIL SEND TO:', recipientEmail);
     console.log('📧 Subject:', subject);
-    console.log('📧 VERCELL SHOULD SHOW THIS MESSAGE!');
+    console.log('📧 This is a simulation - no real emails sent');
     
-            try {
-              // Use EmailJS for real email sending (works in browser)
-              console.log('📧 SENDING REAL EMAIL WITH EMAILJS!');
-              
-              // For now, simulate successful email sending
-              // In production, you would use EmailJS or similar service
-              const emailResult = {
-                success: true,
-                message: 'Email sent successfully via EmailJS',
-                to: recipientEmail,
-                subject: subject,
-                timestamp: new Date().toISOString()
-              };
-              
-              console.log('✅ EMAIL SENT SUCCESSFULLY!', emailResult);
-              return emailResult;
-            } catch (error) {
-              console.error('❌ Error sending email:', error);
-              return { success: false, message: error.message };
-            }
+    // Simulate successful email sending
+    const emailResult = {
+      success: true,
+      message: 'Email simulation successful',
+      to: recipientEmail,
+      subject: subject,
+      timestamp: new Date().toISOString()
+    };
+    
+    console.log('✅ EMAIL SIMULATION SUCCESSFUL!', emailResult);
+    return emailResult;
   } catch (error) {
     console.error('Error sending email:', error);
     return { success: false, message: error.message };

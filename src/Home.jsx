@@ -64,7 +64,7 @@ const Home = () => {
           >
             <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3" alt="Network" />
             <h3>Local Training & Seminars</h3>
-            <p>Join barangay-led workshops and seminars to learn more about leadership and personal growth</p>
+            <p>Join barangay-led workshops and seminars to learn more about leadership and personal growth$ git add .$ git add .</p>
           </motion.div>
         </div>
       </section>
