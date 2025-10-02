@@ -1,5 +1,5 @@
-// Vercel serverless function - SIMPLIFIED VERSION
-export default function handler(req, res) {
+// Vercel serverless function - RESEND API VERSION
+export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -24,16 +24,52 @@ export default function handler(req, res) {
     return;
   }
 
-  console.log('📧 EMAIL FUNCTION CALLED!');
+  console.log('📧 SENDING REAL EMAIL WITH RESEND API!');
   console.log('📧 To:', to);
   console.log('📧 Subject:', subject);
 
-  // For now, just return success - we'll add real email sending
-  res.status(200).json({
-    success: true,
-    message: 'Email sent successfully',
-    to: to,
-    subject: subject,
-    timestamp: new Date().toISOString()
-  });
+  try {
+    // Use Resend API for real email sending
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Youth In Action <noreply@youthinaction.com>',
+        to: [to],
+        subject: subject,
+        html: htmlContent,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      console.log('✅ EMAIL SENT SUCCESSFULLY!');
+      res.status(200).json({
+        success: true,
+        message: 'Email sent successfully via Resend API',
+        to: to,
+        subject: subject,
+        timestamp: new Date().toISOString(),
+        resendId: result.id
+      });
+    } else {
+      console.log('❌ RESEND API ERROR:', result);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to send email via Resend API',
+        error: result
+      });
+    }
+  } catch (error) {
+    console.log('❌ ERROR SENDING EMAIL:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error sending email',
+      error: error.message
+    });
+  }
 }
