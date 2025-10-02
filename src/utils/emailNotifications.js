@@ -125,7 +125,7 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
  */
 export const getNotificationEmails = async () => {
   try {
-    console.log('📧 Getting notification emails from Firebase...');
+    console.log('📧 Getting notification emails from Firebase REGISTRATIONS...');
     
     // Get emails from Firebase registrations collection (where users actually are!)
     const registrationsRef = collection(db, 'registrations');
@@ -136,10 +136,12 @@ export const getNotificationEmails = async () => {
       const userData = doc.data();
       if (userData.email) {
         userEmails.push(userData.email);
+        console.log('📧 Found user email:', userData.email);
       }
     });
     
-    console.log('📧 Found user emails from registrations:', userEmails);
+    console.log('📧 TOTAL user emails found:', userEmails.length);
+    console.log('📧 All user emails from registrations:', userEmails);
     
     // If no users found in registrations, use test emails
     if (userEmails.length === 0) {
