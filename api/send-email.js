@@ -1,10 +1,27 @@
 // Serverless function for sending real emails
 // This runs on Vercel/Netlify and handles actual email sending
 
-import nodemailer from 'nodemailer';
-import { EMAIL_CONFIG } from '../email-config.js';
+const nodemailer = require('nodemailer');
+
+// Gmail configuration
+const EMAIL_CONFIG = {
+  GMAIL_USER: 'jamestellore@gmail.com',
+  GMAIL_APP_PASSWORD: 'iqtx dgud oedg sxjm'
+};
 
 export default async function handler(req, res) {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
