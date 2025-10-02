@@ -1,4 +1,4 @@
-// Test endpoint to verify serverless functions work
+// Vercel Pages API - test endpoint
 export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -11,7 +11,7 @@ export default function handler(req, res) {
 
   res.status(200).json({
     success: true,
-    message: 'Serverless function is working!',
+    message: 'Pages API serverless function is working!',
     timestamp: new Date().toISOString(),
     method: req.method,
     url: req.url
