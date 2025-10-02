@@ -80,22 +80,37 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
       </div>
     `;
     
-    // SIMPLE SIMULATION - NO EXTERNAL CALLS
-    console.log('📧 SIMULATING EMAIL SEND TO:', recipientEmail);
+    // CALL RAILWAY BACKEND FOR REAL EMAILS
+    console.log('📧 SENDING REAL EMAIL VIA RAILWAY BACKEND!');
+    console.log('📧 To:', recipientEmail);
     console.log('📧 Subject:', subject);
-    console.log('📧 This is a simulation - no real emails sent');
     
-    // Simulate successful email sending
-    const emailResult = {
-      success: true,
-      message: 'Email simulation successful',
-      to: recipientEmail,
-      subject: subject,
-      timestamp: new Date().toISOString()
-    };
-    
-    console.log('✅ EMAIL SIMULATION SUCCESSFUL!', emailResult);
-    return emailResult;
+    try {
+      const response = await fetch('https://youth-in-action-production.railway.app/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: recipientEmail,
+          subject: subject,
+          htmlContent: htmlContent
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        console.log('✅ REAL EMAIL SENT SUCCESSFULLY!', result);
+        return result;
+      } else {
+        console.error('❌ RAILWAY BACKEND ERROR:', result);
+        return { success: false, message: result.message || 'Railway backend error' };
+      }
+    } catch (error) {
+      console.error('❌ ERROR CALLING RAILWAY BACKEND:', error);
+      return { success: false, message: error.message };
+    }
   } catch (error) {
     console.error('Error sending email:', error);
     return { success: false, message: error.message };
