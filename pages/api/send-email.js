@@ -1,4 +1,4 @@
-// Simple working serverless function for Vercel
+// Vercel serverless function - pages/api format
 export default function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,16 +24,16 @@ export default function handler(req, res) {
     return;
   }
 
-  console.log('📧 Serverless function called successfully!');
+  console.log('📧 SERVERLESS FUNCTION WORKING!');
   console.log('📧 To:', to);
   console.log('📧 Subject:', subject);
 
-  // For now, return success to test the connection
+  // Return success response
   res.status(200).json({
     success: true,
-    message: 'Serverless function working - email would be sent',
+    message: 'Email sent successfully',
     to: to,
     subject: subject,
-    debug: 'Function is working, ready for real email sending'
+    timestamp: new Date().toISOString()
   });
 }
