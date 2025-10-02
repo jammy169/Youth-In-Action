@@ -127,23 +127,23 @@ export const getNotificationEmails = async () => {
   try {
     console.log('📧 Getting notification emails from Firebase...');
     
-    // Get emails from Firebase users collection
-    const usersRef = collection(db, 'users');
-    const usersSnapshot = await getDocs(usersRef);
+    // Get emails from Firebase registrations collection (where users actually are!)
+    const registrationsRef = collection(db, 'registrations');
+    const registrationsSnapshot = await getDocs(registrationsRef);
     
     const userEmails = [];
-    usersSnapshot.forEach((doc) => {
+    registrationsSnapshot.forEach((doc) => {
       const userData = doc.data();
       if (userData.email) {
         userEmails.push(userData.email);
       }
     });
     
-    console.log('📧 Found user emails:', userEmails);
+    console.log('📧 Found user emails from registrations:', userEmails);
     
-    // If no users found in Firebase, use test emails
+    // If no users found in registrations, use test emails
     if (userEmails.length === 0) {
-      console.log('⚠️ No users found in Firebase, using test emails');
+      console.log('⚠️ No users found in registrations, using test emails');
       return TEST_EMAILS;
     }
     
@@ -151,7 +151,7 @@ export const getNotificationEmails = async () => {
   } catch (error) {
     console.error('❌ Error getting notification emails:', error);
     console.log('⚠️ Firebase permission error - using test emails for now');
-    console.log('💡 To fix: Update Firebase rules to allow reading user emails');
+    console.log('💡 To fix: Update Firebase rules to allow reading registrations');
     return TEST_EMAILS;
   }
 };
