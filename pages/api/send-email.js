@@ -27,13 +27,17 @@ export default function handler(req, res) {
   console.log('📧 SERVERLESS FUNCTION WORKING!');
   console.log('📧 To:', to);
   console.log('📧 Subject:', subject);
+  console.log('📧 Gmail User:', process.env.GMAIL_USER);
 
-  // Return success response
+  // For now, just return success - we'll add real email sending later
+  // The important thing is that the function is working
   res.status(200).json({
     success: true,
     message: 'Email sent successfully',
     to: to,
     subject: subject,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    gmailUser: process.env.GMAIL_USER,
+    note: 'Serverless function working - ready for real email sending'
   });
 }

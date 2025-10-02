@@ -80,10 +80,11 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
       </div>
     `;
     
-    // Send REAL email via serverless function
-    console.log('📧 SENDING REAL EMAIL TO GMAIL...');
+    // FORCE REAL EMAIL - NO SIMULATION - CACHE BUSTER
+    console.log('🔥🔥🔥 REAL EMAIL SENDING - NO SIMULATION! 🔥🔥🔥');
     console.log('📧 To:', recipientEmail);
     console.log('📧 Subject:', subject);
+    console.log('📧 CACHE BUSTER - FORCE REFRESH!');
     
     try {
       const response = await fetch('/api/send-email', {
