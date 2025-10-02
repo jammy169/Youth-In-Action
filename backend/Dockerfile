@@ -2,11 +2,15 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# Copy package.json and install dependencies
 COPY package.json ./
-RUN npm install --only=production
+RUN npm install --production --no-optional
 
+# Copy server file
 COPY server.js ./
 
+# Expose port
 EXPOSE 3001
 
+# Start the server
 CMD ["node", "server.js"]
