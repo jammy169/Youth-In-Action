@@ -81,10 +81,10 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
     `;
     
     // FORCE REAL EMAIL - NO SIMULATION - CACHE BUSTER
-    console.log('💥💥💥 NUCLEAR CACHE BUST - EMAILJS ONLY! 💥💥💥');
+    console.log('🚀🚀🚀 VERCELL DEPLOYMENT CHECK - EMAILJS ONLY! 🚀🚀🚀');
     console.log('📧 To:', recipientEmail);
     console.log('📧 Subject:', subject);
-    console.log('📧 NO RAILWAY - NO NETLIFY - EMAILJS ONLY!');
+    console.log('📧 VERCELL SHOULD SHOW THIS MESSAGE!');
     
             try {
               // Use EmailJS for real email sending (works in browser)
