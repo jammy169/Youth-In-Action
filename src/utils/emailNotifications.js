@@ -80,8 +80,8 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
       </div>
     `;
     
-    // Send real email via serverless function
-    console.log('📧 SENDING REAL EMAIL...');
+    // Send REAL email via serverless function
+    console.log('📧 SENDING REAL EMAIL TO GMAIL...');
     console.log('📧 To:', recipientEmail);
     console.log('📧 Subject:', subject);
     
@@ -101,10 +101,10 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
       const result = await response.json();
       
       if (result.success) {
-        console.log('✅ Real email sent successfully to:', recipientEmail);
-        console.log('📧 Email ID:', result.emailId);
-        console.log('📧 Service:', result.service);
-        return { success: true, message: 'Real email sent successfully', emailId: result.emailId };
+        console.log('✅ REAL EMAIL SENT TO GMAIL:', recipientEmail);
+        console.log('📧 Email delivered successfully!');
+        console.log('📧 Timestamp:', result.timestamp);
+        return { success: true, message: 'Real email sent to Gmail successfully', realEmail: true };
       } else {
         console.log('❌ Real email failed to send to:', recipientEmail, result.message);
         return { success: false, message: result.message };
