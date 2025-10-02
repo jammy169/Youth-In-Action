@@ -81,10 +81,10 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
     `;
     
     // FORCE REAL EMAIL - NO SIMULATION - CACHE BUSTER
-    console.log('🔥🔥🔥 REAL EMAIL SENDING - NO SIMULATION! 🔥🔥🔥');
+    console.log('🚀🚀🚀 RAILWAY BACKEND EMAIL SENDING! 🚀🚀🚀');
     console.log('📧 To:', recipientEmail);
     console.log('📧 Subject:', subject);
-    console.log('📧 CACHE BUSTER - FORCE REFRESH!');
+    console.log('📧 FORCE REFRESH - RAILWAY BACKEND!');
     
             try {
               // Use Railway backend for real email sending
