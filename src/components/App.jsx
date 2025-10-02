@@ -22,6 +22,7 @@ import EventCard from '../components/EventCard';
 import EventList from '../components/EventList';
 import EventDetails from '../components/EventDetails';
 import EventRegistration from '../components/EventRegistration';
+import EmailTest from '../components/EmailTest';
 
 // Admin Pages
 import AdminAddEvent from '../admin/AdminAddEvent';
@@ -67,6 +68,9 @@ function App() {
         <Route path="/admin/edit-event/:id" element={<AdminEditEvent />} />
         <Route path="/admin/registrations" element={<AdminRegistrations />} />
         <Route path="/admin/feedback" element={<AdminFeedback />} />
+        
+        {/* Test Routes */}
+        <Route path="/test-email" element={<EmailTest />} />
 
         {/* Event Details Route */}
         {/* <Route path="/event-details" element={<EventDetails />} /> */}

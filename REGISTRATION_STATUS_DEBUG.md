@@ -126,3 +126,5 @@ RegistrationStatus: User is registered, showing status: approved
 
 **The system should now properly show registration status instead of "Join Now" after approval!**
 
+
+

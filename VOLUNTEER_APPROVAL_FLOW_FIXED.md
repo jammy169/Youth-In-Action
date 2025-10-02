@@ -148,3 +148,5 @@ The volunteer approval flow has been completely fixed to ensure that **hours are
 
 Your YouthInAction volunteer management system now properly ensures that volunteers only receive service hours when they actually attend events, not just when they're approved to participate.
 
+
+

@@ -160,3 +160,5 @@ export default {
   validateRegistrationStructure,
   testAdminRegistrationAccess
 };
+
+

@@ -96,3 +96,5 @@ service cloud.firestore {
 
 The updated code now handles Firestore write failures gracefully, so even if the rules aren't updated immediately, the user can still sign up and the data will be saved when the rules are fixed.
 
+
+

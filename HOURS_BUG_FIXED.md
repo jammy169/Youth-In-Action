@@ -132,3 +132,5 @@ Admin clicks "✓ Mark Attended"
 
 **Your volunteer management system now works exactly as intended - hours are only awarded for actual attendance, not just approval!**
 
+
+

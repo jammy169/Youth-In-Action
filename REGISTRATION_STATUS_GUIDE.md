@@ -150,3 +150,5 @@ User Registers → Pending → Admin Approves → Approved → Event Happens →
 
 **The system now properly shows registration status instead of always showing "Join Now"!**
 
+
+

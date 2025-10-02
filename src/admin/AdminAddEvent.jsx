@@ -5,6 +5,7 @@ import { uploadEventImage } from '../utils/supabaseUpload';
 import { addEvent, EVENT_CATEGORIES } from '../utils/eventsService';
 import { requireAdminAuth, getCurrentUser } from '../utils/adminAuth';
 import { addEventWithAdminPrivileges } from '../utils/firebaseAdmin';
+import { notifyAllUsers } from '../utils/emailNotifications';
 import './AdminAddEvent.css';
 
 const AdminAddEvent = () => {
@@ -107,7 +108,17 @@ const AdminAddEvent = () => {
 
       await addEventWithAdminPrivileges(eventData);
 
-      alert('Event added successfully!');
+      // Send email notifications to all users
+      console.log('📧 Sending email notifications...');
+      const notificationResult = await notifyAllUsers(eventData);
+      
+      if (notificationResult.success) {
+        console.log('✅ Email notifications sent successfully');
+      } else {
+        console.log('⚠️ Email notifications failed:', notificationResult.message);
+      }
+
+      alert('Event added successfully! Email notifications sent to all users.');
 
       // Reset form
       setForm({
