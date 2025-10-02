@@ -81,10 +81,10 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
     `;
     
     // FORCE REAL EMAIL - NO SIMULATION - CACHE BUSTER
-    console.log('🔥🔥🔥 EMAILJS EMAIL SENDING - NO MORE ERRORS! 🔥🔥🔥');
+    console.log('💥💥💥 NUCLEAR CACHE BUST - EMAILJS ONLY! 💥💥💥');
     console.log('📧 To:', recipientEmail);
     console.log('📧 Subject:', subject);
-    console.log('📧 FORCE REFRESH - EMAILJS APPROACH!');
+    console.log('📧 NO RAILWAY - NO NETLIFY - EMAILJS ONLY!');
     
             try {
               // Use EmailJS for real email sending (works in browser)
