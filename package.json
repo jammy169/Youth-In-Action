@@ -16,7 +16,8 @@
     "react-router-dom": "^6.8.1",
     "firebase": "^10.7.1",
     "@supabase/supabase-js": "^2.38.4",
-    "framer-motion": "^10.16.4"
+    "framer-motion": "^10.16.4",
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
