@@ -1,4 +1,4 @@
-// Netlify Function for email sending
+// Netlify Function for email sending - WORKING VERSION
 exports.handler = async (event, context) => {
   // Set CORS headers
   const headers = {
@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    console.log('📧 SENDING REAL EMAIL WITH RESEND API!');
+    console.log('📧 NETLIFY FUNCTION SENDING REAL EMAIL!');
     console.log('📧 To:', to);
     console.log('📧 Subject:', subject);
 
@@ -58,13 +58,13 @@ exports.handler = async (event, context) => {
     const result = await response.json();
 
     if (response.ok) {
-      console.log('✅ EMAIL SENT SUCCESSFULLY!');
+      console.log('✅ EMAIL SENT SUCCESSFULLY VIA NETLIFY!');
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Email sent successfully via Resend API',
+          message: 'Email sent successfully via Netlify + Resend API',
           to: to,
           subject: subject,
           timestamp: new Date().toISOString(),
