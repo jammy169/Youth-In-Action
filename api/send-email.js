@@ -1,4 +1,4 @@
-// Simple serverless function for Vercel
+// Real email sending with Resend API
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,37 +20,49 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Use Gmail API via fetch instead of nodemailer
-    const response = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
+    console.log('📧 Sending real email via Resend API...');
+    console.log('📧 To:', to);
+    console.log('📧 Subject:', subject);
+
+    // Use Resend API for reliable email delivery
+    const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        raw: Buffer.from(
-          `To: ${to}\r\n` +
-          `Subject: ${subject}\r\n` +
-          `Content-Type: text/html\r\n\r\n` +
-          htmlContent
-        ).toString('base64')
+        from: 'YouthInAction <noreply@youthinaction.com>',
+        to: [to],
+        subject: subject,
+        html: htmlContent,
       })
     });
 
+    const result = await response.json();
+
     if (response.ok) {
-      return res.status(200).json({ success: true, message: 'Email sent' });
+      console.log('✅ Real email sent successfully via Resend!');
+      console.log('📧 Email ID:', result.id);
+      
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Real email sent successfully',
+        emailId: result.id,
+        service: 'Resend'
+      });
     } else {
-      throw new Error('Gmail API failed');
+      console.error('❌ Resend API error:', result);
+      throw new Error(result.message || 'Resend API failed');
     }
   } catch (error) {
-    // Fallback: Just return success for now to test the flow
-    console.log('📧 Email would be sent to:', to);
-    console.log('📧 Subject:', subject);
+    console.error('❌ Error sending real email:', error);
     
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Email notification queued',
-      debug: 'Serverless function working - email would be sent'
+    // Fallback: Return error but don't crash
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Failed to send email',
+      error: error.message
     });
   }
 }
