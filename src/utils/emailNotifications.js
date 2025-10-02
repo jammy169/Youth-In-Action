@@ -80,38 +80,17 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
       </div>
     `;
     
-    // Call serverless function to send real email
-    console.log('📧 CALLING SERVERLESS FUNCTION...');
-    console.log('📧 Sending real email to:', recipientEmail);
+    // For now, simulate email sending until serverless function is fixed
+    console.log('📧 SIMULATING EMAIL SEND...');
+    console.log('📧 Would send to:', recipientEmail);
     console.log('📧 Subject:', subject);
+    console.log('📧 Content preview:', htmlContent.substring(0, 100) + '...');
     
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: recipientEmail,
-          subject: subject,
-          htmlContent: htmlContent
-        })
-      });
-
-      const result = await response.json();
-      
-      if (result.success) {
-        console.log('✅ Real email sent successfully to:', recipientEmail);
-        console.log('📧 Message ID:', result.messageId);
-        return { success: true, message: 'Real email sent successfully', messageId: result.messageId };
-      } else {
-        console.log('❌ Real email failed to send to:', recipientEmail, result.message);
-        return { success: false, message: result.message };
-      }
-    } catch (error) {
-      console.error('❌ Error calling serverless function:', error);
-      return { success: false, message: error.message };
-    }
+    // Simulate email sending delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    console.log('✅ Email simulation completed for:', recipientEmail);
+    return { success: true, message: 'Email simulation completed (real emails disabled)', simulated: true };
   } catch (error) {
     console.error('Error sending email:', error);
     return { success: false, message: error.message };
