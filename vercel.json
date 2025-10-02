@@ -9,11 +9,6 @@
       }
     }
   ],
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "edge"
-    }
-  },
   "rewrites": [
     {
       "source": "/((?!api/).*)",

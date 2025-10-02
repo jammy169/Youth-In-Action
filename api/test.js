@@ -1,27 +1,19 @@
-// Vercel Edge Function - test endpoint
-export const config = {
-  runtime: 'edge',
-}
+// Vercel Node.js Function - test endpoint
+export default function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-export default async function handler(request) {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
   }
 
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 200, headers: corsHeaders })
-  }
-
-  return new Response(JSON.stringify({
+  res.status(200).json({
     success: true,
-    message: 'Edge Function serverless function is working!',
+    message: 'Node.js serverless function is working!',
     timestamp: new Date().toISOString(),
-    method: request.method,
-    url: request.url
-  }), {
-    status: 200,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-  })
+    method: req.method,
+    url: req.url
+  });
 }
