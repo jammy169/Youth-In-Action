@@ -72,6 +72,15 @@ app.post('/send-email', async (req, res) => {
   }
 });
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Railway backend is working!',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Test endpoint
 app.get('/test', (req, res) => {
   res.json({
