@@ -86,18 +86,19 @@ export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
     console.log('📧 Subject:', subject);
     console.log('📧 CACHE BUSTER - FORCE REFRESH!');
     
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: recipientEmail,
-          subject: subject,
-          htmlContent: htmlContent
-        })
-      });
+            try {
+              // Use separate backend server instead of Vercel functions
+              const response = await fetch('https://youth-in-action-backend.railway.app/send-email', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  to: recipientEmail,
+                  subject: subject,
+                  htmlContent: htmlContent
+                })
+              });
 
       const result = await response.json();
       
