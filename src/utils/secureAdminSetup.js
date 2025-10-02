@@ -87,8 +87,8 @@ ADVANTAGES:
  */
 export const SECURE_ADMIN_EMAILS = [
   // Add your admin emails here
-  // 'admin@youthinaction.com',
-  // 'youthinaction.admin@gmail.com',
+  'admin@youthinaction.com',
+  'jamestellore@gmail.com', // Your Gmail account
   // Add more as needed
 ];
 
