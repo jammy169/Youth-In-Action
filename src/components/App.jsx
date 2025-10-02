@@ -24,6 +24,7 @@ import EventDetails from '../components/EventDetails';
 import EventRegistration from '../components/EventRegistration';
 import EmailTest from '../components/EmailTest';
 import ProtectedAdminRoute from '../components/ProtectedAdminRoute';
+import AdminLockoutReset from '../components/AdminLockoutReset';
 
 // Admin Pages
 import AdminAddEvent from '../admin/AdminAddEvent';
@@ -92,6 +93,7 @@ function App() {
         
         {/* Test Routes */}
         <Route path="/test-email" element={<EmailTest />} />
+        <Route path="/admin-lockout-reset" element={<AdminLockoutReset />} />
 
         {/* Event Details Route */}
         {/* <Route path="/event-details" element={<EventDetails />} /> */}
