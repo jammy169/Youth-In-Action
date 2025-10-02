@@ -46,22 +46,25 @@ const ProtectedAdminRoute = ({ children }) => {
   console.log('✅ Admin access granted for:', user?.email);
   return (
     <div className="protected-admin-container">
-      <div className="admin-header">
-        <div className="admin-info">
-          <span className="admin-badge">🔐 Admin</span>
-          <span className="admin-email">{user?.email}</span>
+      <header className="admin-header">
+        <div className="admin-header-content">
+          <h1>Admin Dashboard</h1>
+          <div className="admin-profile">
+            <span className="profile-icon">👤</span>
+            <span>Welcome, Admin</span>
+            <button 
+              className="admin-signout-btn"
+              onClick={async () => {
+                const { signOutAdmin } = await import('../utils/adminAuth');
+                await signOutAdmin();
+                window.location.href = '/admin-signin';
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
-        <button 
-          className="admin-signout-btn"
-          onClick={async () => {
-            const { signOutAdmin } = await import('../utils/adminAuth');
-            await signOutAdmin();
-            window.location.href = '/admin-signin';
-          }}
-        >
-          Sign Out
-        </button>
-      </div>
+      </header>
       {children}
     </div>
   );
