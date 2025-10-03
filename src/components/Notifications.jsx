@@ -217,6 +217,9 @@ const Notifications = () => {
         {/* Advanced Charts Section */}
         <div className="charts-section">
           <h2 className="charts-title">📈 Registration Analytics</h2>
+          <p style={{textAlign: 'center', color: '#666', marginBottom: '20px'}}>
+            Debug: Total registrations: {stats.total}
+          </p>
           
           {stats.total > 0 ? (
             <div className="charts-grid">
@@ -292,6 +295,9 @@ const Notifications = () => {
               <div className="empty-charts-icon">📊</div>
               <h3>No Data Yet</h3>
               <p>Once you register for events, you'll see beautiful analytics charts here!</p>
+              <p style={{color: '#999', fontSize: '0.9rem', marginTop: '10px'}}>
+                Charts section is working! This will show real charts when you have data.
+              </p>
               <div className="chart-preview">
                 <div className="preview-chart">
                   <div className="preview-pie">
