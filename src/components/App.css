@@ -62,9 +62,12 @@ body {
 }
 
 .logo-upper-left {
-  width: 32px !important;
-  height: 32px !important;
+  width: 48px !important;
+  height: 48px !important;
   object-fit: contain;
+  position: static !important; /* Override any absolute positioning */
+  vertical-align: middle !important;
+  display: inline-block !important;
 }
 
 .nav-links {

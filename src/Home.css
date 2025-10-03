@@ -107,13 +107,15 @@ Home Page Styles
 }
 
 .logo-upper-left {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  width: 36px;
-  height: 36px;
-  z-index: 2;
+  position: static !important; /* Override absolute positioning */
+  top: auto !important;
+  left: auto !important;
+  width: 48px !important;
+  height: 48px !important;
+  z-index: auto !important;
   background: transparent;
+  vertical-align: middle !important;
+  display: inline-block !important;
 }
 
 /* Features Section */
