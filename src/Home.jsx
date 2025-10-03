@@ -27,6 +27,7 @@ const Home = () => {
             className="explore-button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/events')}
           >
             Explore
           </motion.button>
