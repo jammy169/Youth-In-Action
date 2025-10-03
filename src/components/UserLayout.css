@@ -28,6 +28,8 @@
       margin-top: 0;
       margin-left: 0;
       margin-bottom: 0;
+      vertical-align: middle; /* Ensure vertical alignment */
+      display: inline-block; /* Ensure proper inline behavior */
     }
     .logo-title {
       font-size: 20px;
@@ -36,6 +38,9 @@
       margin: 0;
       padding: 0;
       margin-left: 0; /* Remove negative margin for proper spacing */
+      vertical-align: middle; /* Ensure vertical alignment */
+      line-height: 1; /* Ensure proper line height */
+      display: inline-block; /* Ensure proper inline behavior */
     }
     
     /* src/components/UserLayout.css */
@@ -72,9 +77,10 @@
 
 .logo-nav-group {
   display: flex;
-  align-items: center;
+  align-items: center; /* Ensure horizontal alignment */
   gap: 20px; /* Significantly increase gap for clear separation */
   margin-right: 10.5rem;
+  flex-direction: row; /* Ensure horizontal layout */
 }
 
 /* Desktop Navigation Styles */
@@ -205,6 +211,9 @@
     gap: 25px; /* Much larger gap for clear separation on mobile */
     flex-shrink: 0; /* Prevent shrinking */
     min-width: fit-content; /* Ensure group doesn't compress */
+    display: flex;
+    align-items: center; /* Ensure horizontal alignment */
+    flex-direction: row; /* Ensure horizontal layout */
   }
   
   .logo-title {
@@ -256,6 +265,9 @@
     gap: 20px; /* Clear separation on small screens */
     flex-shrink: 0;
     min-width: fit-content; /* Ensure group doesn't compress */
+    display: flex;
+    align-items: center; /* Ensure horizontal alignment */
+    flex-direction: row; /* Ensure horizontal layout */
   }
   
   .logo-title {
@@ -283,6 +295,9 @@
   .logo-nav-group {
     gap: 15px; /* Clear separation on very small screens */
     min-width: fit-content; /* Ensure group doesn't compress */
+    display: flex;
+    align-items: center; /* Ensure horizontal alignment */
+    flex-direction: row; /* Ensure horizontal layout */
   }
   
   .logo-title {
