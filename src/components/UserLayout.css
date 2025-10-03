@@ -220,7 +220,7 @@
   
   .logo-nav-group {
     margin-right: 0;
-    gap: 25px; /* Much larger gap for clear separation on mobile */
+    gap: 15px; /* Revert to original mobile gap */
     flex-shrink: 0; /* Prevent shrinking */
     min-width: fit-content; /* Ensure group doesn't compress */
     display: flex;
@@ -249,13 +249,6 @@
   .mobile-menu-toggle {
     display: flex;
     flex-shrink: 0; /* Prevent hamburger from shrinking */
-    padding: 0.5rem; /* Better touch target */
-    border-radius: 6px; /* Consistent with nav links */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-  }
-  
-  .mobile-menu-toggle:hover {
-    background: rgba(255, 255, 255, 0.1); /* Subtle hover background */
   }
   
   .mobile-dropdown {
@@ -281,7 +274,7 @@
   }
   
   .logo-nav-group {
-    gap: 20px; /* Clear separation on small screens */
+    gap: 12px; /* Revert to original small screen gap */
     flex-shrink: 0;
     min-width: fit-content; /* Ensure group doesn't compress */
     display: flex;
@@ -312,7 +305,7 @@
   }
   
   .logo-nav-group {
-    gap: 15px; /* Clear separation on very small screens */
+    gap: 10px; /* Revert to original extra small screen gap */
     min-width: fit-content; /* Ensure group doesn't compress */
     display: flex;
     align-items: center; /* Ensure horizontal alignment */
