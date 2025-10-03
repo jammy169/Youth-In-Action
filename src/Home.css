@@ -257,16 +257,189 @@ Home Page Styles
   color: white !important;
 }
 
+/* Additional Mobile Improvements */
+@media (max-width: 360px) {
+  .hero-content h1 {
+    font-size: 1.8rem;
+    line-height: 1.1;
+  }
+  
+  .hero-content h2 {
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+  }
+  
+  .explore-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+    max-width: 160px;
+  }
+  
+  .features h2,
+  .impact h2,
+  .cta h2 {
+    font-size: 1.6rem;
+  }
+  
+  .stat h3 {
+    font-size: 1.8rem;
+  }
+  
+  .feature-card {
+    padding: 1rem;
+  }
+  
+  .feature-card img {
+    height: 160px;
+  }
+  
+  .cta-button {
+    padding: 0.7rem 1.2rem !important;
+    font-size: 0.8rem !important;
+    max-width: 180px;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero {
     height: 100vh;
-    padding-top: 60px; /* Further reduced padding */
+    padding-top: 70px;
     margin-top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    overflow: hidden;
+  }
+  
+  .hero-content {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    text-align: center;
+    margin: 0 auto 0.8rem auto;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .hero-content h2 {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    text-align: center;
+    margin: 0 auto 1.5rem auto;
+    line-height: 1.3;
+  }
+
+  .features h2,
+  .impact h2,
+  .cta h2 {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+
+  .stat h3 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat p {
+    font-size: 1.2rem;
+  }
+
+  .explore-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    margin: 0 auto;
+    width: auto;
+    max-width: 200px;
+  }
+  
+  .features {
+    padding: 3rem 1.5rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 100%;
+  }
+  
+  .feature-card {
+    padding: 1.5rem;
+    margin: 0;
+  }
+  
+  .feature-card img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .feature-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .impact {
+    padding: 3rem 1.5rem;
+  }
+  
+  .impact-stats {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    max-width: 100%;
+  }
+  
+  .cta {
+    padding: 3rem 1.5rem;
+  }
+  
+  .cta h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .cta p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+  }
+  
+  .cta-button {
+    padding: 1rem 2rem !important;
+    font-size: 1rem !important;
+    width: auto;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
   }
   
   .hero-content {
@@ -277,121 +450,95 @@ Home Page Styles
     justify-content: center;
     text-align: center;
     width: 100%;
-    transform: translateY(-20px); /* Move content up */
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .hero-content h1 {
-    font-size: 3.5rem;
-    line-height: 1.2;
-    text-align: center;
-    margin: 0 auto 1rem auto;
-  }
-
-  .hero-content h2 {
-    font-size: 2rem;
-    letter-spacing: 2px;
-    text-align: center;
-    margin: 0 auto 2rem auto;
-  }
-
-  .features h2,
-  .impact h2,
-  .cta h2 {
-    font-size: 2.4rem;
-  }
-
-  .stat h3 {
-    font-size: 2.8rem;
-  }
-
-  .explore-button {
-    padding: 0.7rem 2.5rem;
-    font-size: 1rem;
-  }
-  
-  .features {
-    padding: 3rem 2rem;
-  }
-  
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .impact {
-    padding: 3rem 2rem;
-  }
-  
-  .impact-stats {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .cta {
-    padding: 3rem 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    padding-top: 70px; /* Further reduced padding */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    transform: translateY(-30px); /* Move content up more on smaller screens */
-  }
-  
-  .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     line-height: 1.1;
     text-align: center;
-    margin: 0 auto 1rem auto;
+    margin: 0 auto 0.6rem auto;
+    word-wrap: break-word;
+    hyphens: auto;
   }
 
   .hero-content h2 {
-    font-size: 1.5rem;
-    letter-spacing: 1px;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
     text-align: center;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 1.2rem auto;
+    line-height: 1.2;
   }
 
   .explore-button {
-    padding: 0.6rem 2rem;
+    padding: 0.7rem 1.5rem;
     font-size: 0.9rem;
     margin: 0 auto;
+    width: auto;
+    max-width: 180px;
   }
   
   .features,
   .impact,
   .cta {
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
   }
   
   .features h2,
   .impact h2,
   .cta h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
   }
   
   .stat h3 {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .stat p {
+    font-size: 1rem;
   }
   
   .feature-card {
-    padding: 1.5rem;
+    padding: 1.2rem;
+    margin: 0;
   }
   
   .feature-card img {
-    height: 200px;
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .feature-card p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .cta h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .cta p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+  
+  .cta-button {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    width: auto;
+    max-width: 200px;
+    margin: 0 auto;
   }
 }
