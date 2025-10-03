@@ -195,23 +195,28 @@
     padding: 0.8rem 1rem;
     position: relative;
     flex-wrap: nowrap;
+    min-height: 60px; /* Ensure adequate height for logo and text */
   }
   
   .logo-nav-group {
     margin-right: 0;
-    gap: 10px; /* Increase gap for mobile */
+    gap: 15px; /* Increase gap for better separation on mobile */
     flex-shrink: 0; /* Prevent shrinking */
+    min-width: fit-content; /* Ensure group doesn't compress */
   }
   
   .logo-title {
     font-size: 18px; /* Slightly smaller for mobile */
     white-space: nowrap; /* Prevent text wrapping */
+    margin-left: 0; /* Ensure no negative margin */
+    padding-left: 0; /* Ensure no extra padding */
   }
   
   .logo-upper-left {
     width: 40px !important;
     height: 40px !important;
     flex-shrink: 0; /* Prevent logo from shrinking */
+    margin-right: 0; /* Ensure no margin that could cause overlap */
   }
   
   .desktop-nav {
@@ -246,8 +251,9 @@
   }
   
   .logo-nav-group {
-    gap: 8px; /* Maintain proper spacing on small screens */
+    gap: 12px; /* Maintain proper spacing on small screens */
     flex-shrink: 0;
+    min-width: fit-content; /* Ensure group doesn't compress */
   }
   
   .logo-title {
@@ -273,7 +279,8 @@
   }
   
   .logo-nav-group {
-    gap: 6px; /* Slightly smaller gap for very small screens */
+    gap: 10px; /* Maintain proper separation on very small screens */
+    min-width: fit-content; /* Ensure group doesn't compress */
   }
   
   .logo-title {
