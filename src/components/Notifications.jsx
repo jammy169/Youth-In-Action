@@ -3,6 +3,7 @@ import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import './Notifications.css';
+import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line } from 'recharts';
 
 
 const Notifications = () => {
@@ -122,6 +123,49 @@ const Notifications = () => {
 
   const stats = getNotificationStats();
 
+  // Chart data preparation
+  const getChartData = () => {
+    const { total, pending, approved, rejected } = stats;
+    
+    // Pie chart data for status distribution
+    const pieData = [
+      { name: 'Approved', value: approved, color: '#27ae60' },
+      { name: 'Pending', value: pending, color: '#f39c12' },
+      { name: 'Rejected', value: rejected, color: '#e74c3c' }
+    ].filter(item => item.value > 0);
+
+    // Bar chart data for monthly trends
+    const monthlyData = notifications.reduce((acc, notification) => {
+      const date = new Date(notification.registrationDate);
+      const month = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      
+      if (!acc[month]) {
+        acc[month] = { approved: 0, pending: 0, rejected: 0, total: 0 };
+      }
+      
+      acc[month][notification.status]++;
+      acc[month].total++;
+      
+      return acc;
+    }, {});
+
+    const barData = Object.entries(monthlyData).map(([month, data]) => ({
+      month,
+      ...data
+    })).sort((a, b) => new Date(a.month) - new Date(b.month));
+
+    // Line chart data for approval rate over time
+    const lineData = barData.map(item => ({
+      month: item.month,
+      approvalRate: item.total > 0 ? Math.round((item.approved / item.total) * 100) : 0,
+      totalRegistrations: item.total
+    }));
+
+    return { pieData, barData, lineData };
+  };
+
+  const chartData = getChartData();
+
   if (loading) {
     return (
       <div className="notifications-container">
@@ -169,6 +213,82 @@ const Notifications = () => {
             </div>
           </div>
         </div>
+
+        {/* Advanced Charts Section */}
+        {stats.total > 0 && (
+          <div className="charts-section">
+            <h2 className="charts-title">📈 Registration Analytics</h2>
+            
+            <div className="charts-grid">
+              {/* Pie Chart - Status Distribution */}
+              <div className="chart-container">
+                <h3>Status Distribution</h3>
+                <div className="chart-wrapper">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={chartData.pieData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {chartData.pieData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+
+              {/* Bar Chart - Monthly Trends */}
+              {chartData.barData.length > 0 && (
+                <div className="chart-container">
+                  <h3>Monthly Registration Trends</h3>
+                  <div className="chart-wrapper">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={chartData.barData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="approved" stackId="a" fill="#27ae60" name="Approved" />
+                        <Bar dataKey="pending" stackId="a" fill="#f39c12" name="Pending" />
+                        <Bar dataKey="rejected" stackId="a" fill="#e74c3c" name="Rejected" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              )}
+
+              {/* Line Chart - Approval Rate */}
+              {chartData.lineData.length > 1 && (
+                <div className="chart-container">
+                  <h3>Approval Rate Over Time</h3>
+                  <div className="chart-wrapper">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart data={chartData.lineData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis domain={[0, 100]} />
+                        <Tooltip formatter={(value, name) => [name === 'approvalRate' ? `${value}%` : value, name === 'approvalRate' ? 'Approval Rate' : 'Total Registrations']} />
+                        <Legend />
+                        <Line type="monotone" dataKey="approvalRate" stroke="#27ae60" strokeWidth={3} name="Approval Rate" />
+                        <Line type="monotone" dataKey="totalRegistrations" stroke="#3498db" strokeWidth={2} name="Total Registrations" />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Filter Tabs */}
         <div className="filter-tabs">
