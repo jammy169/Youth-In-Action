@@ -65,24 +65,14 @@
     
     .tab-nav a {
       text-decoration: none;
-      color: #e0e0e0; /* Better contrast for dark theme */
-      font-weight: 500; /* Slightly lighter weight */
-      padding: 0.6rem 1.2rem; /* Better padding for touch targets */
-      transition: all 0.3s ease; /* Smooth transitions */
-      border-radius: 6px; /* Subtle rounded corners */
-      position: relative; /* For hover effects */
+      color: #333;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      transition: color 0.3s;
     }
     
     .tab-nav a.active {
       color: #4CAF50;
-      background: rgba(76, 175, 80, 0.1); /* Subtle background for active state */
-      font-weight: 600; /* Slightly bolder for active state */
-    }
-    
-    .tab-nav a:hover {
-      color: #4CAF50;
-      background: rgba(76, 175, 80, 0.05); /* Subtle hover background */
-      transform: translateY(-1px); /* Subtle lift effect */
     }
 
 .logo-nav-group {
@@ -91,15 +81,13 @@
   gap: 20px; /* Significantly increase gap for clear separation */
   margin-right: 0; /* Remove margin since we're using space-between */
   flex-direction: row; /* Ensure horizontal layout */
-  padding-left: 1rem; /* Add padding from edge */
 }
 
 /* Desktop Navigation Styles */
 .desktop-nav {
   display: flex;
-  gap: 2.5rem; /* Slightly increased gap for better spacing */
+  gap: 2rem;
   align-items: center;
-  padding-right: 1rem; /* Add padding from edge */
 }
 
 .mobile-menu-toggle {
