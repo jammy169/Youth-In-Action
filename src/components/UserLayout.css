@@ -47,7 +47,7 @@
 
   .tab-nav {
       display: flex;
-      justify-content: center;     /* Center the tab items */
+      justify-content: space-between; /* Move logo left, nav right */
       align-items: center;         /* Vertically center items */
       gap: 2rem;                   /* Space between tabs */
       background-color: #1C1C1E;
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center; /* Ensure horizontal alignment */
   gap: 20px; /* Significantly increase gap for clear separation */
-  margin-right: 10.5rem;
+  margin-right: 0; /* Remove margin since we're using space-between */
   flex-direction: row; /* Ensure horizontal layout */
 }
 
