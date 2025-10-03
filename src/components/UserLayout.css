@@ -25,7 +25,9 @@
       height: 48px !important;
       object-fit: contain;
       margin-right: 0 !important;
-      margin-top: -10px;
+      margin-top: 0;
+      margin-left: 0;
+      margin-bottom: 0;
     }
     .logo-title {
       font-size: 20px;
@@ -71,7 +73,7 @@
 .logo-nav-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 20px; /* Significantly increase gap for clear separation */
   margin-right: 10.5rem;
 }
 
@@ -200,7 +202,7 @@
   
   .logo-nav-group {
     margin-right: 0;
-    gap: 15px; /* Increase gap for better separation on mobile */
+    gap: 25px; /* Much larger gap for clear separation on mobile */
     flex-shrink: 0; /* Prevent shrinking */
     min-width: fit-content; /* Ensure group doesn't compress */
   }
@@ -251,7 +253,7 @@
   }
   
   .logo-nav-group {
-    gap: 12px; /* Maintain proper spacing on small screens */
+    gap: 20px; /* Clear separation on small screens */
     flex-shrink: 0;
     min-width: fit-content; /* Ensure group doesn't compress */
   }
@@ -279,7 +281,7 @@
   }
   
   .logo-nav-group {
-    gap: 10px; /* Maintain proper separation on very small screens */
+    gap: 15px; /* Clear separation on very small screens */
     min-width: fit-content; /* Ensure group doesn't compress */
   }
   
