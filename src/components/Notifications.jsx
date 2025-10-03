@@ -215,10 +215,10 @@ const Notifications = () => {
         </div>
 
         {/* Advanced Charts Section */}
-        {stats.total > 0 && (
-          <div className="charts-section">
-            <h2 className="charts-title">📈 Registration Analytics</h2>
-            
+        <div className="charts-section">
+          <h2 className="charts-title">📈 Registration Analytics</h2>
+          
+          {stats.total > 0 ? (
             <div className="charts-grid">
               {/* Pie Chart - Status Distribution */}
               <div className="chart-container">
@@ -287,8 +287,38 @@ const Notifications = () => {
                 </div>
               )}
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="empty-charts-state">
+              <div className="empty-charts-icon">📊</div>
+              <h3>No Data Yet</h3>
+              <p>Once you register for events, you'll see beautiful analytics charts here!</p>
+              <div className="chart-preview">
+                <div className="preview-chart">
+                  <div className="preview-pie">
+                    <div className="pie-slice approved"></div>
+                    <div className="pie-slice pending"></div>
+                    <div className="pie-slice rejected"></div>
+                  </div>
+                  <div className="preview-labels">
+                    <span className="label approved">Approved</span>
+                    <span className="label pending">Pending</span>
+                    <span className="label rejected">Rejected</span>
+                  </div>
+                </div>
+                <div className="preview-chart">
+                  <div className="preview-bars">
+                    <div className="bar approved" style={{height: '60%'}}></div>
+                    <div className="bar pending" style={{height: '30%'}}></div>
+                    <div className="bar rejected" style={{height: '10%'}}></div>
+                  </div>
+                  <div className="preview-labels">
+                    <span>Monthly Trends</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Filter Tabs */}
         <div className="filter-tabs">
