@@ -42,7 +42,7 @@ const Home = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?ixlib=rb-4.0.3" alt="Leadership" />
+            <img src="https://scontent.fceb1-2.fna.fbcdn.net/v/t1.15752-9/553518723_647159281523351_8495693681126890399_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGCBvl9ZnmuzQacjB_74RrxeyaPi95cWgt7Jo-L3lxaC_KkNMts3CaDy6_KP0KlRUTSVcOdMpbmIZ3aHqrhftyK&_nc_ohc=RMPLnaoPUGMQ7kNvwGpUKG0&_nc_oc=AdlfozwCAat9_OsEVz8IdNIEYwH5KAnlogBNJeshgIKcLF1KPMWVMXAIi0eVEFDWwjc&_nc_zt=23&_nc_ht=scontent.fceb1-2.fna&oh=03_Q7cD3gHWdWMJChPgkJ03wF18jf5uSb91yKf-9iP6tcK3eWpoyw&oe=6906C98E" alt="Leadership" />
             <h3>Barangay Recognition</h3>
             <p>Get acknowledged during barangay programs and events for your volunteer service</p>
           </motion.div>
