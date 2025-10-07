@@ -53,6 +53,7 @@ import '../utils/simpleAutomatedEmail';
 import '../utils/workingEmailService';
 import '../utils/finalWorkingEmail';
 import '../utils/advancedEmailService';
+import '../utils/simpleAdvancedEmail';
 
 function App() {
   return (
