@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUserCircle, FaPlusSquare, FaUsers, FaClipboardList, FaComments } from 'react-icons/fa';
+import { FaUserCircle, FaPlusSquare, FaUsers, FaClipboardList, FaComments, FaCalendarAlt, FaUserCheck, FaClock, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { getContactMessages } from '../supabaseClient';
@@ -135,22 +135,27 @@ const AdminDashboard = () => {
             <main className="admin-main">
                 <section className="admin-stats">
                     <div className="stat-card">
+                        <FaCalendarAlt className="stat-icon" />
                         <h3>Total Events</h3>
                         <p>{stats.totalEvents}</p>
                     </div>
                     <div className="stat-card">
+                        <FaUsers className="stat-icon" />
                         <h3>Total Registrations</h3>
                         <p>{stats.totalRegistrations}</p>
                     </div>
                     <div className="stat-card">
+                        <FaClock className="stat-icon" />
                         <h3>Pending Reviews</h3>
                         <p>{stats.pendingRegistrations}</p>
                     </div>
                     <div className="stat-card">
+                        <FaCheckCircle className="stat-icon" />
                         <h3>Approved</h3>
                         <p>{stats.approvedRegistrations}</p>
                     </div>
                     <div className="stat-card">
+                        <FaEnvelope className="stat-icon" />
                         <h3>Feedback Messages</h3>
                         <p>{feedbackCount}</p>
                     </div>
