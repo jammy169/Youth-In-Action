@@ -5,6 +5,7 @@ import { doc, getDoc, collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { getEventRegistrationStatus } from '../utils/eventRegistrationUtils';
+import { sendRegistrationConfirmation, sendFallbackEmail } from '../utils/emailService';
 import './EventRegistration.css';
 
 const EventRegistration = () => {
@@ -73,17 +74,39 @@ const EventRegistration = () => {
 
     try {
       // Add registration to Firebase
-      await addDoc(collection(db, 'registrations'), {
+      const registrationData = {
         ...formData,
         eventId: eventId,
         eventTitle: event.title,
         userId: auth.currentUser?.uid,
         registrationDate: new Date().toISOString(),
         status: 'pending'
-      });
+      };
+
+      await addDoc(collection(db, 'registrations'), registrationData);
+
+      // Send email confirmation
+      console.log('📧 Sending registration confirmation email...');
+      try {
+        const emailResult = await sendRegistrationConfirmation(registrationData, event);
+        if (emailResult.success) {
+          console.log('✅ Registration confirmation email sent successfully');
+        } else {
+          console.log('⚠️ Email sending failed, using fallback:', emailResult.message);
+          // Send fallback email
+          await sendFallbackEmail(
+            formData.email,
+            `Registration Confirmation - ${event.title}`,
+            `Hello ${formData.firstName},\n\nThank you for registering for "${event.title}"!\n\nEvent Details:\n- Date: ${new Date(event.startDateTime).toLocaleDateString()}\n- Location: ${event.location}\n- Organizer: ${event.organizer}\n\nWe will contact you with more details soon.\n\nBest regards,\nYouthInAction Team`
+          );
+        }
+      } catch (emailError) {
+        console.error('❌ Email sending error:', emailError);
+        // Continue with registration even if email fails
+      }
 
       // Show success message and redirect
-      alert('Registration successful! We will contact you with more details.');
+      alert('Registration successful! Check your email for confirmation details.');
       navigate(`/event/${eventId}`);
     } catch (error) {
       console.error('Error submitting registration:', error);
