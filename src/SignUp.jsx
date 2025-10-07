@@ -69,7 +69,7 @@ const SignUp = () => {
     }
     
     if (!validateAge(age)) {
-      setErrorMessage('Age must be between 13 and 100 years old');
+      setErrorMessage('Age must be between 15 - 30 years old');
       return;
     }
     
