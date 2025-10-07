@@ -34,11 +34,47 @@ const Profile = () => {
     };
   };
 
-  // Get user data from registrations to populate profile
-  const getUserDataFromRegistrations = async (userEmail) => {
+  // Get user data from both users collection and registrations to populate profile
+  const getUserDataFromRegistrations = async (userEmail, userId) => {
     try {
-      console.log('📊 Getting user data from registrations for:', userEmail);
+      console.log('📊 Getting user data for:', userEmail, 'UID:', userId);
       
+      // First, try to get data from users collection (from SignUp)
+      try {
+        const userDocRef = doc(db, 'users', userId);
+        const userDoc = await getDoc(userDocRef);
+        
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          console.log('📊 Found user data from users collection:', userData);
+          
+          // Handle both firstName/lastName (from event registrations) and displayName (from signup)
+          const firstName = userData.firstName || (userData.displayName ? userData.displayName.split(' ')[0] : 'User');
+          const lastName = userData.lastName || (userData.displayName ? userData.displayName.split(' ').slice(1).join(' ') : 'Name');
+          
+          return {
+            firstName: firstName,
+            lastName: lastName,
+            email: userEmail,
+            phone: userData.phone || '00 000 000 0000',
+            age: userData.age || '20',
+            sitio: userData.sitio || 'MAGHILLS',
+            barangay: userData.barangay || 'POBLACION',
+            joinedYear: '2025',
+            bio: 'Passionate volunteer dedicated to making a positive impact in the community.',
+            // Additional data from registration
+            emergencyContact: userData.emergencyContact || '',
+            emergencyPhone: userData.emergencyPhone || '',
+            experience: userData.experience || '',
+            motivation: userData.motivation || '',
+            dietaryRestrictions: userData.dietaryRestrictions || ''
+          };
+        }
+      } catch (userError) {
+        console.log('📊 No user data in users collection, checking registrations...');
+      }
+      
+      // If no user data found, check registrations collection
       const registrationsRef = collection(db, 'registrations');
       const registrationsSnapshot = await getDocs(registrationsRef);
       
@@ -99,7 +135,7 @@ const Profile = () => {
         // Try to get user data from registrations first
         try {
           console.log('📊 Attempting to get user data from registrations...');
-          const registrationData = await getUserDataFromRegistrations(currentUser.email);
+          const registrationData = await getUserDataFromRegistrations(currentUser.email, currentUser.uid);
           
           if (registrationData) {
             console.log('✅ Found registration data, using it for profile:', registrationData);
