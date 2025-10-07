@@ -8,6 +8,7 @@ import { addEventWithAdminPrivileges } from '../utils/firebaseAdmin';
 import { notifyAllUsers } from '../utils/emailNotifications';
 import { autoSendEventEmails } from '../utils/autoEmailService';
 import { sendRealEventEmailsToAll } from '../utils/realEmailService';
+import { sendAutomatedEventEmailsToAll } from '../utils/automatedEmailService';
 import './AdminAddEvent.css';
 
 const AdminAddEvent = () => {
@@ -110,16 +111,16 @@ const AdminAddEvent = () => {
 
       await addEventWithAdminPrivileges(eventData);
 
-      // Send real email notifications to all users
-      console.log('📧 Sending real email notifications...');
-      const notificationResult = await sendRealEventEmailsToAll(eventData);
+      // Automatically send email notifications to all users
+      console.log('📧 Automatically sending email notifications...');
+      const notificationResult = await sendAutomatedEventEmailsToAll(eventData);
       
       if (notificationResult.success) {
-        console.log('✅ Real email notifications sent successfully');
-        alert('Event added successfully! Email notifications sent to users. Check your email client!');
+        console.log('✅ Automated email notifications sent successfully');
+        alert(`Event added successfully! ${notificationResult.successCount} automated emails sent to users. Check your Gmail inbox!`);
       } else {
-        console.log('⚠️ Real email notifications failed:', notificationResult.message);
-        alert('Event added successfully, but email notifications failed.');
+        console.log('⚠️ Automated email notifications failed:', notificationResult.message);
+        alert('Event added successfully, but automated email notifications failed.');
       }
 
       // Reset form
