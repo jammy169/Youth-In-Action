@@ -114,8 +114,18 @@ if (typeof window !== 'undefined') {
   window.sendRegistrationConfirmationEmail = sendRegistrationConfirmationEmail;
   window.testGmailEmail = testGmailEmail;
   
+  // Add a simple test function that's easier to call
+  window.testGmail = () => {
+    console.log('🧪 Testing Gmail email functionality...');
+    const testEmail = 'jamestellore@gmail.com';
+    const testSubject = 'Test Email from YouthInAction (Gmail)';
+    const testMessage = 'This is a test email to verify the Gmail system is working!';
+    return sendGmailEmail(testEmail, testSubject, testMessage);
+  };
+  
   console.log('🧪 Gmail email functions available in console:');
-  console.log('- testGmailEmail() - Test Gmail email functionality');
+  console.log('- testGmail() - Test Gmail email functionality (simple)');
+  console.log('- testGmailEmail() - Test Gmail email functionality (full)');
   console.log('- sendGmailEmail(to, subject, message) - Send email via Gmail');
   console.log('- sendRegistrationConfirmationEmail(registrationData, eventData) - Send registration confirmation via Gmail');
 }
