@@ -43,6 +43,8 @@ import '../firebaseConfig';
 import '../utils/finalEmailService';
 import '../utils/directEmailTest';
 import '../utils/gmailEmailService';
+import '../utils/consoleTest';
+import '../utils/simpleGmailTest';
 
 function App() {
   return (
