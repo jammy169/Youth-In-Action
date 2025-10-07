@@ -215,8 +215,15 @@ if (typeof window !== 'undefined') {
   window.sendEmailsToAllUsers = sendEmailsToAllUsers;
   window.testAllUsersEmail = testAllUsersEmail;
   
+  // Also create a simple test function that will definitely work
+  window.testAllUsers = async () => {
+    console.log('🧪 Testing ALL users email system...');
+    return await testAllUsersEmail();
+  };
+  
   console.log('📧 ALL USERS email functions available:');
   console.log('- testAllUsersEmail() - Test email system for ALL users');
+  console.log('- testAllUsers() - Simple test for ALL users');
   console.log('- getAllUsersFromDatabase() - Get ALL registered users from database');
   console.log('- sendEmailsToAllUsers(eventData) - Send emails to ALL registered users');
 }
