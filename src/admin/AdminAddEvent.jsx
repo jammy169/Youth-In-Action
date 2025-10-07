@@ -6,6 +6,7 @@ import { addEvent, EVENT_CATEGORIES } from '../utils/eventsService';
 import { requireAdminAuth, getCurrentUser } from '../utils/adminAuth';
 import { addEventWithAdminPrivileges } from '../utils/firebaseAdmin';
 import { notifyAllUsers } from '../utils/emailNotifications';
+import { autoSendEventEmails } from '../utils/autoEmailService';
 import './AdminAddEvent.css';
 
 const AdminAddEvent = () => {
@@ -110,15 +111,15 @@ const AdminAddEvent = () => {
 
       // Send email notifications to all users
       console.log('📧 Sending email notifications...');
-      const notificationResult = await notifyAllUsers(eventData);
+      const notificationResult = await autoSendEventEmails(eventData);
       
       if (notificationResult.success) {
         console.log('✅ Email notifications sent successfully');
+        alert('Event added successfully! Email notifications sent to users.');
       } else {
         console.log('⚠️ Email notifications failed:', notificationResult.message);
+        alert('Event added successfully, but email notifications failed.');
       }
-
-      alert('Event added successfully! Email notifications sent to all users.');
 
       // Reset form
       setForm({
