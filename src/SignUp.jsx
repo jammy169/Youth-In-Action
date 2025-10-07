@@ -193,7 +193,7 @@ const SignUp = () => {
                 max="100" 
                 required 
               />
-              <small className="field-hint">Must be 13-100 years old</small>
+              <small className="field-hint">Must be 15-30 years old</small>
             </div>
             
             <div className="form-group">
