@@ -5,7 +5,7 @@ import { doc, getDoc, collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { getEventRegistrationStatus } from '../utils/eventRegistrationUtils';
-import { sendRegistrationConfirmationEmail } from '../utils/realWorkingEmail';
+import { sendRegistrationConfirmationEmail } from '../utils/emailJSservice';
 import './EventRegistration.css';
 
 const EventRegistration = () => {

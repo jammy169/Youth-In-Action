@@ -3,10 +3,10 @@
 
 export const EMAIL_CONFIG = {
   // Your EmailJS public key
-  publicKey: 'YOUR_PUBLIC_KEY_HERE',
+  publicKey: 'siG0BlxQyXnJq8JCw',
   
   // Your EmailJS service ID
-  serviceId: 'YOUR_SERVICE_ID_HERE',
+  serviceId: 'service_5tr2hqf',
   
   // Your EmailJS templates
   templates: {
