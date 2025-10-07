@@ -160,4 +160,4 @@ if (typeof window !== 'undefined') {
   console.log('- sendRegistrationConfirmationEmail(registrationData, eventData) - Send registration confirmation');
 }
 
-export { sendWorkingEmail, sendRegistrationConfirmationEmail, testWorkingEmail };
+// Functions are already exported above
