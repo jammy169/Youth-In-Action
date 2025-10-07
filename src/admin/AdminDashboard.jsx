@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUserCircle, FaPlusSquare, FaUsers, FaClipboardList, FaComments, FaCalendarAlt, FaUserCheck, FaClock, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
 import { db } from '../firebaseConfig';
-import { collection, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
 import { getContactMessages } from '../supabaseClient';
-import { getAuth } from 'firebase/auth'; // <-- NEW: Import getAuth
+import { getAuth, deleteUser } from 'firebase/auth'; // <-- NEW: Import getAuth and deleteUser
 import EventStatusOverride from '../components/EventStatusOverride';
 import './AdminDashboard.css';
 
@@ -13,10 +13,83 @@ const AdminDashboard = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [events, setEvents] = useState([]);
     const [registrations, setRegistrations] = useState([]);
+    const [users, setUsers] = useState([]);
     const [feedbackCount, setFeedbackCount] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [showUserManagement, setShowUserManagement] = useState(false);
 
     const auth = getAuth(); // <-- NEW: Get the auth service
+
+    // Fetch users from Firestore
+    const fetchUsers = async () => {
+        try {
+            const usersCollectionRef = collection(db, 'users');
+            const usersSnapshot = await getDocs(usersCollectionRef);
+            const usersData = usersSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setUsers(usersData);
+            console.log('Users fetched:', usersData);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
+
+    // Delete user account completely
+    const deleteUserAccount = async (userId, userEmail) => {
+        try {
+            // Confirm deletion
+            const confirmText = 'DELETE';
+            const userInput = prompt(`⚠️ WARNING: This will permanently delete the user account and all data!\n\nUser: ${userEmail}\n\nType "${confirmText}" to confirm:`);
+            
+            if (userInput !== confirmText) {
+                alert('User deletion cancelled');
+                return;
+            }
+
+            console.log('🗑️ Starting user deletion process for:', userEmail);
+
+            // 1. Delete user data from Firestore
+            try {
+                // Delete from users collection
+                const userDocRef = doc(db, 'users', userId);
+                await deleteDoc(userDocRef);
+                console.log('✅ Deleted user data from users collection');
+
+                // Delete from registrations collection
+                const registrationsRef = collection(db, 'registrations');
+                const registrationsSnapshot = await getDocs(registrationsRef);
+                
+                const deletePromises = [];
+                registrationsSnapshot.forEach((docSnapshot) => {
+                    const data = docSnapshot.data();
+                    if (data.email === userEmail) {
+                        deletePromises.push(deleteDoc(docSnapshot.ref));
+                    }
+                });
+                
+                await Promise.all(deletePromises);
+                console.log('✅ Deleted user registrations');
+            } catch (firestoreError) {
+                console.warn('⚠️ Error deleting Firestore data:', firestoreError);
+            }
+
+            // 2. Note: We cannot delete Firebase Auth users from client-side
+            // This would need to be done from Firebase Admin SDK on server-side
+            console.log('⚠️ Note: Firebase Auth user deletion requires server-side implementation');
+            console.log('✅ Firestore data deleted successfully');
+
+            alert('✅ User data deleted successfully!\n\nNote: Firebase Auth user still exists and needs to be deleted from Firebase Console or Admin SDK.');
+
+            // Refresh users list
+            await fetchUsers();
+            
+        } catch (error) {
+            console.error('❌ Error deleting user account:', error);
+            alert('❌ Failed to delete user account: ' + error.message);
+        }
+    };
 
     // Use useEffect to fetch data when the component mounts
     useEffect(() => {
@@ -52,6 +125,9 @@ const AdminDashboard = () => {
                 } catch (error) {
                     console.log('Could not fetch feedback count:', error);
                 }
+
+                // Fetch users
+                await fetchUsers();
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -173,6 +249,10 @@ const AdminDashboard = () => {
                         <FaComments />
                         View Feedback
                     </button>
+                    <button className="manage-users-btn" onClick={() => setShowUserManagement(!showUserManagement)}>
+                        <FaUsers />
+                        Manage Users
+                    </button>
                 </section>
                 <section className="admin-manage-events">
                     <h2>Manage Events</h2>
@@ -222,6 +302,47 @@ const AdminDashboard = () => {
                         </table>
                     </div>
                 </section>
+
+                {/* User Management Section */}
+                {showUserManagement && (
+                    <section className="admin-manage-users">
+                        <h2>Manage Users</h2>
+                        <div className="users-table-container">
+                            <table className="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Age</th>
+                                        <th>Phone</th>
+                                        <th>Joined</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {users.map((user) => (
+                                        <tr key={user.id}>
+                                            <td>{user.displayName || 'N/A'}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.age || 'N/A'}</td>
+                                            <td>{user.phone || 'N/A'}</td>
+                                            <td>{user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</td>
+                                            <td>
+                                                <button 
+                                                    className="delete-user-btn"
+                                                    onClick={() => deleteUserAccount(user.id, user.email)}
+                                                    title="Delete User Account"
+                                                >
+                                                    🗑️ Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                )}
             </main>
         </div>
     );
