@@ -1,6 +1,6 @@
 // src/components/Profile.jsx
 import React, { useEffect, useState, useRef } from 'react';
-import { getAuth, onAuthStateChanged, signOut, deleteUser } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { collection, getDocs, query, doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import { useNavigate } from 'react-router-dom';
@@ -54,6 +54,29 @@ const Profile = () => {
       }
 
       console.log('🗑️ Starting account deletion process...');
+
+      // Re-authenticate user before deletion (required by Firebase)
+      try {
+        const password = prompt('🔐 For security, please enter your password to confirm account deletion:');
+        if (!password) {
+          alert('Account deletion cancelled - password required');
+          return;
+        }
+
+        const credential = EmailAuthProvider.credential(currentUser.email, password);
+        await reauthenticateWithCredential(currentUser, credential);
+        console.log('✅ User re-authenticated successfully');
+      } catch (reauthError) {
+        console.error('❌ Re-authentication failed:', reauthError);
+        if (reauthError.code === 'auth/wrong-password') {
+          alert('❌ Incorrect password. Account deletion cancelled.');
+        } else if (reauthError.code === 'auth/too-many-requests') {
+          alert('❌ Too many failed attempts. Please try again later.');
+        } else {
+          alert('❌ Authentication failed. Please try again.');
+        }
+        return;
+      }
 
       // 1. Delete user data from Firestore
       try {
