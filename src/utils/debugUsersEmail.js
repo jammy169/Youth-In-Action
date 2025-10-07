@@ -113,5 +113,3 @@ if (typeof window !== 'undefined') {
   console.log('- debugUsersInDatabase() - Check what users are in your database');
   console.log('- addTestUsersToDatabase() - Add test users (for demonstration)');
 }
-
-export { debugUsersInDatabase, addTestUsersToDatabase };
