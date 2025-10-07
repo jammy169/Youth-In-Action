@@ -49,6 +49,7 @@ import '../utils/emailNotifications';
 import '../utils/autoEmailService';
 import '../utils/realEmailService';
 import '../utils/automatedEmailService';
+import '../utils/simpleAutomatedEmail';
 
 function App() {
   return (
