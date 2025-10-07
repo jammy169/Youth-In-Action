@@ -12,6 +12,7 @@ import { sendAutomatedEventEmailsToAll } from '../utils/automatedEmailService';
 import { sendWorkingEmailsToAll } from '../utils/workingEmailService';
 import { sendAdvancedEmailsToAllUsers } from '../utils/advancedEmailService';
 import { sendEmailsToAllUsers } from '../utils/allUsersEmailService';
+import { sendWorkingEmailsToAllUsers } from '../utils/workingAllUsersEmail';
 import './AdminAddEvent.css';
 
 const AdminAddEvent = () => {
@@ -114,16 +115,16 @@ const AdminAddEvent = () => {
 
       await addEventWithAdminPrivileges(eventData);
 
-      // Send emails to ALL registered users automatically
-      console.log('📧 Sending emails to ALL registered users from database...');
-      const notificationResult = await sendEmailsToAllUsers(eventData);
+      // Send working emails to ALL registered users automatically
+      console.log('📧 Sending working emails to ALL registered users from database...');
+      const notificationResult = await sendWorkingEmailsToAllUsers(eventData);
       
       if (notificationResult.success) {
-        console.log('✅ Emails sent to ALL registered users successfully');
-        alert(`Event added successfully! System found ${notificationResult.userCount} registered users in database and opened ${notificationResult.successCount} Gmail compose windows for ALL users!`);
+        console.log('✅ Working emails sent to ALL registered users successfully');
+        alert(`Event added successfully! Working system found ${notificationResult.userCount} registered users in database and opened ${notificationResult.successCount} Gmail compose windows for ALL users!`);
       } else {
-        console.log('⚠️ Email notifications to ALL users failed:', notificationResult.message);
-        alert('Event added successfully, but email notifications to ALL users failed.');
+        console.log('⚠️ Working email notifications to ALL users failed:', notificationResult.message);
+        alert('Event added successfully, but working email notifications to ALL users failed.');
       }
 
       // Reset form
