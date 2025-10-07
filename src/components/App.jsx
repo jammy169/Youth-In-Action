@@ -47,6 +47,7 @@ import '../utils/consoleTest';
 import '../utils/simpleGmailTest';
 import '../utils/emailNotifications';
 import '../utils/autoEmailService';
+import '../utils/realEmailService';
 
 function App() {
   return (
