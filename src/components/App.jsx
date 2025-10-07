@@ -48,6 +48,7 @@ import '../utils/simpleTestEmail';
 import '../utils/emailJSservice';
 import '../utils/consoleEmailTest';
 import '../utils/testEmailJSConnection';
+import '../utils/workingEmailSolution';
 
 function App() {
   return (
