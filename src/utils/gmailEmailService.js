@@ -130,4 +130,4 @@ if (typeof window !== 'undefined') {
   console.log('- sendRegistrationConfirmationEmail(registrationData, eventData) - Send registration confirmation via Gmail');
 }
 
-export { sendGmailEmail, sendRegistrationConfirmationEmail, testGmailEmail };
+// Functions are already exported individually above
