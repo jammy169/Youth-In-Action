@@ -28,8 +28,8 @@ const Profile = () => {
       email: userEmail,
       phone: '00 000 000 0000',
       age: '20',
-      sitio: 'MAGHILLS',
-      barangay: 'POBLACION',
+      sitio: '',
+      barangay: '',
       joinedYear: '2025',
       bio: 'Passionate volunteer dedicated to making a positive impact in the community.'
     };
@@ -143,8 +143,8 @@ const Profile = () => {
             email: userEmail,
             phone: userData.phone || '00 000 000 0000',
             age: userData.age || '20',
-            sitio: userData.sitio || 'MAGHILLS',
-            barangay: userData.barangay || 'POBLACION',
+            sitio: userData.sitio || '',
+            barangay: userData.barangay || '',
             joinedYear: '2025',
             bio: 'Passionate volunteer dedicated to making a positive impact in the community.',
             // Additional data from registration
@@ -189,8 +189,8 @@ const Profile = () => {
           email: userEmail,
           phone: userData.phone || '00 000 000 0000',
           age: userData.age || '20',
-          sitio: userData.sitio || 'MAGHILLS',
-          barangay: userData.barangay || 'POBLACION',
+          sitio: userData.sitio || '',
+          barangay: userData.barangay || '',
           joinedYear: '2025',
           bio: 'Passionate volunteer dedicated to making a positive impact in the community.',
           // Additional data from registration
@@ -360,8 +360,8 @@ const Profile = () => {
           email: existingProfile.email || userEmail,
           phone: existingProfile.phone || '00 000 000 0000',
           age: existingProfile.age || '20',
-          sitio: existingProfile.sitio || 'MAGHILLS',
-          barangay: existingProfile.barangay || 'POBLACION',
+          sitio: existingProfile.sitio || '',
+          barangay: existingProfile.barangay || '',
           joinedYear: existingProfile.joinedYear || '2025',
           bio: existingProfile.bio || 'Passionate volunteer dedicated to making a positive impact in the community.',
           profileImage: existingProfile.profileImage || null // Include the profile image
@@ -383,8 +383,8 @@ const Profile = () => {
             email: latestRegistration.email || userEmail,
             phone: latestRegistration.phone || '00 000 000 0000',
             age: latestRegistration.age || '20',
-            sitio: latestRegistration.sitio || 'MAGHILLS',
-            barangay: latestRegistration.barangay || 'POBLACION',
+            sitio: latestRegistration.sitio || '',
+            barangay: latestRegistration.barangay || '',
             joinedYear: latestRegistration.joinedYear || '2025',
             bio: latestRegistration.bio || 'Passionate volunteer dedicated to making a positive impact in the community.',
             profileImage: null // No profile image yet
