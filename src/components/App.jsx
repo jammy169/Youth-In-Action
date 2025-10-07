@@ -52,6 +52,7 @@ import '../utils/automatedEmailService';
 import '../utils/simpleAutomatedEmail';
 import '../utils/workingEmailService';
 import '../utils/finalWorkingEmail';
+import '../utils/advancedEmailService';
 
 function App() {
   return (

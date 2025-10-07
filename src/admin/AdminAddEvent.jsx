@@ -10,6 +10,7 @@ import { autoSendEventEmails } from '../utils/autoEmailService';
 import { sendRealEventEmailsToAll } from '../utils/realEmailService';
 import { sendAutomatedEventEmailsToAll } from '../utils/automatedEmailService';
 import { sendWorkingEmailsToAll } from '../utils/workingEmailService';
+import { sendAdvancedEmailsToAllUsers } from '../utils/advancedEmailService';
 import './AdminAddEvent.css';
 
 const AdminAddEvent = () => {
@@ -112,16 +113,16 @@ const AdminAddEvent = () => {
 
       await addEventWithAdminPrivileges(eventData);
 
-      // Send working automated email notifications to all users
-      console.log('📧 Sending working automated email notifications...');
-      const notificationResult = await sendWorkingEmailsToAll(eventData);
+      // Send advanced automated email notifications to all registered users
+      console.log('📧 Sending advanced automated email notifications to all registered users...');
+      const notificationResult = await sendAdvancedEmailsToAllUsers(eventData);
       
       if (notificationResult.success) {
-        console.log('✅ Working automated email notifications sent successfully');
-        alert(`Event added successfully! ${notificationResult.successCount} working automated emails sent to users. Gmail compose windows opened!`);
+        console.log('✅ Advanced automated email notifications sent successfully');
+        alert(`Event added successfully! Advanced system found ${notificationResult.userCount} registered users and opened ${notificationResult.successCount} Gmail compose windows!`);
       } else {
-        console.log('⚠️ Working automated email notifications failed:', notificationResult.message);
-        alert('Event added successfully, but working automated email notifications failed.');
+        console.log('⚠️ Advanced automated email notifications failed:', notificationResult.message);
+        alert('Event added successfully, but advanced automated email notifications failed.');
       }
 
       // Reset form
