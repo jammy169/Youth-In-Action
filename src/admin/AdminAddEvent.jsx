@@ -13,6 +13,7 @@ import { sendWorkingEmailsToAll } from '../utils/workingEmailService';
 import { sendAdvancedEmailsToAllUsers } from '../utils/advancedEmailService';
 import { sendEmailsToAllUsers } from '../utils/allUsersEmailService';
 import { sendWorkingEmailsToAllUsers } from '../utils/workingAllUsersEmail';
+import { sendEmailsWithOrgAccount } from '../utils/customSenderEmail';
 import './AdminAddEvent.css';
 
 const AdminAddEvent = () => {
@@ -115,16 +116,16 @@ const AdminAddEvent = () => {
 
       await addEventWithAdminPrivileges(eventData);
 
-      // Send working emails to ALL registered users automatically
-      console.log('📧 Sending working emails to ALL registered users from database...');
-      const notificationResult = await sendWorkingEmailsToAllUsers(eventData);
+      // Send emails to ALL registered users with organization account
+      console.log('📧 Sending emails to ALL registered users with organization account...');
+      const notificationResult = await sendEmailsWithOrgAccount(eventData);
       
       if (notificationResult.success) {
-        console.log('✅ Working emails sent to ALL registered users successfully');
-        alert(`Event added successfully! Working system found ${notificationResult.userCount} registered users in database and opened ${notificationResult.successCount} Gmail compose windows for ALL users!`);
+        console.log('✅ Emails sent to ALL registered users with organization account successfully');
+        alert(`Event added successfully! System found ${notificationResult.userCount} registered users and opened ${notificationResult.successCount} Gmail compose windows with organization account (${notificationResult.senderEmail})!`);
       } else {
-        console.log('⚠️ Working email notifications to ALL users failed:', notificationResult.message);
-        alert('Event added successfully, but working email notifications to ALL users failed.');
+        console.log('⚠️ Email notifications with organization account failed:', notificationResult.message);
+        alert('Event added successfully, but email notifications with organization account failed.');
       }
 
       // Reset form
