@@ -141,12 +141,12 @@ const UserEvents = () => {
 
       <footer className="user-events-footer">
         <div className="footer-col">
-          <h3>YouthInAction Japan</h3>
-          <p>Get involved in volunteering today for the better future of Tokyo. All donations proceed directly to local charities</p>
+          <h3>YouthInAction Philippines</h3>
+          <p>Get involved in volunteering today for the better future of Cebu. All donations proceed directly to local charities</p>
           <div className="contact-info">
             <p><i className="fas fa-envelope"></i> youthinaction@gmail.com</p>
-            <p><i className="fas fa-phone"></i> +81-3-1234-5678</p>
-            <p><i className="fas fa-map-marker-alt"></i> Tokyo, Japan</p>
+            <p><i className="fas fa-phone"></i> +63-32-123-4567</p>
+            <p><i className="fas fa-map-marker-alt"></i> Barangay Poblacion, Toledo City, Cebu, Philippines</p>
           </div>
         </div>
         <div className="footer-col">
