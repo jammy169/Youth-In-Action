@@ -227,5 +227,3 @@ if (typeof window !== 'undefined') {
   console.log('- getAllUsersFromDatabase() - Get ALL registered users from database');
   console.log('- sendEmailsToAllUsers(eventData) - Send emails to ALL registered users');
 }
-
-export { getAllUsersFromDatabase, sendEmailsToAllUsers, testAllUsersEmail };

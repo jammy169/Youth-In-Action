@@ -207,5 +207,3 @@ if (typeof window !== 'undefined') {
   console.log('- getWorkingAllUsers() - Get ALL registered users from database');
   console.log('- sendWorkingEmailsToAllUsers(eventData) - Send emails to ALL registered users');
 }
-
-export { getWorkingAllUsers, sendWorkingEmailsToAllUsers, testWorkingAllUsers };

@@ -183,5 +183,3 @@ if (typeof window !== 'undefined') {
   console.log('- sendEmailsWithOrgAccount(eventData) - Send emails with organization account');
   console.log('- sendEmailsWithAdminAccount(eventData) - Send emails with admin account');
 }
-
-export { sendEmailsWithCustomSender, testCustomSenderEmail, sendEmailsWithOrgAccount, sendEmailsWithAdminAccount };
