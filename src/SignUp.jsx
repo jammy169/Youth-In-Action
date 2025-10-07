@@ -22,6 +22,8 @@ const SignUp = () => {
   const [displayName, setDisplayName] = useState('');
   const [age, setAge] = useState('');
   const [phone, setPhone] = useState('');
+  const [sitio, setSitio] = useState('');
+  const [barangay, setBarangay] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordStrength, setPasswordStrength] = useState('');
@@ -114,7 +116,9 @@ const SignUp = () => {
           displayName: displayName,
           age: parseInt(age),
           email: email,
-          phone: phone
+          phone: phone,
+          sitio: sitio,
+          barangay: barangay
         });
         console.log('User data saved to Firestore successfully');
       } catch (firestoreError) {
@@ -215,6 +219,26 @@ const SignUp = () => {
                 placeholder="Phone Number (optional)" 
               />
               <small className="field-hint">Optional: For emergency contact</small>
+            </div>
+            
+            <div className="form-group">
+              <input 
+                type="text" 
+                value={sitio} 
+                onChange={(e) => setSitio(e.target.value)} 
+                placeholder="Sitio (optional)" 
+              />
+              <small className="field-hint">Optional: Your sitio/neighborhood</small>
+            </div>
+            
+            <div className="form-group">
+              <input 
+                type="text" 
+                value={barangay} 
+                onChange={(e) => setBarangay(e.target.value)} 
+                placeholder="Barangay (optional)" 
+              />
+              <small className="field-hint">Optional: Your barangay</small>
             </div>
             
             <div className="form-group">
