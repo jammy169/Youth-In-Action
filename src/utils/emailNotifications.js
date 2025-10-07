@@ -20,91 +20,69 @@ const TEST_EMAILS = [
 ];
 
 /**
- * Send email notification about new event
+ * Send email notification about new event via Gmail
  * @param {Object} eventData - The new event data
  * @param {string} recipientEmail - Email address to send to
  */
 export const sendEventNotificationEmail = async (eventData, recipientEmail) => {
   try {
-    console.log('📧 SENDING EMAIL NOTIFICATION:');
+    console.log('📧 SENDING EVENT NOTIFICATION VIA GMAIL:');
     console.log('To:', recipientEmail);
     console.log('Event:', eventData.title);
     
     // Create email content
-    const subject = `New Volunteer Opportunity: ${eventData.title}`;
-    const htmlContent = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background-color: #27ae60; color: white; padding: 20px; border-radius: 8px 8px 0 0; text-align: center;">
-          <h1 style="margin: 0; font-size: 24px;">🎉 New Volunteer Opportunity!</h1>
-        </div>
-        
-        <div style="background-color: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px;">
-          <h2 style="color: #2c3e50; margin-top: 0;">${eventData.title}</h2>
-          
-          <div style="background-color: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #27ae60;">
-            <p style="margin: 0 0 15px 0; font-size: 16px; line-height: 1.5;"><strong>Description:</strong> ${eventData.description}</p>
-            
-            <p style="margin: 0 0 15px 0; font-size: 16px;"><strong>📅 Date & Time:</strong> ${new Date(eventData.startDateTime).toLocaleDateString('en-US', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}</p>
-            
-            <p style="margin: 0 0 15px 0; font-size: 16px;"><strong>📍 Location:</strong> ${eventData.location}</p>
-            
-            <p style="margin: 0; font-size: 16px;"><strong>👤 Organizer:</strong> ${eventData.organizer}</p>
-          </div>
-          
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="https://your-website.com/events" 
-               style="background-color: #27ae60; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold; font-size: 16px;">
-              🚀 View Event Details & Register
-            </a>
-          </div>
-          
-          <div style="background-color: #e8f5e8; padding: 15px; border-radius: 8px; margin-top: 20px;">
-            <p style="margin: 0; color: #27ae60; font-size: 14px; text-align: center;">
-              <strong>Thank you for being part of YouthInAction!</strong><br>
-              Make a difference in your community by volunteering.
-            </p>
-          </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 20px; color: #7f8c8d; font-size: 12px;">
-          <p>This email was sent because you're registered with YouthInAction.</p>
-          <p>If you no longer want to receive these notifications, please contact us.</p>
-        </div>
-      </div>
+    const subject = `🎉 New Volunteer Opportunity: ${eventData.title}`;
+    const message = `
+Hello YouthInAction Member!
+
+A new volunteer event has been posted:
+
+🎯 EVENT: ${eventData.title}
+📅 DATE: ${new Date(eventData.startDateTime).toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })}
+📍 LOCATION: ${eventData.location}
+👤 ORGANIZER: ${eventData.organizer}
+
+📝 DESCRIPTION:
+${eventData.description}
+
+🔗 REGISTER NOW:
+https://youth-in-action.vercel.app/events
+
+This is an exciting opportunity to make a difference in our community!
+
+Best regards,
+YouthInAction Team
     `;
     
-    // SEND REAL EMAILS USING SMTP.JS (WORKS IN BROWSER) - VERSION 2.0
-    console.log('🚀🚀🚀 CACHE BUSTER V2.0 - NO MORE CORS ERRORS! 🚀🚀🚀');
-    console.log('📧 SENDING REAL EMAIL TO GMAIL!');
-    console.log('📧 To:', recipientEmail);
-    console.log('📧 Subject:', subject);
+    // Create Gmail compose URL
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipientEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
     
-    try {
-      // Use SMTP.js for real email sending (works in browser)
-      const emailResult = {
-        success: true,
-        message: 'Real email sent to Gmail successfully',
-        to: recipientEmail,
-        subject: subject,
-        timestamp: new Date().toISOString(),
-        method: 'SMTP.js'
-      };
-      
-      console.log('✅ REAL EMAIL SENT TO GMAIL!', emailResult);
-      return emailResult;
-    } catch (error) {
-      console.error('❌ ERROR SENDING EMAIL:', error);
-      return { success: false, message: error.message };
+    console.log('📧 Opening Gmail for event notification...');
+    console.log('🔗 Gmail URL:', gmailUrl);
+    
+    // Open Gmail in new tab
+    if (typeof window !== 'undefined') {
+      window.open(gmailUrl, '_blank');
+      console.log('✅ GMAIL OPENED FOR EVENT NOTIFICATION!');
     }
+    
+    return {
+      success: true,
+      message: 'Gmail opened for event notification',
+      to: recipientEmail,
+      subject: subject,
+      gmailUrl: gmailUrl
+    };
+    
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('❌ Error sending event notification:', error);
     return { success: false, message: error.message };
   }
 };
@@ -201,3 +179,38 @@ export const formatEventForEmail = (eventData) => {
     category: eventData.category
   };
 };
+
+/**
+ * Test event notification system
+ */
+export const testEventNotification = async () => {
+  try {
+    console.log('🧪 Testing event notification system...');
+    
+    const testEvent = {
+      title: 'Community Clean-up Drive',
+      description: 'Join us to clean up our local park and make it beautiful for everyone!',
+      startDateTime: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days from now
+      location: 'Local Park, Toledo City',
+      organizer: 'YouthInAction Philippines'
+    };
+    
+    const result = await sendEventNotificationEmail(testEvent, 'jamestellore@gmail.com');
+    return result;
+  } catch (error) {
+    console.error('❌ Error testing event notification:', error);
+    return { success: false, message: error.message };
+  }
+};
+
+// Make functions available globally
+if (typeof window !== 'undefined') {
+  window.testEventNotification = testEventNotification;
+  window.sendEventNotificationEmail = sendEventNotificationEmail;
+  window.notifyAllUsers = notifyAllUsers;
+  
+  console.log('📧 Event notification functions available:');
+  console.log('- testEventNotification() - Test event notification system');
+  console.log('- sendEventNotificationEmail(eventData, email) - Send event notification');
+  console.log('- notifyAllUsers(eventData) - Notify all users about new event');
+}
