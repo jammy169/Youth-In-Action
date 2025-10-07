@@ -165,7 +165,7 @@ const UserEvents = () => {
             <li><a href="/support">Support Us</a></li>
             <li><a href="/news">News</a></li>
             <li><a href="/events">Events</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/usercontact">Contact</a></li>
           </ul>
         </div>
         <div className="footer-col">
