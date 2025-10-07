@@ -44,18 +44,27 @@ const Profile = () => {
       
       // Find the most recent registration for this user
       let userData = null;
+      console.log('📊 Total registrations found:', registrationsSnapshot.docs.length);
+      
       registrationsSnapshot.forEach((doc) => {
         const data = doc.data();
+        console.log('📊 Checking registration:', data.email, 'vs', userEmail);
         if (data.email === userEmail) {
           userData = data;
           console.log('📊 Found user registration data:', data);
         }
       });
       
+      console.log('📊 Final userData found:', userData);
+      
       if (userData) {
+        // Handle both firstName/lastName (from event registrations) and displayName (from signup)
+        const firstName = userData.firstName || (userData.displayName ? userData.displayName.split(' ')[0] : 'User');
+        const lastName = userData.lastName || (userData.displayName ? userData.displayName.split(' ').slice(1).join(' ') : 'Name');
+        
         return {
-          firstName: userData.firstName || 'User',
-          lastName: userData.lastName || 'Name',
+          firstName: firstName,
+          lastName: lastName,
           email: userEmail,
           phone: userData.phone || '00 000 000 0000',
           age: userData.age || '20',
@@ -97,6 +106,8 @@ const Profile = () => {
             setUserProfile(registrationData);
             setEditForm(registrationData);
             setLoading(false);
+            // Don't call fetchUserData if we have registration data
+            return;
           } else {
             console.log('⚠️ No registration data found, creating basic profile');
             const basicProfile = createBasicProfile(currentUser.email);
@@ -112,6 +123,7 @@ const Profile = () => {
           setLoading(false);
         }
         
+        // Only call fetchUserData if we don't have registration data
         await fetchUserData(currentUser.email, currentUser.uid);
       } else {
         console.log('No user authenticated, redirecting to signin'); // Debug log
