@@ -235,6 +235,8 @@ const Profile = () => {
             setUserProfile(basicProfile);
             setEditForm(basicProfile);
             setLoading(false);
+            // Only call fetchUserData if we don't have registration data
+            await fetchUserData(currentUser.email, currentUser.uid);
           }
         } catch (error) {
           console.error('❌ Error getting registration data:', error);
@@ -242,10 +244,9 @@ const Profile = () => {
           setUserProfile(basicProfile);
           setEditForm(basicProfile);
           setLoading(false);
+          // Only call fetchUserData if we don't have registration data
+          await fetchUserData(currentUser.email, currentUser.uid);
         }
-        
-        // Only call fetchUserData if we don't have registration data
-        await fetchUserData(currentUser.email, currentUser.uid);
       } else {
         console.log('No user authenticated, redirecting to signin'); // Debug log
         navigate('/signin');
@@ -256,12 +257,13 @@ const Profile = () => {
   }, [auth, navigate]);
 
   // Add effect to refetch profile data when user changes
-  useEffect(() => {
-    if (user && user.uid && !userProfile?.profileImage) {
-      console.log('User changed, refetching profile data...'); // Debug log
-      fetchUserData(user.email, user.uid);
-    }
-  }, [user]);
+  // DISABLED: This was causing profile data to be overridden
+  // useEffect(() => {
+  //   if (user && user.uid && !userProfile?.profileImage && !userProfile?.firstName) {
+  //     console.log('User changed, refetching profile data...'); // Debug log
+  //     fetchUserData(user.email, user.uid);
+  //   }
+  // }, [user]);
 
   // Handle profile image updates from ProfilePicture component
   const handleImageUpdate = (newImageUrl) => {
