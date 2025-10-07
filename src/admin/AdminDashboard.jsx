@@ -39,6 +39,13 @@ const AdminDashboard = () => {
     // Delete user account completely
     const deleteUserAccount = async (userId, userEmail) => {
         try {
+            // Validate parameters
+            if (!userId || !userEmail) {
+                alert('❌ Error: Missing user information. Cannot delete user.');
+                console.error('❌ Missing parameters:', { userId, userEmail });
+                return;
+            }
+
             // Confirm deletion
             const confirmText = 'DELETE';
             const userInput = prompt(`⚠️ WARNING: This will permanently delete the user account and all data!\n\nUser: ${userEmail}\n\nType "${confirmText}" to confirm:`);
@@ -69,10 +76,16 @@ const AdminDashboard = () => {
                     }
                 });
                 
-                await Promise.all(deletePromises);
-                console.log('✅ Deleted user registrations');
+                if (deletePromises.length > 0) {
+                    await Promise.all(deletePromises);
+                    console.log(`✅ Deleted ${deletePromises.length} user registrations`);
+                } else {
+                    console.log('ℹ️ No registrations found for this user');
+                }
             } catch (firestoreError) {
-                console.warn('⚠️ Error deleting Firestore data:', firestoreError);
+                console.error('❌ Error deleting Firestore data:', firestoreError);
+                alert('❌ Error deleting user data: ' + firestoreError.message);
+                return;
             }
 
             // 2. Note: We cannot delete Firebase Auth users from client-side
