@@ -42,6 +42,7 @@ import '../firebaseConfig';
 // Import final email service
 import '../utils/finalEmailService';
 import '../utils/directEmailTest';
+import '../utils/gmailEmailService';
 
 function App() {
   return (
