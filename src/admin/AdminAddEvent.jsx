@@ -9,6 +9,7 @@ import { notifyAllUsers } from '../utils/emailNotifications';
 import { autoSendEventEmails } from '../utils/autoEmailService';
 import { sendRealEventEmailsToAll } from '../utils/realEmailService';
 import { sendAutomatedEventEmailsToAll } from '../utils/automatedEmailService';
+import { sendWorkingEmailsToAll } from '../utils/workingEmailService';
 import './AdminAddEvent.css';
 
 const AdminAddEvent = () => {
@@ -111,16 +112,16 @@ const AdminAddEvent = () => {
 
       await addEventWithAdminPrivileges(eventData);
 
-      // Automatically send email notifications to all users
-      console.log('📧 Automatically sending email notifications...');
-      const notificationResult = await sendAutomatedEventEmailsToAll(eventData);
+      // Send working automated email notifications to all users
+      console.log('📧 Sending working automated email notifications...');
+      const notificationResult = await sendWorkingEmailsToAll(eventData);
       
       if (notificationResult.success) {
-        console.log('✅ Automated email notifications sent successfully');
-        alert(`Event added successfully! ${notificationResult.successCount} automated emails sent to users. Check your Gmail inbox!`);
+        console.log('✅ Working automated email notifications sent successfully');
+        alert(`Event added successfully! ${notificationResult.successCount} working automated emails sent to users. Gmail compose windows opened!`);
       } else {
-        console.log('⚠️ Automated email notifications failed:', notificationResult.message);
-        alert('Event added successfully, but automated email notifications failed.');
+        console.log('⚠️ Working automated email notifications failed:', notificationResult.message);
+        alert('Event added successfully, but working automated email notifications failed.');
       }
 
       // Reset form
