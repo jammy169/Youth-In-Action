@@ -5,7 +5,7 @@ import { doc, getDoc, collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { getEventRegistrationStatus } from '../utils/eventRegistrationUtils';
-import { sendRegistrationConfirmation, sendFallbackEmail } from '../utils/emailService';
+import { sendRegistrationConfirmation } from '../utils/simpleEmailSender';
 import './EventRegistration.css';
 
 const EventRegistration = () => {
@@ -92,13 +92,7 @@ const EventRegistration = () => {
         if (emailResult.success) {
           console.log('✅ Registration confirmation email sent successfully');
         } else {
-          console.log('⚠️ Email sending failed, using fallback:', emailResult.message);
-          // Send fallback email
-          await sendFallbackEmail(
-            formData.email,
-            `Registration Confirmation - ${event.title}`,
-            `Hello ${formData.firstName},\n\nThank you for registering for "${event.title}"!\n\nEvent Details:\n- Date: ${new Date(event.startDateTime).toLocaleDateString()}\n- Location: ${event.location}\n- Organizer: ${event.organizer}\n\nWe will contact you with more details soon.\n\nBest regards,\nYouthInAction Team`
-          );
+          console.log('⚠️ Email sending failed:', emailResult.message);
         }
       } catch (emailError) {
         console.error('❌ Email sending error:', emailError);

@@ -14,33 +14,77 @@ export const sendRegistrationConfirmation = async (registrationData, eventData) 
   try {
     console.log('📧 Sending registration confirmation email...');
     
-    const templateParams = {
-      to_email: registrationData.email,
-      to_name: `${registrationData.firstName} ${registrationData.lastName}`,
-      event_title: eventData.title,
-      event_date: new Date(eventData.startDateTime).toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      }),
-      event_location: eventData.location,
-      event_organizer: eventData.organizer,
-      event_description: eventData.description,
-      registration_date: new Date().toLocaleDateString('en-US'),
-      website_url: 'https://youth-in-action.vercel.app'
-    };
+    const subject = `Registration Confirmation - ${eventData.title}`;
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background-color: #27ae60; color: white; padding: 20px; border-radius: 8px 8px 0 0; text-align: center;">
+          <h1 style="margin: 0; font-size: 24px;">✅ Registration Confirmed!</h1>
+        </div>
+        
+        <div style="background-color: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px;">
+          <h2 style="color: #2c3e50; margin-top: 0;">Hello ${registrationData.firstName}!</h2>
+          
+          <p>Thank you for registering for our volunteer event. Here are the details:</p>
+          
+          <div style="background-color: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #27ae60;">
+            <h3 style="color: #27ae60; margin-top: 0;">${eventData.title}</h3>
+            <p><strong>📅 Date & Time:</strong> ${new Date(eventData.startDateTime).toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}</p>
+            <p><strong>📍 Location:</strong> ${eventData.location}</p>
+            <p><strong>👤 Organizer:</strong> ${eventData.organizer}</p>
+            <p><strong>📝 Description:</strong> ${eventData.description}</p>
+          </div>
+          
+          <div style="background-color: #e8f5e8; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <p style="margin: 0; color: #27ae60; font-size: 14px; text-align: center;">
+              <strong>Registration Status: Pending Approval</strong><br>
+              We will review your registration and notify you of the approval status.
+            </p>
+          </div>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="https://youth-in-action.vercel.app/userevents" 
+               style="background-color: #27ae60; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+              View My Events
+            </a>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; color: #7f8c8d; font-size: 12px;">
+          <p>This email was sent because you registered for an event with YouthInAction.</p>
+          <p>If you have any questions, please contact us at info@youthinaction.com</p>
+        </div>
+      </div>
+    `;
 
-    const result = await emailjs.send(
-      EMAIL_CONFIG.serviceId,
-      EMAIL_CONFIG.templates.registrationConfirmation,
-      templateParams
-    );
+    // Use serverless function to send email
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to: registrationData.email,
+        subject: subject,
+        html: html
+      })
+    });
 
-    console.log('✅ Registration confirmation email sent:', result);
-    return { success: true, message: 'Confirmation email sent successfully' };
+    const result = await response.json();
+    
+    if (result.success) {
+      console.log('✅ Registration confirmation email sent:', result);
+      return { success: true, message: 'Confirmation email sent successfully' };
+    } else {
+      console.log('⚠️ Email sending failed, using fallback');
+      return { success: false, message: result.message };
+    }
   } catch (error) {
     console.error('❌ Error sending registration confirmation:', error);
     return { success: false, message: error.message };

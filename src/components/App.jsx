@@ -39,6 +39,9 @@ import AdminFeedback from '../admin/AdminFeedback';
 // Firebase config
 import '../firebaseConfig';
 
+// Import email test functions for development
+import '../utils/testEmail';
+
 function App() {
   return (
     <Router>
