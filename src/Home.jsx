@@ -65,7 +65,7 @@ const Home = () => {
           >
             <img src="https://scontent.fceb1-3.fna.fbcdn.net/v/t1.15752-9/294347428_1093207518295257_7853240213267225466_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeH5Nj63McHBEw58O93Z3EHF4Al0ml_c1QbgCXSaX9zVBraswIwU6KTNjO8SbB2PnSbbko8VpHKmV5w0rpS4-qP3&_nc_ohc=PFew8_NQJa0Q7kNvwH1keo6&_nc_oc=AdmPWMDM4i6Atm109KMGT-tAtjIZ2EmAVaRDnAb8Tyen2POjnewCVgkAbXM1ch4wJjA&_nc_zt=23&_nc_ht=scontent.fceb1-3.fna&oh=03_Q7cD3gE9MfMs-hDnAo5RYd-F97fLLBv9-xlqWDORk6FAavz8ZQ&oe=6906B4F0" alt="Network" />
             <h3>Local Training & Seminars</h3>
-            <p>Join barangay-led workshops and seminars to learn more about leadership and personal growth$ git add .$ git add .</p>
+            <p>Join barangay-led workshops and seminars to learn more about leadership and personal growth.</p>
           </motion.div>
         </div>
       </section>

@@ -23,7 +23,7 @@ const About = () => {
       id: 2,
       name: "Jam Floyd Estellore",
       role: "Lead Developer",
-      image: zaynImage,
+      image: "https://scontent.fcgy2-2.fna.fbcdn.net/v/t39.30808-6/461735397_3853987444883983_314557017660986960_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGBv-RH0VwDNOp8yXfyqwL0efX_rKpCOYR59f-sqkI5hIVpVcmBBsSxJGjTI7EUYcjHMFHGvReD7rpaZPNzF70J&_nc_ohc=NHo6GWGR7vUQ7kNvwEdpol8&_nc_oc=Adnde6wvBSnI9iHzDXOtX7d2p1KGMqVXsvCjmJxsoSPMQYayrkycM_7x0NE57QB2u-0&_nc_zt=23&_nc_ht=scontent.fcgy2-2.fna&_nc_gid=JGztCbd2CbM9ADUu2s1R-w&oh=00_AfdcI7qzUr2jRF_0g3Gz2ZYNfpfOPGjvWI0EQI537jmncg&oe=68E65C0F&t=" + Date.now(),
       bio: "Building innovative solutions with cutting-edge technology.",
       skills: ["React", "Node.js", "Full-Stack"],
       color: "#4ECDC4"
