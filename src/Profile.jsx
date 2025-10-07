@@ -34,6 +34,51 @@ const Profile = () => {
     };
   };
 
+  // Get user data from registrations to populate profile
+  const getUserDataFromRegistrations = async (userEmail) => {
+    try {
+      console.log('📊 Getting user data from registrations for:', userEmail);
+      
+      const registrationsRef = collection(db, 'registrations');
+      const registrationsSnapshot = await getDocs(registrationsRef);
+      
+      // Find the most recent registration for this user
+      let userData = null;
+      registrationsSnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.email === userEmail) {
+          userData = data;
+          console.log('📊 Found user registration data:', data);
+        }
+      });
+      
+      if (userData) {
+        return {
+          firstName: userData.firstName || 'User',
+          lastName: userData.lastName || 'Name',
+          email: userEmail,
+          phone: userData.phone || '00 000 000 0000',
+          age: userData.age || '20',
+          sitio: userData.sitio || 'MAGHILLS',
+          barangay: userData.barangay || 'POBLACION',
+          joinedYear: '2025',
+          bio: 'Passionate volunteer dedicated to making a positive impact in the community.',
+          // Additional data from registration
+          emergencyContact: userData.emergencyContact || '',
+          emergencyPhone: userData.emergencyPhone || '',
+          experience: userData.experience || '',
+          motivation: userData.motivation || '',
+          dietaryRestrictions: userData.dietaryRestrictions || ''
+        };
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('❌ Error getting user data from registrations:', error);
+      return null;
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       console.log('Auth state changed:', currentUser); // Debug log
@@ -42,19 +87,32 @@ const Profile = () => {
         console.log('User authenticated:', currentUser.email); // Debug log
         console.log('User UID:', currentUser.uid); // Debug log
         
-        // Set a timeout to ensure profile loads
-        const timeoutId = setTimeout(() => {
-          if (!userProfile) {
-            console.log('Timeout reached, creating basic profile'); // Debug log
+        // Try to get user data from registrations first
+        try {
+          console.log('📊 Attempting to get user data from registrations...');
+          const registrationData = await getUserDataFromRegistrations(currentUser.email);
+          
+          if (registrationData) {
+            console.log('✅ Found registration data, using it for profile:', registrationData);
+            setUserProfile(registrationData);
+            setEditForm(registrationData);
+            setLoading(false);
+          } else {
+            console.log('⚠️ No registration data found, creating basic profile');
             const basicProfile = createBasicProfile(currentUser.email);
             setUserProfile(basicProfile);
             setEditForm(basicProfile);
             setLoading(false);
           }
-        }, 3000); // 3 second timeout
+        } catch (error) {
+          console.error('❌ Error getting registration data:', error);
+          const basicProfile = createBasicProfile(currentUser.email);
+          setUserProfile(basicProfile);
+          setEditForm(basicProfile);
+          setLoading(false);
+        }
         
         await fetchUserData(currentUser.email, currentUser.uid);
-        clearTimeout(timeoutId); // Clear timeout if profile loads successfully
       } else {
         console.log('No user authenticated, redirecting to signin'); // Debug log
         navigate('/signin');
