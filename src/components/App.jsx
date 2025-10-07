@@ -39,17 +39,8 @@ import AdminFeedback from '../admin/AdminFeedback';
 // Firebase config
 import '../firebaseConfig';
 
-// Import email test functions for development
-import '../utils/testEmail';
-import '../utils/basicEmailService';
-import '../utils/actualEmailSender';
-import '../utils/realWorkingEmail';
-import '../utils/simpleTestEmail';
-import '../utils/emailJSservice';
-import '../utils/consoleEmailTest';
-import '../utils/testEmailJSConnection';
-import '../utils/workingEmailSolution';
-import '../utils/consoleEmailFunctions';
+// Import final email service
+import '../utils/finalEmailService';
 
 function App() {
   return (
