@@ -16,6 +16,9 @@ import UserLayout from "./UserLayout";
 import UserContact from "../UserContact";
 import Profile from "../Profile";
 import Notifications from "./Notifications";
+import Support from "../Support";
+import News from "../News";
+import Contact from "../Contact";
 
 // Components
 import EventCard from '../components/EventCard';
@@ -45,6 +48,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />
           <Route path="/about" element={<About />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/join" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/admin-signin" element={<AdminSignIn />} />

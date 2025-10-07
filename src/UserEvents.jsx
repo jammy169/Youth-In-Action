@@ -164,7 +164,7 @@ const UserEvents = () => {
             <li><a href="/about">About</a></li>
             <li><a href="/support">Support Us</a></li>
             <li><a href="/news">News</a></li>
-            <li><a href="/userevents">Events</a></li>
+            <li><a href="/events">Events</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
         </div>
