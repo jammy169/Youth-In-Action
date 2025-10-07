@@ -603,6 +603,62 @@
 .user-events-footer .footer-links a:hover {
   color: #4FC3F7;
 }
+
+/* New footer enhancements */
+.contact-info {
+  margin-top: 1rem;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.contact-info i {
+  margin-right: 0.5rem;
+  color: #4CAF50;
+  width: 16px;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-size: 0.9rem;
+}
+
+.social-link:hover {
+  color: #4FC3F7;
+}
+
+.social-link i {
+  margin-right: 0.5rem;
+  width: 16px;
+  color: #4CAF50;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.newsletter-note {
+  font-size: 0.8rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+}
 @media (max-width: 900px) {
   .user-events-footer {
     flex-direction: column;

@@ -143,13 +143,20 @@ const UserEvents = () => {
         <div className="footer-col">
           <h3>YouthInAction Japan</h3>
           <p>Get involved in volunteering today for the better future of Tokyo. All donations proceed directly to local charities</p>
-          <p style={{marginTop: '1rem'}}>Email: youthinaction@gmail.com</p>
+          <div className="contact-info">
+            <p><i className="fas fa-envelope"></i> youthinaction@gmail.com</p>
+            <p><i className="fas fa-phone"></i> +81-3-1234-5678</p>
+            <p><i className="fas fa-map-marker-alt"></i> Tokyo, Japan</p>
+          </div>
         </div>
         <div className="footer-col">
           <h3>Get Monthly Updates</h3>
-          <p>Enter your email here *</p>
-          <input type="email" placeholder="Your email" className="footer-input" />
-          <button className="footer-signup">Sign Up!</button>
+          <p>Stay informed about upcoming events and volunteer opportunities</p>
+          <div className="newsletter-form">
+            <input type="email" placeholder="Your email address" className="footer-input" />
+            <button className="footer-signup">Subscribe</button>
+          </div>
+          <p className="newsletter-note">We respect your privacy. Unsubscribe at any time.</p>
         </div>
         <div className="footer-col">
           <h3>Quick Links</h3>
@@ -160,6 +167,23 @@ const UserEvents = () => {
             <li><a href="/userevents">Events</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
+        </div>
+        <div className="footer-col">
+          <h3>Follow Us</h3>
+          <div className="social-links">
+            <a href="https://facebook.com/youthinaction" target="_blank" rel="noopener noreferrer" className="social-link">
+              <i className="fab fa-facebook"></i> Facebook
+            </a>
+            <a href="https://instagram.com/youthinaction" target="_blank" rel="noopener noreferrer" className="social-link">
+              <i className="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://twitter.com/youthinaction" target="_blank" rel="noopener noreferrer" className="social-link">
+              <i className="fab fa-twitter"></i> Twitter
+            </a>
+            <a href="https://linkedin.com/company/youthinaction" target="_blank" rel="noopener noreferrer" className="social-link">
+              <i className="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
         </div>
       </footer>
       <div className="user-events-copyright">
