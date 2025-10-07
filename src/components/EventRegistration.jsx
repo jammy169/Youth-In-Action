@@ -5,7 +5,7 @@ import { doc, getDoc, collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { getEventRegistrationStatus } from '../utils/eventRegistrationUtils';
-import { sendRegistrationConfirmation } from '../utils/basicEmailService';
+import { sendRegistrationConfirmationEmail } from '../utils/realWorkingEmail';
 import './EventRegistration.css';
 
 const EventRegistration = () => {
@@ -88,7 +88,7 @@ const EventRegistration = () => {
       // Send email confirmation
       console.log('📧 Sending registration confirmation email...');
       try {
-        const emailResult = await sendRegistrationConfirmation(registrationData, event);
+        const emailResult = await sendRegistrationConfirmationEmail(registrationData, event);
         if (emailResult.success) {
           console.log('✅ Registration confirmation email sent successfully');
         } else {
