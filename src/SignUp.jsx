@@ -21,21 +21,75 @@ const SignUp = () => {
   const [username, setUsername] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [age, setAge] = useState('');
+  const [phone, setPhone] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState('');
   const navigate = useNavigate();
+
+  // Enhanced validation functions
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateAge = (age) => {
+    const ageNum = parseInt(age);
+    return ageNum >= 13 && ageNum <= 100;
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const checkPasswordStrength = (password) => {
+    if (password.length < 6) return 'weak';
+    if (password.length < 8) return 'medium';
+    if (/[A-Z]/.test(password) && /[0-9]/.test(password)) return 'strong';
+    return 'medium';
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordStrength(checkPasswordStrength(newPassword));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate passwords match
+    // Clear previous errors
+    setErrorMessage('');
+    
+    // Enhanced validation
+    if (!validateEmail(email)) {
+      setErrorMessage('Please enter a valid email address');
+      return;
+    }
+    
+    if (!validateAge(age)) {
+      setErrorMessage('Age must be between 13 and 100 years old');
+      return;
+    }
+    
+    if (phone && !validatePhone(phone)) {
+      setErrorMessage('Please enter a valid phone number');
+      return;
+    }
+    
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
       return;
     }
     
-    // Validate password length
     if (password.length < 6) {
       setErrorMessage('Password must be at least 6 characters long');
+      return;
+    }
+    
+    if (!agreeToTerms) {
+      setErrorMessage('You must agree to the Terms and Conditions');
       return;
     }
     
@@ -59,7 +113,8 @@ const SignUp = () => {
           username: username,
           displayName: displayName,
           age: parseInt(age),
-          email: email
+          email: email,
+          phone: phone
         });
         console.log('User data saved to Firestore successfully');
       } catch (firestoreError) {
@@ -106,13 +161,102 @@ const SignUp = () => {
           </div>
           <p className="login-instruction">or use your email for registration</p>
           <form onSubmit={handleSubmit} className="auth-form">
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
-            <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Display Name" required />
-            <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Age" required />
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
-            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password" required />
-            <button type="submit" className="auth-button">Sign Up</button>
+            <div className="form-group">
+              <input 
+                type="text" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)} 
+                placeholder="Username (for login)" 
+                required 
+              />
+              <small className="field-hint">This will be your login username</small>
+            </div>
+            
+            <div className="form-group">
+              <input 
+                type="text" 
+                value={displayName} 
+                onChange={(e) => setDisplayName(e.target.value)} 
+                placeholder="Full Name (as shown to others)" 
+                required 
+              />
+              <small className="field-hint">This is how your name appears to other users</small>
+            </div>
+            
+            <div className="form-group">
+              <input 
+                type="number" 
+                value={age} 
+                onChange={(e) => setAge(e.target.value)} 
+                placeholder="Age" 
+                min="13" 
+                max="100" 
+                required 
+              />
+              <small className="field-hint">Must be 13-100 years old</small>
+            </div>
+            
+            <div className="form-group">
+              <input 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                placeholder="Email Address" 
+                required 
+              />
+              <small className="field-hint">We'll use this to contact you</small>
+            </div>
+            
+            <div className="form-group">
+              <input 
+                type="tel" 
+                value={phone} 
+                onChange={(e) => setPhone(e.target.value)} 
+                placeholder="Phone Number (optional)" 
+              />
+              <small className="field-hint">Optional: For emergency contact</small>
+            </div>
+            
+            <div className="form-group">
+              <input 
+                type="password" 
+                value={password} 
+                onChange={handlePasswordChange} 
+                placeholder="Password" 
+                required 
+              />
+              {password && (
+                <div className={`password-strength ${passwordStrength}`}>
+                  Password Strength: {passwordStrength.charAt(0).toUpperCase() + passwordStrength.slice(1)}
+                </div>
+              )}
+            </div>
+            
+            <div className="form-group">
+              <input 
+                type="password" 
+                value={confirmPassword} 
+                onChange={(e) => setConfirmPassword(e.target.value)} 
+                placeholder="Confirm Password" 
+                required 
+              />
+            </div>
+            
+            <div className="form-group checkbox-group">
+              <label className="checkbox-label">
+                <input 
+                  type="checkbox" 
+                  checked={agreeToTerms} 
+                  onChange={(e) => setAgreeToTerms(e.target.checked)} 
+                  required 
+                />
+                <span className="checkbox-text">
+                  I agree to the <a href="/terms" target="_blank">Terms and Conditions</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
+                </span>
+              </label>
+            </div>
+            
+            <button type="submit" className="auth-button">Create Account</button>
           </form>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
