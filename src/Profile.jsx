@@ -1,7 +1,7 @@
 // src/components/Profile.jsx
 import React, { useEffect, useState, useRef } from 'react';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { collection, getDocs, query, doc, setDoc, getDoc } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged, signOut, deleteUser } from 'firebase/auth';
+import { collection, getDocs, query, doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import ProfilePictureFallback from './components/ProfilePictureFallback';
@@ -17,6 +17,7 @@ const Profile = () => {
   const [editForm, setEditForm] = useState({});
   const [selectedImageFile, setSelectedImageFile] = useState(null);
   const [clearPreview, setClearPreview] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -32,6 +33,67 @@ const Profile = () => {
       joinedYear: '2025',
       bio: 'Passionate volunteer dedicated to making a positive impact in the community.'
     };
+  };
+
+  // Delete account function
+  const handleDeleteAccount = async () => {
+    try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        alert('No user logged in');
+        return;
+      }
+
+      // Confirm deletion
+      const confirmText = 'DELETE';
+      const userInput = prompt(`⚠️ WARNING: This will permanently delete your account and all data!\n\nType "${confirmText}" to confirm:`);
+      
+      if (userInput !== confirmText) {
+        alert('Account deletion cancelled');
+        return;
+      }
+
+      console.log('🗑️ Starting account deletion process...');
+
+      // 1. Delete user data from Firestore
+      try {
+        // Delete from users collection
+        const userDocRef = doc(db, 'users', currentUser.uid);
+        await deleteDoc(userDocRef);
+        console.log('✅ Deleted user data from users collection');
+
+        // Delete from registrations collection
+        const registrationsRef = collection(db, 'registrations');
+        const registrationsSnapshot = await getDocs(registrationsRef);
+        
+        const deletePromises = [];
+        registrationsSnapshot.forEach((docSnapshot) => {
+          const data = docSnapshot.data();
+          if (data.email === currentUser.email) {
+            deletePromises.push(deleteDoc(docSnapshot.ref));
+          }
+        });
+        
+        await Promise.all(deletePromises);
+        console.log('✅ Deleted user registrations');
+      } catch (firestoreError) {
+        console.warn('⚠️ Error deleting Firestore data:', firestoreError);
+        // Continue with auth deletion even if Firestore fails
+      }
+
+      // 2. Delete Firebase Auth user
+      await deleteUser(currentUser);
+      console.log('✅ Deleted Firebase Auth user');
+
+      // 3. Sign out and redirect
+      await signOut(auth);
+      alert('✅ Account successfully deleted!');
+      navigate('/');
+      
+    } catch (error) {
+      console.error('❌ Error deleting account:', error);
+      alert('❌ Failed to delete account: ' + error.message);
+    }
   };
 
   // Get user data from both users collection and registrations to populate profile
@@ -609,9 +671,14 @@ const Profile = () => {
             </div>
             <div className="joined-date">Joined {userProfile.joinedYear}</div>
             {!isEditing ? (
-              <button className="edit-profile-btn" onClick={handleEditClick}>
-                Edit Profile
-              </button>
+              <div className="profile-actions">
+                <button className="edit-profile-btn" onClick={handleEditClick}>
+                  Edit Profile
+                </button>
+                <button className="delete-account-btn" onClick={handleDeleteAccount}>
+                  🗑️ Delete Account
+                </button>
+              </div>
             ) : (
               <div className="edit-actions">
                 <button className="save-btn" onClick={handleSaveProfile}>

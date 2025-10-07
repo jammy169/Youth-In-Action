@@ -238,6 +238,30 @@
   transform: translateY(-1px);
 }
 
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.delete-account-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-account-btn:hover {
+  background: #c0392b;
+  transform: translateY(-1px);
+}
+
 .edit-actions {
   display: flex;
   gap: 10px;
