@@ -10,9 +10,9 @@ export const EMAIL_CONFIG = {
   
   // Your EmailJS templates
   templates: {
-    registrationConfirmation: 'YOUR_TEMPLATE_ID_HERE',
-    eventNotification: 'YOUR_TEMPLATE_ID_HERE',
-    testEmail: 'YOUR_TEMPLATE_ID_HERE'
+    registrationConfirmation: 'template_cdgwahb',
+    eventNotification: 'template_cdgwahb',
+    testEmail: 'template_cdgwahb'
   }
 };
 

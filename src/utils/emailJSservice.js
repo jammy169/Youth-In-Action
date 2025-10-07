@@ -24,11 +24,12 @@ export const sendEmailJSEmail = async (to, subject, message) => {
     
     // Send email using EmailJS
     const templateParams = {
-      to_email: to,
-      subject: subject,
-      message: message,
-      from_name: 'YouthInAction',
-      reply_to: 'noreply@youthinaction.com'
+      first_name: 'User',
+      event_title: 'Test Event',
+      event_date: new Date().toLocaleDateString(),
+      event_location: 'Test Location',
+      event_organizer: 'YouthInAction',
+      event_description: message
     };
     
     const result = await emailjs.send(
@@ -91,41 +92,43 @@ YouthInAction Team
  */
 export const sendRegistrationConfirmationEmail = async (registrationData, eventData) => {
   try {
-    const subject = `Registration Confirmation - ${eventData.title}`;
-    const message = `
-Hello ${registrationData.firstName}!
-
-Thank you for registering for our volunteer event:
-
-Event: ${eventData.title}
-Date: ${new Date(eventData.startDateTime).toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    })}
-Location: ${eventData.location}
-Organizer: ${eventData.organizer}
-
-Description: ${eventData.description}
-
-Registration Status: Pending Approval
-We will review your registration and notify you of the approval status.
-
-You can view your events at: https://youth-in-action.vercel.app/userevents
-
-If you have any questions, please contact us at info@youthinaction.com
-
-Best regards,
-YouthInAction Team
-    `;
+    console.log('📧 Sending registration confirmation via EmailJS...');
     
-    const result = await sendEmailJSEmail(registrationData.email, subject, message);
-    return result;
+    // Check if EmailJS is configured
+    if (EMAIL_CONFIG.publicKey === 'YOUR_PUBLIC_KEY_HERE') {
+      console.log('⚠️ EmailJS not configured, using fallback');
+      return { success: false, message: 'EmailJS not configured. Please set up EmailJS credentials.' };
+    }
+    
+    // Prepare template parameters for the email template
+    const templateParams = {
+      first_name: registrationData.firstName,
+      event_title: eventData.title,
+      event_date: new Date(eventData.startDateTime).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
+      event_location: eventData.location,
+      event_organizer: eventData.organizer,
+      event_description: eventData.description
+    };
+    
+    // Send email using EmailJS
+    const result = await emailjs.send(
+      EMAIL_CONFIG.serviceId,
+      EMAIL_CONFIG.templates.registrationConfirmation,
+      templateParams
+    );
+    
+    console.log('✅ Registration confirmation sent via EmailJS:', result);
+    return { success: true, message: 'Registration confirmation sent successfully', result };
+    
   } catch (error) {
-    console.error('Error sending registration confirmation:', error);
+    console.error('❌ Error sending registration confirmation:', error);
     return { success: false, message: error.message };
   }
 };
