@@ -14,11 +14,8 @@ export const sendGmailEmail = async (to, subject, message) => {
     // Create Gmail compose URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
     
-    // Open Gmail in new tab
-    if (typeof window !== 'undefined') {
-      window.open(gmailUrl, '_blank');
-      console.log('✅ GMAIL OPENED IN NEW TAB:', gmailUrl);
-    }
+    // Don't open Gmail automatically - let the modal handle the user experience
+    console.log('📧 Gmail compose URL ready (not opening automatically):', gmailUrl);
     
     return { 
       success: true, 

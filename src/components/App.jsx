@@ -31,6 +31,7 @@ import ProtectedAdminRoute from '../components/ProtectedAdminRoute';
 import AdminLockoutReset from '../components/AdminLockoutReset';
 import AdminAccountCreator from '../components/AdminAccountCreator';
 import UserSyncTool from '../components/UserSyncTool';
+import ModalTest from '../components/ModalTest';
 
 // Admin Pages
 import AdminAddEvent from '../admin/AdminAddEvent';
@@ -126,6 +127,7 @@ function App() {
         
         {/* Test Routes */}
         <Route path="/test-email" element={<EmailTest />} />
+        <Route path="/test-modal" element={<ModalTest />} />
         <Route path="/admin-lockout-reset" element={<AdminLockoutReset />} />
 
         {/* Event Details Route */}
