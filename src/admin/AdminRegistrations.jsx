@@ -218,11 +218,18 @@ const AdminRegistrations = () => {
 
   const filteredRegistrations = registrations.filter(registration => {
     const matchesFilter = filter === 'all' || registration.status === filter;
+    
+    // Handle different field name variations
+    const firstName = registration.firstName || registration.first_name || '';
+    const lastName = registration.lastName || registration.last_name || '';
+    const email = registration.email || '';
+    const eventTitle = registration.eventTitle || registration.event_title || '';
+    
     const matchesSearch = 
-      registration.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      registration.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      registration.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      registration.eventTitle.toLowerCase().includes(searchTerm.toLowerCase());
+      firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      eventTitle.toLowerCase().includes(searchTerm.toLowerCase());
     
     return matchesFilter && matchesSearch;
   });
@@ -352,9 +359,17 @@ const AdminRegistrations = () => {
             <div key={registration.id} className="registration-card">
               <div className="registration-header">
                 <div className="participant-info">
-                  <h3>{registration.firstName} {registration.lastName}</h3>
-                  <p className="email">{registration.email}</p>
-                  <p className="event-title">Event: {registration.eventTitle}</p>
+                  <h3>
+                    {registration.firstName || registration.first_name || 'Unknown'} {' '}
+                    {registration.lastName || registration.last_name || 'User'}
+                  </h3>
+                  <p className="email">{registration.email || 'No email'}</p>
+                  <p className="event-title">Event: {registration.eventTitle || registration.event_title || 'Unknown Event'}</p>
+                  {/* Debug info - remove this later */}
+                  <div style={{fontSize: '10px', color: '#666', marginTop: '5px'}}>
+                    Debug: firstName="{registration.firstName}", lastName="{registration.lastName}", 
+                    first_name="{registration.first_name}", last_name="{registration.last_name}"
+                  </div>
                 </div>
                 <div className="registration-status">
                   {getStatusBadge(registration.status)}
@@ -367,11 +382,11 @@ const AdminRegistrations = () => {
               <div className="registration-details">
                 <div className="detail-row">
                   <span className="label">Phone:</span>
-                  <span className="value">{registration.phone}</span>
+                  <span className="value">{registration.phone || 'Not provided'}</span>
                 </div>
                 <div className="detail-row">
                   <span className="label">Age:</span>
-                  <span className="value">{registration.age}</span>
+                  <span className="value">{registration.age || 'Not provided'}</span>
                 </div>
                 <div className="detail-row">
                   <span className="label">Experience:</span>
@@ -379,7 +394,10 @@ const AdminRegistrations = () => {
                 </div>
                 <div className="detail-row">
                   <span className="label">Emergency Contact:</span>
-                  <span className="value">{registration.emergencyContact} ({registration.emergencyPhone})</span>
+                  <span className="value">
+                    {registration.emergencyContact || 'Not provided'} 
+                    {registration.emergencyPhone && ` (${registration.emergencyPhone})`}
+                  </span>
                 </div>
                 {registration.dietaryRestrictions && (
                   <div className="detail-row">
