@@ -43,16 +43,42 @@ const AdminRegistrations = () => {
           const q = query(registrationsRef, orderBy('registrationDate', 'desc'));
           const querySnapshot = await getDocs(q);
           
-          const registrationsList = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            collection: collectionName,
-            ...doc.data()
-          }));
+          const registrationsList = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            console.log(`📄 Document ${doc.id} from ${collectionName}:`, data);
+            return {
+              id: doc.id,
+              collection: collectionName,
+              ...data
+            };
+          });
           
           console.log(`✅ Found ${registrationsList.length} registrations in ${collectionName}`);
+          console.log(`📋 Sample registration from ${collectionName}:`, registrationsList[0]);
           allRegistrations = [...allRegistrations, ...registrationsList];
         } catch (collectionError) {
           console.log(`⚠️ Error fetching from ${collectionName}:`, collectionError);
+          // Try without orderBy if it fails
+          try {
+            console.log(`🔄 Retrying ${collectionName} without orderBy...`);
+            const registrationsRef = collection(db, collectionName);
+            const querySnapshot = await getDocs(registrationsRef);
+            
+            const registrationsList = querySnapshot.docs.map(doc => {
+              const data = doc.data();
+              console.log(`📄 Document ${doc.id} from ${collectionName} (no orderBy):`, data);
+              return {
+                id: doc.id,
+                collection: collectionName,
+                ...data
+              };
+            });
+            
+            console.log(`✅ Found ${registrationsList.length} registrations in ${collectionName} (no orderBy)`);
+            allRegistrations = [...allRegistrations, ...registrationsList];
+          } catch (retryError) {
+            console.error(`❌ Failed to fetch from ${collectionName} even without orderBy:`, retryError);
+          }
         }
       }
       
@@ -232,7 +258,31 @@ const AdminRegistrations = () => {
       email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       eventTitle.toLowerCase().includes(searchTerm.toLowerCase());
     
+    // Debug logging
+    if (registration.id) {
+      console.log(`🔍 Filtering registration ${registration.id}:`, {
+        status: registration.status,
+        filter,
+        matchesFilter,
+        searchTerm,
+        matchesSearch,
+        firstName,
+        lastName,
+        email,
+        eventTitle
+      });
+    }
+    
     return matchesFilter && matchesSearch;
+  });
+
+  // Debug the filtering results
+  console.log(`📊 Filtering results:`, {
+    totalRegistrations: registrations.length,
+    filteredCount: filteredRegistrations.length,
+    currentFilter: filter,
+    searchTerm: searchTerm,
+    firstFiltered: filteredRegistrations[0]
   });
 
   const getStatusBadge = (status) => {
@@ -352,11 +402,22 @@ const AdminRegistrations = () => {
         </div>
       </div>
 
+      {/* Debug Info */}
+      <div style={{background: '#f8f9fa', padding: '10px', margin: '10px 0', borderRadius: '5px', fontSize: '12px'}}>
+        <strong>🔍 Debug Info:</strong> Total: {registrations.length}, Filtered: {filteredRegistrations.length}, Filter: {filter}, Search: "{searchTerm}"
+        {filteredRegistrations.length > 0 && (
+          <div>First registration: {JSON.stringify(filteredRegistrations[0], null, 2)}</div>
+        )}
+      </div>
+
       {/* Registrations List */}
       <div className="registrations-list">
         {filteredRegistrations.length === 0 ? (
           <div className="no-registrations">
             <p>No registrations found matching your criteria.</p>
+            <p>Total registrations in database: {registrations.length}</p>
+            <p>Current filter: {filter}</p>
+            <p>Search term: "{searchTerm}"</p>
           </div>
         ) : (
           filteredRegistrations.map(registration => (
