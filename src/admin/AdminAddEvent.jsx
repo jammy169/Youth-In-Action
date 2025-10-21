@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { uploadEventImage } from '../utils/supabaseUpload';
+import { uploadEventImageSimple, getRandomEventImage } from '../utils/simpleImageUpload';
 import { addEvent, EVENT_CATEGORIES } from '../utils/eventsService';
 import { requireAdminAuth, getCurrentUser } from '../utils/adminAuth';
 import { addEventWithAdminPrivileges } from '../utils/firebaseAdmin';
@@ -97,13 +98,27 @@ const AdminAddEvent = () => {
       // Upload image if file is selected
       if (selectedFile) {
         try {
+          // Try Supabase upload first
           imageUrl = await uploadEventImage(selectedFile);
           console.log('Image uploaded successfully:', imageUrl);
         } catch (uploadError) {
-          console.error('Image upload failed:', uploadError);
-          alert(`Image upload failed: ${uploadError.message}`);
-          return;
+          console.error('Supabase upload failed:', uploadError);
+          console.log('🔄 Trying simple image upload...');
+          
+          try {
+            // Fallback to simple upload
+            imageUrl = await uploadEventImageSimple(selectedFile);
+            console.log('Simple image upload successful:', imageUrl);
+          } catch (simpleError) {
+            console.error('Simple upload also failed:', simpleError);
+            console.log('⚠️ Using random placeholder image...');
+            imageUrl = getRandomEventImage();
+          }
         }
+      } else if (!form.image) {
+        // If no image provided, use a random placeholder
+        console.log('📷 No image provided, using random placeholder...');
+        imageUrl = getRandomEventImage();
       }
 
       // Prepare event data

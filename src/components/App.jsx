@@ -28,6 +28,8 @@ import EventRegistration from '../components/EventRegistration';
 import EmailTest from '../components/EmailTest';
 import ProtectedAdminRoute from '../components/ProtectedAdminRoute';
 import AdminLockoutReset from '../components/AdminLockoutReset';
+import AdminAccountCreator from '../components/AdminAccountCreator';
+import UserSyncTool from '../components/UserSyncTool';
 
 // Admin Pages
 import AdminAddEvent from '../admin/AdminAddEvent';
@@ -76,6 +78,8 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/admin-signin" element={<AdminSignIn />} />
           <Route path="/secure-admin-setup" element={<SecureAdminSetup />} />
+          <Route path="/create-admin" element={<AdminAccountCreator />} />
+          <Route path="/sync-users" element={<UserSyncTool />} />
           
           
         </Route>
