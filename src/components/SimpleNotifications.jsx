@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { getAuth } from 'firebase/auth';
+import UserNotificationCharts from './UserNotificationCharts';
 import './SimpleNotifications.css';
 
 const SimpleNotifications = () => {
@@ -153,6 +154,9 @@ const SimpleNotifications = () => {
           🔄 Refresh
         </button>
       </div>
+
+      {/* User Analytics Charts */}
+      <UserNotificationCharts registrations={notifications} />
 
       {notifications.length === 0 ? (
         <div className="no-notifications">
