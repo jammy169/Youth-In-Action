@@ -3,7 +3,7 @@
 
 import { doc, deleteDoc, collection, query, where, getDocs, writeBatch, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { sendEventCancellationEmail } from './gmailEmailService';
+import { sendGmailEmail } from './gmailEmailService';
 
 /**
  * Delete event and update all registrations to "cancelled"
@@ -65,7 +65,7 @@ export const deleteEventWithNotification = async (eventId, eventTitle) => {
 /**
  * Send cancellation email to user
  */
-export const sendEventCancellationEmail = async (registration, eventTitle) => {
+const sendEventCancellationEmail = async (registration, eventTitle) => {
   try {
     const subject = `Event Cancelled - ${eventTitle}`;
     const message = `
