@@ -115,6 +115,16 @@ const AdminRegistrations = () => {
 
       await updateDoc(registrationRef, updateData);
 
+      // Send notification to user about status change
+      try {
+        const { sendStatusChangeNotification } = await import('../utils/registrationNotificationService');
+        await sendStatusChangeNotification(currentRegistration, newStatus);
+        console.log('✅ Notification sent to user about status change');
+      } catch (notificationError) {
+        console.error('❌ Failed to send notification:', notificationError);
+        // Continue even if notification fails
+      }
+
       // Create audit log for status change
       if (currentRegistration.userId) {
         const auditLog = createAuditLog(

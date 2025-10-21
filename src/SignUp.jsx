@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';image.png
 import './Auth.css';
 import facebookLogo from './assets/facebook.png';
 import GoogleLogo from './assets/Google.png';

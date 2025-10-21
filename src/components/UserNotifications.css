@@ -1,0 +1,289 @@
+/* UserNotifications.css */
+/* Styling for user notifications component */
+
+.user-notifications {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.notifications-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  color: white;
+  border-radius: 12px;
+}
+
+.notifications-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+}
+
+.notifications-header p {
+  margin: 0 0 20px 0;
+  opacity: 0.9;
+}
+
+.btn-refresh {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-refresh:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.notifications-loading,
+.notifications-error,
+.no-notifications {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.loading-spinner {
+  font-size: 3rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.notifications-error h3 {
+  margin: 0 0 15px 0;
+  color: #dc3545;
+  font-size: 1.5rem;
+}
+
+.notifications-error button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.2s ease;
+}
+
+.notifications-error button:hover {
+  background: #0056b3;
+}
+
+.no-notifications {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  color: #666;
+}
+
+.no-notifications-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.no-notifications h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.no-notifications p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.notifications-list {
+  display: grid;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.notification-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.notification-card.approved {
+  border-left: 4px solid #28a745;
+}
+
+.notification-card.rejected {
+  border-left: 4px solid #dc3545;
+}
+
+.notification-card.cancelled {
+  border-left: 4px solid #6c757d;
+}
+
+.notification-card.attended {
+  border-left: 4px solid #17a2b8;
+}
+
+.notification-card.absent {
+  border-left: 4px solid #ffc107;
+}
+
+.notification-card.pending {
+  border-left: 4px solid #6c757d;
+}
+
+.notification-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.notification-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.notification-message {
+  margin: 0;
+  color: #666;
+  line-height: 1.4;
+}
+
+.notification-time {
+  color: #999;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.notification-details {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.event-info h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.event-info p {
+  margin: 4px 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.status-icon {
+  font-size: 1rem;
+}
+
+.notifications-info {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 25px;
+  margin-top: 30px;
+  border-left: 4px solid #4ECDC4;
+}
+
+.notifications-info h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.notifications-info ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.notifications-info li {
+  margin: 10px 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .user-notifications {
+    padding: 15px;
+  }
+  
+  .notification-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  
+  .notification-details {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .status-badge {
+    justify-content: center;
+  }
+}
