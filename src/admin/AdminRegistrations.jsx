@@ -229,14 +229,28 @@ const AdminRegistrations = () => {
   };
 
   const filteredRegistrations = registrations.filter(registration => {
+    // Debug: Log each registration being filtered
+    console.log('Filtering registration:', {
+      id: registration.id,
+      firstName: registration.firstName,
+      lastName: registration.lastName,
+      email: registration.email,
+      eventTitle: registration.eventTitle,
+      status: registration.status,
+      hasRequiredFields: !!(registration.firstName && registration.lastName && registration.email)
+    });
+    
     const matchesFilter = filter === 'all' || registration.status === filter;
     const matchesSearch = 
-      registration.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      registration.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      registration.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      registration.eventTitle.toLowerCase().includes(searchTerm.toLowerCase());
+      (registration.firstName && registration.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (registration.lastName && registration.lastName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (registration.email && registration.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (registration.eventTitle && registration.eventTitle.toLowerCase().includes(searchTerm.toLowerCase()));
     
-    return matchesFilter && matchesSearch;
+    const result = matchesFilter && matchesSearch;
+    console.log('Filter result:', { matchesFilter, matchesSearch, result });
+    
+    return result;
   });
 
   const getStatusBadge = (status) => {
@@ -368,15 +382,30 @@ const AdminRegistrations = () => {
           <div className="no-registrations">
             <p>No registrations found matching your criteria.</p>
             <p>Total registrations in database: {registrations.length}</p>
+            {registrations.length === 0 && (
+              <div style={{background: '#fff3cd', padding: '15px', borderRadius: '5px', marginTop: '10px'}}>
+                <h4>No registrations found in database</h4>
+                <p>To test the admin panel:</p>
+                <ol>
+                  <li>Go to <a href="/events" target="_blank">Events page</a></li>
+                  <li>Register for an event</li>
+                  <li>Come back to this admin page</li>
+                </ol>
+              </div>
+            )}
           </div>
         ) : (
           filteredRegistrations.map(registration => (
             <div key={registration.id} className="registration-card">
               <div className="registration-header">
                 <div className="participant-info">
-                  <h3>{registration.firstName} {registration.lastName}</h3>
-                  <p className="email">{registration.email}</p>
-                  <p className="event-title">Event: {registration.eventTitle}</p>
+                  <h3>{registration.firstName || 'Unknown'} {registration.lastName || 'User'}</h3>
+                  <p className="email">{registration.email || 'No email'}</p>
+                  <p className="event-title">Event: {registration.eventTitle || 'Unknown Event'}</p>
+                  {/* Debug info */}
+                  <div style={{fontSize: '10px', color: '#666', marginTop: '5px'}}>
+                    ID: {registration.id} | Status: {registration.status} | Collection: {registration.collection}
+                  </div>
                 </div>
                 <div className="registration-status">
                   {getStatusBadge(registration.status)}
