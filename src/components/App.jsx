@@ -32,6 +32,9 @@ import AdminLockoutReset from '../components/AdminLockoutReset';
 import AdminAccountCreator from '../components/AdminAccountCreator';
 import UserSyncTool from '../components/UserSyncTool';
 import ModalTest from '../components/ModalTest';
+import RegistrationChecker from '../components/RegistrationChecker';
+import AdminEventManager from '../components/AdminEventManager';
+import CancelledEventsList from '../components/CancelledEventsList';
 
 // Admin Pages
 import AdminAddEvent from '../admin/AdminAddEvent';
@@ -90,6 +93,7 @@ function App() {
         {/* User Routes */}
         <Route element={<UserLayout />}>
           <Route path="/userevents" element={<UserEvents />} />
+          <Route path="/cancelled-events" element={<CancelledEventsList />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/usercontact" element={<UserContact />} />
           <Route path="/notifications" element={<Notifications />} />
@@ -124,10 +128,16 @@ function App() {
             <AdminFeedback />
           </ProtectedAdminRoute>
         } />
+        <Route path="/admin/events" element={
+          <ProtectedAdminRoute>
+            <AdminEventManager />
+          </ProtectedAdminRoute>
+        } />
         
         {/* Test Routes */}
         <Route path="/test-email" element={<EmailTest />} />
         <Route path="/test-modal" element={<ModalTest />} />
+        <Route path="/check-registrations" element={<RegistrationChecker />} />
         <Route path="/admin-lockout-reset" element={<AdminLockoutReset />} />
 
         {/* Event Details Route */}

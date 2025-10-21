@@ -1,0 +1,229 @@
+/* AdminEventManager.css */
+/* Styling for admin event management */
+
+.admin-event-manager {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.manager-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  color: white;
+  border-radius: 12px;
+}
+
+.manager-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+}
+
+.manager-header p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.event-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.event-card.cancelled {
+  border-color: #dc3545;
+  background: #fff5f5;
+}
+
+.event-card.completed {
+  border-color: #6c757d;
+  background: #f8f9fa;
+}
+
+.event-card.upcoming {
+  border-color: #28a745;
+  background: #f0fdf4;
+}
+
+.event-card.past {
+  border-color: #6c757d;
+  background: #f8f9fa;
+}
+
+.event-header {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.event-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.event-title h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.3rem;
+  flex: 1;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.status-icon {
+  font-size: 1rem;
+}
+
+.deleted-info {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.deleted-info p {
+  margin: 5px 0;
+  color: #721c24;
+  font-size: 0.9rem;
+}
+
+.event-details {
+  margin-bottom: 20px;
+}
+
+.event-details p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.event-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-cancel,
+.btn-restore,
+.btn-view-registrations {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.btn-cancel {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #c82333;
+}
+
+.btn-restore {
+  background: #28a745;
+  color: white;
+}
+
+.btn-restore:hover {
+  background: #218838;
+}
+
+.btn-view-registrations {
+  background: #007bff;
+  color: white;
+}
+
+.btn-view-registrations:hover {
+  background: #0056b3;
+}
+
+.no-events {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.no-events h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.no-events p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-event-manager {
+    padding: 15px;
+  }
+  
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .event-title {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  
+  .status-badge {
+    justify-content: center;
+  }
+  
+  .event-actions {
+    flex-direction: column;
+  }
+  
+  .btn-cancel,
+  .btn-restore,
+  .btn-view-registrations {
+    width: 100%;
+  }
+}

@@ -1,0 +1,248 @@
+/* RegistrationChecker.css */
+/* Styling for registration checker component */
+
+.registration-checker {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.checker-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  color: white;
+  border-radius: 12px;
+}
+
+.checker-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+}
+
+.checker-header p {
+  margin: 0 0 20px 0;
+  opacity: 0.9;
+}
+
+.btn-refresh {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-refresh:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 1px solid #f5c6cb;
+}
+
+.stats-overview {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 20px 0;
+}
+
+.stats-overview h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.stat-card.total .stat-number { color: #007bff; }
+.stat-card.pending .stat-number { color: #ffc107; }
+.stat-card.approved .stat-number { color: #28a745; }
+.stat-card.rejected .stat-number { color: #dc3545; }
+.stat-card.cancelled .stat-number { color: #6c757d; }
+
+.registrations-list {
+  margin-top: 30px;
+}
+
+.registrations-list h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.loading, .no-data {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.registrations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.registration-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.registration-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-info h3 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.user-info .email {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.status-icon {
+  font-size: 1rem;
+}
+
+.card-content {
+  display: grid;
+  gap: 15px;
+}
+
+.event-info h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.event-info p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.contact-info p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.motivation {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.motivation p {
+  margin: 5px 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.motivation-text {
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .registration-checker {
+    padding: 15px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .registrations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  
+  .status-badge {
+    justify-content: center;
+  }
+}
