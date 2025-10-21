@@ -58,18 +58,6 @@ const AdminRegistrations = () => {
       console.log(`📊 Total registrations found: ${allRegistrations.length}`);
       console.log('📋 Registration data:', allRegistrations);
       
-      // Debug: Check if registrations have required fields
-      allRegistrations.forEach((reg, index) => {
-        console.log(`Registration ${index + 1}:`, {
-          id: reg.id,
-          firstName: reg.firstName,
-          lastName: reg.lastName,
-          email: reg.email,
-          eventTitle: reg.eventTitle,
-          status: reg.status
-        });
-      });
-      
       setRegistrations(allRegistrations);
     } catch (error) {
       console.error("❌ Error fetching registrations:", error);
@@ -229,28 +217,14 @@ const AdminRegistrations = () => {
   };
 
   const filteredRegistrations = registrations.filter(registration => {
-    // Debug: Log each registration being filtered
-    console.log('Filtering registration:', {
-      id: registration.id,
-      firstName: registration.firstName,
-      lastName: registration.lastName,
-      email: registration.email,
-      eventTitle: registration.eventTitle,
-      status: registration.status,
-      hasRequiredFields: !!(registration.firstName && registration.lastName && registration.email)
-    });
-    
     const matchesFilter = filter === 'all' || registration.status === filter;
     const matchesSearch = 
-      (registration.firstName && registration.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (registration.lastName && registration.lastName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (registration.email && registration.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (registration.eventTitle && registration.eventTitle.toLowerCase().includes(searchTerm.toLowerCase()));
+      registration.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      registration.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      registration.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      registration.eventTitle.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const result = matchesFilter && matchesSearch;
-    console.log('Filter result:', { matchesFilter, matchesSearch, result });
-    
-    return result;
+    return matchesFilter && matchesSearch;
   });
 
   const getStatusBadge = (status) => {
@@ -369,43 +343,18 @@ const AdminRegistrations = () => {
 
       {/* Registrations List */}
       <div className="registrations-list">
-        {/* Debug info */}
-        <div style={{background: '#f0f0f0', padding: '10px', margin: '10px 0', borderRadius: '5px'}}>
-          <strong>Debug Info:</strong> 
-          Total registrations: {registrations.length} | 
-          Filtered: {filteredRegistrations.length} | 
-          Filter: {filter} | 
-          Search: "{searchTerm}"
-        </div>
-        
         {filteredRegistrations.length === 0 ? (
           <div className="no-registrations">
             <p>No registrations found matching your criteria.</p>
-            <p>Total registrations in database: {registrations.length}</p>
-            {registrations.length === 0 && (
-              <div style={{background: '#fff3cd', padding: '15px', borderRadius: '5px', marginTop: '10px'}}>
-                <h4>No registrations found in database</h4>
-                <p>To test the admin panel:</p>
-                <ol>
-                  <li>Go to <a href="/events" target="_blank">Events page</a></li>
-                  <li>Register for an event</li>
-                  <li>Come back to this admin page</li>
-                </ol>
-              </div>
-            )}
           </div>
         ) : (
           filteredRegistrations.map(registration => (
             <div key={registration.id} className="registration-card">
               <div className="registration-header">
                 <div className="participant-info">
-                  <h3>{registration.firstName || 'Unknown'} {registration.lastName || 'User'}</h3>
-                  <p className="email">{registration.email || 'No email'}</p>
-                  <p className="event-title">Event: {registration.eventTitle || 'Unknown Event'}</p>
-                  {/* Debug info */}
-                  <div style={{fontSize: '10px', color: '#666', marginTop: '5px'}}>
-                    ID: {registration.id} | Status: {registration.status} | Collection: {registration.collection}
-                  </div>
+                  <h3>{registration.firstName} {registration.lastName}</h3>
+                  <p className="email">{registration.email}</p>
+                  <p className="event-title">Event: {registration.eventTitle}</p>
                 </div>
                 <div className="registration-status">
                   {getStatusBadge(registration.status)}
