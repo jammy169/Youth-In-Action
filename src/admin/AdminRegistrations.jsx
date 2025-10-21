@@ -13,6 +13,7 @@ import {
 } from '../utils/volunteerStatusUtils';
 import { updateServiceHours } from '../utils/userDataUtils';
 import { validateVolunteerStatusChange, getSafeDefaultHours, createAuditLog } from '../utils/volunteerValidationUtils';
+import RegistrationCharts from '../components/RegistrationCharts';
 import './AdminRegistrations.css';
 
 const AdminRegistrations = () => {
@@ -295,6 +296,9 @@ const AdminRegistrations = () => {
           <div className="stat-label">Total Service Hours</div>
         </div>
       </div>
+
+      {/* Charts Section */}
+      <RegistrationCharts stats={stats} />
 
       {/* Filters and Search */}
       <div className="controls-section">
