@@ -132,3 +132,4 @@ console.log('📧 Available functions:');
 console.log('- testGuaranteedEmail() - Test guaranteed email system');
 console.log('- testSimpleEmail() - Test simple email system');
 console.log('- sendDirectEmail(email, subject, message) - Send direct email');
+

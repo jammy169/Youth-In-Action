@@ -184,3 +184,4 @@ if (typeof window !== 'undefined') {
   console.log('- sendAutomatedEventEmail(eventData, email) - Send automated email to user');
   console.log('- sendAutomatedEventEmailsToAll(eventData) - Send automated emails to all users');
 }
+

@@ -10,6 +10,7 @@ import {
   getCategoryIcon,
   EVENT_CATEGORIES 
 } from './utils/eventsService';
+import { calculateImpactStats, formatStatsForDisplay } from './utils/impactStats';
 
 const Events = () => {
   const navigate = useNavigate();
@@ -17,6 +18,12 @@ const Events = () => {
   const [loading, setLoading] = useState(true);
   const [hoveredEvent, setHoveredEvent] = useState(null);
   const [filter, setFilter] = useState('all');
+  const [impactStats, setImpactStats] = useState({
+    activeVolunteers: '0',
+    eventsHosted: '0',
+    communitiesServed: '0'
+  });
+  const [statsLoading, setStatsLoading] = useState(true);
 
   // Load events on component mount
   useEffect(() => {
@@ -48,6 +55,27 @@ const Events = () => {
 
     return () => unsubscribe();
   }, [filter]);
+
+  // Load impact statistics
+  useEffect(() => {
+    const loadImpactStats = async () => {
+      try {
+        setStatsLoading(true);
+        console.log('🔄 Loading impact statistics...');
+        const rawStats = await calculateImpactStats();
+        const formattedStats = formatStatsForDisplay(rawStats);
+        setImpactStats(formattedStats);
+        console.log('✅ Impact statistics loaded:', formattedStats);
+      } catch (error) {
+        console.error('❌ Error loading impact statistics:', error);
+        // Keep default values if loading fails
+      } finally {
+        setStatsLoading(false);
+      }
+    };
+
+    loadImpactStats();
+  }, []);
 
   const filteredEvents = events.filter(event => 
     filter === 'all' || event.category.toLowerCase() === filter.toLowerCase()
@@ -200,15 +228,33 @@ const Events = () => {
         <div className="stats-title">Our Impact</div>
         <div className="stats-grid">
           <div className="stat-item">
-            <div className="stat-number">500+</div>
+            <div className="stat-number">
+              {statsLoading ? (
+                <div className="stat-loading">...</div>
+              ) : (
+                impactStats.activeVolunteers
+              )}
+            </div>
             <div className="stat-label">Active Volunteers</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number">50+</div>
+            <div className="stat-number">
+              {statsLoading ? (
+                <div className="stat-loading">...</div>
+              ) : (
+                impactStats.eventsHosted
+              )}
+            </div>
             <div className="stat-label">Events Hosted</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number">15+</div>
+            <div className="stat-number">
+              {statsLoading ? (
+                <div className="stat-loading">...</div>
+              ) : (
+                impactStats.communitiesServed
+              )}
+            </div>
             <div className="stat-label">Communities Served</div>
           </div>
         </div>

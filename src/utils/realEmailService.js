@@ -142,3 +142,4 @@ if (typeof window !== 'undefined') {
   console.log('- sendRealEventEmail(eventData, email) - Send real email to user');
   console.log('- sendRealEventEmailsToAll(eventData) - Send real emails to all users');
 }
+

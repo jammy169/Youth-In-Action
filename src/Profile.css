@@ -357,6 +357,28 @@
   font-weight: 600;
 }
 
+.email-verification-status {
+  margin-top: 0.5rem;
+}
+
+.verified-badge {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.unverified-badge {
+  background-color: #ff9800;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
 .edit-inputs {
   display: flex;
   gap: 10px;

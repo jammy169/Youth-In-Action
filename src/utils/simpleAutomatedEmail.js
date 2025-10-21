@@ -92,3 +92,4 @@ if (typeof window !== 'undefined') {
 }
 
 export { testSimpleAutomatedEmail, sendSimpleAutomatedEmail };
+

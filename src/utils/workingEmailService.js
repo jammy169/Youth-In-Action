@@ -192,3 +192,4 @@ if (typeof window !== 'undefined') {
   console.log('- sendWorkingEmail(eventData, email) - Send working email to user');
   console.log('- sendWorkingEmailsToAll(eventData) - Send working emails to all users');
 }
+

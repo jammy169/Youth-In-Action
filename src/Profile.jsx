@@ -805,6 +805,15 @@ const Profile = () => {
               <div className="info-item">
                 <span className="label">Email:</span>
                 <span className="value">{userProfile.email}</span>
+                {user && (
+                  <div className="email-verification-status">
+                    {user.emailVerified ? (
+                      <span className="verified-badge">✅ Verified</span>
+                    ) : (
+                      <span className="unverified-badge">⚠️ Unverified - Check your Gmail</span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 

@@ -119,3 +119,4 @@ if (typeof window !== 'undefined') {
   console.log('- testAutoEmail() - Test auto email system');
   console.log('- autoSendEventEmails(eventData) - Auto-send event emails');
 }
+
