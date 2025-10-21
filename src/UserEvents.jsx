@@ -108,7 +108,8 @@ const UserEvents = () => {
                     </div>
                     <div className="event-countdown">
                       <CountdownTimer 
-                        targetDate={event.startDateTime || event.startTime || event.date} 
+                        targetDate={event.startDateTime || event.startTime || event.date}
+                        endDate={event.endDateTime || event.endTime}
                         className="compact success"
                         onComplete={() => console.log(`Event ${event.title} has started!`)}
                       />

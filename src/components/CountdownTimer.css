@@ -244,4 +244,125 @@
   100% { transform: scale(1); }
 }
 
+/* Event status states */
+.countdown-timer.ongoing {
+  opacity: 1;
+}
+
+.countdown-ongoing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  border-radius: 16px;
+  padding: 12px 16px;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+  animation: ongoingPulse 2s ease-in-out infinite;
+}
+
+@keyframes ongoingPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.9; }
+}
+
+.ongoing-icon {
+  font-size: 1.2rem;
+  animation: ongoingIconBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes ongoingIconBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.ongoing-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Finished state */
+.countdown-timer.finished {
+  opacity: 0.9;
+}
+
+.countdown-finished {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  border-radius: 16px;
+  padding: 12px 16px;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.finished-icon {
+  font-size: 1.2rem;
+  animation: finishedIconCheck 1s ease-in-out;
+}
+
+@keyframes finishedIconCheck {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.finished-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Expired state (fallback) */
+.countdown-timer.expired {
+  opacity: 0.8;
+}
+
+.countdown-expired {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 16px;
+  padding: 12px 16px;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  animation: expiredPulse 2s ease-in-out infinite;
+}
+
+@keyframes expiredPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.9; }
+}
+
+.expired-icon {
+  font-size: 1.2rem;
+  animation: expiredIconSpin 2s linear infinite;
+}
+
+@keyframes expiredIconSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.expired-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CountdownTimer.css';
 
-const CountdownTimer = ({ targetDate, className = '', onComplete = null }) => {
+const CountdownTimer = ({ targetDate, endDate = null, className = '', onComplete = null }) => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -10,14 +10,18 @@ const CountdownTimer = ({ targetDate, className = '', onComplete = null }) => {
     total: 0
   });
   const [isExpired, setIsExpired] = useState(false);
+  const [eventStatus, setEventStatus] = useState('upcoming'); // 'upcoming', 'ongoing', 'finished'
 
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
-      const target = new Date(targetDate).getTime();
-      const difference = target - now;
-
-      if (difference > 0) {
+      const startTime = new Date(targetDate).getTime();
+      const endTime = endDate ? new Date(endDate).getTime() : null;
+      
+      // Determine event status
+      if (now < startTime) {
+        setEventStatus('upcoming');
+        const difference = startTime - now;
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
@@ -30,7 +34,17 @@ const CountdownTimer = ({ targetDate, className = '', onComplete = null }) => {
           seconds,
           total: difference
         };
+      } else if (endTime && now < endTime) {
+        setEventStatus('ongoing');
+        return {
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          total: 0
+        };
       } else {
+        setEventStatus('finished');
         return {
           days: 0,
           hours: 0,
@@ -45,7 +59,8 @@ const CountdownTimer = ({ targetDate, className = '', onComplete = null }) => {
       const timeLeft = calculateTimeLeft();
       setTimeLeft(timeLeft);
 
-      if (timeLeft.total <= 0 && !isExpired) {
+      // Handle event status changes
+      if (eventStatus === 'upcoming' && timeLeft.total <= 0) {
         setIsExpired(true);
         if (onComplete) {
           onComplete();
@@ -61,7 +76,30 @@ const CountdownTimer = ({ targetDate, className = '', onComplete = null }) => {
 
     // Cleanup
     return () => clearInterval(timer);
-  }, [targetDate, isExpired, onComplete]);
+  }, [targetDate, endDate, isExpired, onComplete, eventStatus]);
+
+  // Show different messages based on event status
+  if (eventStatus === 'ongoing') {
+    return (
+      <div className={`countdown-timer ongoing ${className}`}>
+        <div className="countdown-ongoing">
+          <span className="ongoing-icon">🚀</span>
+          <span className="ongoing-text">Event Started!</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (eventStatus === 'finished') {
+    return (
+      <div className={`countdown-timer finished ${className}`}>
+        <div className="countdown-finished">
+          <span className="finished-icon">✅</span>
+          <span className="finished-text">Event Finished</span>
+        </div>
+      </div>
+    );
+  }
 
   if (isExpired) {
     return (
