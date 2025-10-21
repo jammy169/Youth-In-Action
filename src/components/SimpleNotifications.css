@@ -1,0 +1,247 @@
+/* SimpleNotifications.css */
+
+.simple-notifications {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.notifications-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.notifications-header h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+
+.notifications-header p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.refresh-btn, .retry-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.refresh-btn:hover, .retry-btn:hover {
+  background: #218838;
+}
+
+.loading-spinner {
+  text-align: center;
+  font-size: 3rem;
+  animation: spin 1s linear infinite;
+  margin: 50px 0;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin: 20px 0;
+}
+
+.error-message h3 {
+  color: #dc3545;
+  margin-bottom: 15px;
+}
+
+.error-message p {
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.no-notifications {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin: 20px 0;
+}
+
+.no-notifications-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.no-notifications h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.no-notifications p {
+  color: #6c757d;
+  margin-bottom: 10px;
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.notification-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.notification-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.notification-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.notification-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
+}
+
+.notification-message {
+  color: #6c757d;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.notification-time {
+  color: #6c757d;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.notification-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e9ecef;
+}
+
+.event-info h4 {
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+}
+
+.event-info p {
+  color: #6c757d;
+  margin: 4px 0;
+  font-size: 0.9rem;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.status-icon {
+  font-size: 1rem;
+}
+
+.status-text {
+  font-size: 0.8rem;
+}
+
+.notifications-info {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 25px;
+  margin-top: 30px;
+}
+
+.notifications-info h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.notifications-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notifications-info li {
+  color: #6c757d;
+  margin-bottom: 8px;
+  padding-left: 0;
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .simple-notifications {
+    padding: 10px;
+  }
+  
+  .notifications-header h1 {
+    font-size: 2rem;
+  }
+  
+  .notification-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .notification-details {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .notification-time {
+    white-space: normal;
+  }
+}

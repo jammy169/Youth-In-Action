@@ -23,12 +23,11 @@ const UserNotifications = () => {
     try {
       setLoading(true);
       
-      // Get user's registrations
+      // Get user's registrations - use simple query without orderBy to avoid index requirement
       const registrationsRef = collection(db, 'registrations');
       const q = query(
         registrationsRef, 
-        where('email', '==', auth.currentUser.email),
-        orderBy('statusUpdatedAt', 'desc')
+        where('email', '==', auth.currentUser.email)
       );
       
       const snapshot = await getDocs(q);
@@ -39,6 +38,13 @@ const UserNotifications = () => {
           id: doc.id,
           ...doc.data()
         });
+      });
+      
+      // Sort client-side instead of using orderBy in query
+      userRegistrations.sort((a, b) => {
+        const dateA = new Date(a.statusUpdatedAt || a.registrationDate || 0);
+        const dateB = new Date(b.statusUpdatedAt || b.registrationDate || 0);
+        return dateB - dateA; // Most recent first
       });
       
       // Create notification objects from registrations
@@ -57,9 +63,17 @@ const UserNotifications = () => {
       }));
       
       setNotifications(notificationList);
+      
+      console.log('✅ Loaded notifications:', notificationList.length);
     } catch (error) {
-      console.error('Error loading notifications:', error);
-      setError(error.message);
+      console.error('❌ Error loading notifications:', error);
+      
+      // Handle specific Firebase errors
+      if (error.message.includes('index')) {
+        setError('Database index required. Please contact admin to set up the database properly.');
+      } else {
+        setError(error.message);
+      }
     } finally {
       setLoading(false);
     }

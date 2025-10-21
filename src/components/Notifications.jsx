@@ -1,9 +1,8 @@
 import React from 'react';
-import UserNotifications from './UserNotifications';
-
+import SimpleNotifications from './SimpleNotifications';
 
 const Notifications = () => {
-  return <UserNotifications />;
+  return <SimpleNotifications />;
 };
 
 export default Notifications; 
