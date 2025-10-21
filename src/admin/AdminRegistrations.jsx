@@ -58,6 +58,18 @@ const AdminRegistrations = () => {
       console.log(`📊 Total registrations found: ${allRegistrations.length}`);
       console.log('📋 Registration data:', allRegistrations);
       
+      // Debug: Check if registrations have required fields
+      allRegistrations.forEach((reg, index) => {
+        console.log(`Registration ${index + 1}:`, {
+          id: reg.id,
+          firstName: reg.firstName,
+          lastName: reg.lastName,
+          email: reg.email,
+          eventTitle: reg.eventTitle,
+          status: reg.status
+        });
+      });
+      
       setRegistrations(allRegistrations);
     } catch (error) {
       console.error("❌ Error fetching registrations:", error);
@@ -343,9 +355,19 @@ const AdminRegistrations = () => {
 
       {/* Registrations List */}
       <div className="registrations-list">
+        {/* Debug info */}
+        <div style={{background: '#f0f0f0', padding: '10px', margin: '10px 0', borderRadius: '5px'}}>
+          <strong>Debug Info:</strong> 
+          Total registrations: {registrations.length} | 
+          Filtered: {filteredRegistrations.length} | 
+          Filter: {filter} | 
+          Search: "{searchTerm}"
+        </div>
+        
         {filteredRegistrations.length === 0 ? (
           <div className="no-registrations">
             <p>No registrations found matching your criteria.</p>
+            <p>Total registrations in database: {registrations.length}</p>
           </div>
         ) : (
           filteredRegistrations.map(registration => (
