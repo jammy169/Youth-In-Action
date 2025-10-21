@@ -12,6 +12,7 @@ import {
 } from './utils/eventsService';
 import { calculateImpactStats, formatStatsForDisplay } from './utils/impactStats';
 import { debugImpactStats, quickDataCheck } from './utils/debugImpactStats';
+import ImpactCharts from './components/ImpactCharts';
 
 const Events = () => {
   const navigate = useNavigate();
@@ -234,75 +235,40 @@ const Events = () => {
         )}
       </div>
 
-      {/* Stats Section */}
-      <div className="events-stats">
-        <div className="stats-title">Our Impact</div>
-        
-        {/* Debug Button - Remove this in production */}
-        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-          <button 
-            onClick={handleDebugStats}
-            style={{
-              background: '#ff6b6b',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              fontSize: '14px'
-            }}
-          >
-            🔍 Debug Database (Check Console)
-          </button>
-          {debugInfo && (
-            <div style={{ 
-              marginTop: '10px', 
-              padding: '10px', 
-              background: 'rgba(255,255,255,0.1)', 
-              borderRadius: '5px',
-              fontSize: '12px'
-            }}>
-              <strong>Database Contents:</strong><br/>
-              Events: {debugInfo.events} | 
-              Registrations: {debugInfo.registrations} | 
-              EventRegistrations: {debugInfo.eventRegistrations} | 
-              Users: {debugInfo.users}
-            </div>
-          )}
-        </div>
-        
-        <div className="stats-grid">
-          <div className="stat-item">
-            <div className="stat-number">
-              {statsLoading ? (
-                <div className="stat-loading">...</div>
-              ) : (
-                impactStats.activeVolunteers
-              )}
-            </div>
-            <div className="stat-label">Active Volunteers</div>
+      {/* Impact Charts Section */}
+      <ImpactCharts stats={impactStats} loading={statsLoading} />
+      
+      {/* Debug Button - Remove this in production */}
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <button 
+          onClick={handleDebugStats}
+          style={{
+            background: '#ff6b6b',
+            color: 'white',
+            border: 'none',
+            padding: '10px 20px',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}
+        >
+          🔍 Debug Database (Check Console)
+        </button>
+        {debugInfo && (
+          <div style={{ 
+            marginTop: '10px', 
+            padding: '10px', 
+            background: 'rgba(255,255,255,0.1)', 
+            borderRadius: '5px',
+            fontSize: '12px'
+          }}>
+            <strong>Database Contents:</strong><br/>
+            Events: {debugInfo.events} | 
+            Registrations: {debugInfo.registrations} | 
+            EventRegistrations: {debugInfo.eventRegistrations} | 
+            Users: {debugInfo.users}
           </div>
-          <div className="stat-item">
-            <div className="stat-number">
-              {statsLoading ? (
-                <div className="stat-loading">...</div>
-              ) : (
-                impactStats.eventsHosted
-              )}
-            </div>
-            <div className="stat-label">Events Hosted</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number">
-              {statsLoading ? (
-                <div className="stat-loading">...</div>
-              ) : (
-                impactStats.communitiesServed
-              )}
-            </div>
-            <div className="stat-label">Communities Served</div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
