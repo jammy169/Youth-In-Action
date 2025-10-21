@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { NotificationProvider } from '../contexts/NotificationContext';
 import './App.css';
 
 // Pages
@@ -64,8 +65,9 @@ import '../utils/customSenderEmail';
 
 function App() {
   return (
-    <Router>
-      <Routes>
+    <NotificationProvider>
+      <Router>
+        <Routes>
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
@@ -128,8 +130,9 @@ function App() {
 
         {/* Event Details Route */}
         {/* <Route path="/event-details" element={<EventDetails />} /> */}
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </NotificationProvider>
   );
 }
 

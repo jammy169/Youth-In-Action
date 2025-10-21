@@ -106,12 +106,18 @@ const SignUp = () => {
       
     } catch (error) {
       console.error('❌ Google sign-in failed:', error);
-      if (error.code === 'auth/popup-closed-by-user') {
+      
+      // Handle specific error types with better messages
+      if (error.code === 'auth/unauthorized-domain') {
+        alert('❌ Domain not authorized!\n\nPlease contact the admin to add this domain to Firebase Console.\n\nDomain: ' + window.location.hostname);
+      } else if (error.code === 'auth/popup-closed-by-user') {
         alert('Sign-in cancelled. Please try again.');
       } else if (error.code === 'auth/popup-blocked') {
         alert('Popup blocked. Please allow popups for this site and try again.');
+      } else if (error.code === 'auth/network-request-failed') {
+        alert('Network error. Please check your internet connection and try again.');
       } else {
-        alert('Google sign-in failed: ' + error.message);
+        alert('Google sign-in failed: ' + error.message + '\n\nError code: ' + error.code);
       }
     }
   };

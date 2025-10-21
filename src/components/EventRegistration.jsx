@@ -6,6 +6,7 @@ import { db } from '../firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { getEventRegistrationStatus } from '../utils/eventRegistrationUtils';
 import { sendRegistrationConfirmationEmail } from '../utils/gmailEmailService';
+import RegistrationSuccessModal from './RegistrationSuccessModal';
 import './EventRegistration.css';
 
 const EventRegistration = () => {
@@ -16,6 +17,7 @@ const EventRegistration = () => {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [registrationStatus, setRegistrationStatus] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -99,9 +101,8 @@ const EventRegistration = () => {
         // Continue with registration even if email fails
       }
 
-      // Show success message and redirect
-      alert('Registration successful! Check your email for confirmation details.');
-      navigate(`/event/${eventId}`);
+      // Show beautiful success modal instead of basic alert
+      setShowSuccessModal(true);
     } catch (error) {
       console.error('Error submitting registration:', error);
       alert('Registration failed. Please try again.');
@@ -113,6 +114,23 @@ const EventRegistration = () => {
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const formatDateTime = (dateString) => {
+    const options = { 
+      weekday: 'long',
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const handleModalClose = () => {
+    setShowSuccessModal(false);
+    navigate('/userevents'); // Navigate to user events page
   };
 
   if (loading) return <div className="loading">Loading...</div>;
@@ -350,6 +368,16 @@ const EventRegistration = () => {
           </div>
         </div>
       </div>
+
+      {/* Beautiful Success Modal */}
+      <RegistrationSuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleModalClose}
+        eventTitle={event?.title}
+        eventDate={event?.date ? formatDateTime(event.date) : ''}
+        eventLocation={event?.location}
+        registrationStatus="pending"
+      />
     </div>
   );
 };
