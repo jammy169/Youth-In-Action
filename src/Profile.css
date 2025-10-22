@@ -586,18 +586,24 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .next-badge-name {
   font-weight: 600;
   font-size: 1rem;
   color: #f39c12;
+  flex: 1;
+  min-width: 0;
 }
 
 .hours-needed {
   font-size: 0.85rem;
   color: #7f8c8d;
   font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .progress-bar-container {
@@ -625,7 +631,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 4px;
+  margin-top: 8px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Badge Preview Section */
@@ -728,6 +738,26 @@
   
   .preview-name {
     font-size: 0.7rem;
+  }
+  
+  .progress-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .next-badge-name {
+    font-size: 0.9rem;
+  }
+  
+  .hours-needed {
+    font-size: 0.8rem;
+  }
+  
+  .progress-text {
+    font-size: 0.75rem;
+    margin-top: 6px;
+    padding: 3px 6px;
   }
 }
 

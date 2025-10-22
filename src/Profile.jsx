@@ -876,7 +876,12 @@ const Profile = () => {
                   <div className="progress-bar-container">
                     <div className="progress-bar" style={{ width: `${progress.progressToNextBadge}%` }}></div>
                   </div>
-                  <span className="progress-text">{Math.round(progress.progressToNextBadge)}% complete</span>
+                  <span className="progress-text">
+                    {progress.totalHours > 0 
+                      ? `${Math.round(progress.progressToNextBadge)}% to next badge` 
+                      : 'Start volunteering to earn your first badge!'
+                    }
+                  </span>
                 </div>
               )}
             </div>
