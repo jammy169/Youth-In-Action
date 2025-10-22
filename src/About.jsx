@@ -156,25 +156,56 @@ const About = () => {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="stats-section">
-        <h2 className="section-title">Our Impact</h2>
-        <div className="stats-grid">
-          <div className="stat-item">
-            <div className="stat-number">500+</div>
-            <div className="stat-label">Youth Empowered</div>
+      {/* Impact Section */}
+      <div className="impact-section">
+        <h2 className="section-title">What We Do</h2>
+        <p className="impact-subtitle">Creating meaningful opportunities for youth to make a real difference in their communities</p>
+        
+        <div className="impact-grid">
+          <div className="impact-card">
+            <div className="impact-icon">🌱</div>
+            <h3>Community Development</h3>
+            <p>We organize clean-up drives, tree planting, and environmental projects that directly benefit local communities.</p>
           </div>
-          <div className="stat-item">
-            <div className="stat-number">50+</div>
-            <div className="stat-label">Projects Completed</div>
+          
+          <div className="impact-card">
+            <div className="impact-icon">🎓</div>
+            <h3>Youth Education</h3>
+            <p>We provide workshops, seminars, and training programs to develop leadership and life skills.</p>
           </div>
-          <div className="stat-item">
-            <div className="stat-number">25+</div>
-            <div className="stat-label">Communities Served</div>
+          
+          <div className="impact-card">
+            <div className="impact-icon">🤝</div>
+            <h3>Volunteer Network</h3>
+            <p>We connect passionate youth with meaningful volunteer opportunities and community service projects.</p>
           </div>
-          <div className="stat-item">
-            <div className="stat-number">100%</div>
-            <div className="stat-label">Passion Driven</div>
+          
+          <div className="impact-card">
+            <div className="impact-icon">🏆</div>
+            <h3>Recognition & Growth</h3>
+            <p>We track volunteer hours, provide certificates, and celebrate achievements to motivate continued service.</p>
+          </div>
+        </div>
+
+        <div className="values-section">
+          <h3>Our Core Values</h3>
+          <div className="values-list">
+            <div className="value-item">
+              <span className="value-icon">💡</span>
+              <span>Innovation - Finding creative solutions to community challenges</span>
+            </div>
+            <div className="value-item">
+              <span className="value-icon">🤝</span>
+              <span>Collaboration - Working together for greater impact</span>
+            </div>
+            <div className="value-item">
+              <span className="value-icon">🌟</span>
+              <span>Excellence - Committed to quality in everything we do</span>
+            </div>
+            <div className="value-item">
+              <span className="value-icon">❤️</span>
+              <span>Service - Putting community needs first</span>
+            </div>
           </div>
         </div>
       </div>
