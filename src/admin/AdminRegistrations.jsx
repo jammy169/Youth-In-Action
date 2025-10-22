@@ -569,8 +569,8 @@ const AdminRegistrations = () => {
                 })()}
               </div>
             </div>
-          )
-        })}
+          ))
+        )}
       </div>
     </div>
   );
