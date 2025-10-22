@@ -73,19 +73,38 @@ const Home = () => {
       {/* Impact Section */}
       <section className="impact">
         <div className="impact-content">
-          <h2>Our Youth Impact</h2>
+          <h2>Join Our Growing Community</h2>
+          <p className="impact-subtitle">Be part of something bigger - where every action creates real change</p>
           <div className="impact-stats">
             <div className="stat">
               <h3>500+</h3>
-              <p>	Active Youth Volunteers</p>
+              <p>Youth Already Making a Difference</p>
             </div>
             <div className="stat">
               <h3>15+</h3>
-              <p>	Communities Engaged</p>
+              <p>Communities We're Transforming</p>
             </div>
             <div className="stat">
               <h3>50+</h3>
-              <p>	Youth-Led Projects</p>
+              <p>Impactful Projects Completed</p>
+            </div>
+          </div>
+          <div className="impact-benefits">
+            <div className="benefit-item">
+              <span className="benefit-icon">🏆</span>
+              <span>Earn recognition & certificates</span>
+            </div>
+            <div className="benefit-item">
+              <span className="benefit-icon">📱</span>
+              <span>Track your volunteer hours</span>
+            </div>
+            <div className="benefit-item">
+              <span className="benefit-icon">🤝</span>
+              <span>Connect with like-minded youth</span>
+            </div>
+            <div className="benefit-item">
+              <span className="benefit-icon">🌟</span>
+              <span>Build leadership skills</span>
             </div>
           </div>
         </div>
@@ -93,16 +112,31 @@ const Home = () => {
 
       {/* Call to Action */}
       <section className="cta">
-        <h2>Ready to Make an Impact?</h2>
-        <p>YouthInAction: Empowering you to lead, inspire, and take action.</p>
-        <motion.button 
-          className="cta-button"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate('/join')}
-        >
-          Start Your Journey
-        </motion.button>
+        <h2>Ready to Start Your Impact Journey?</h2>
+        <p>Join hundreds of youth who are already making a difference in their communities. Your journey to leadership starts here!</p>
+        <div className="cta-buttons">
+          <motion.button 
+            className="cta-button primary"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/join')}
+          >
+            Join YouthInAction Now
+          </motion.button>
+          <motion.button 
+            className="cta-button secondary"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/events')}
+          >
+            Explore Events
+          </motion.button>
+        </div>
+        <div className="cta-features">
+          <span className="feature-tag">✅ Free to Join</span>
+          <span className="feature-tag">✅ No Experience Required</span>
+          <span className="feature-tag">✅ Flexible Schedule</span>
+        </div>
       </section>
     </div>
   );
