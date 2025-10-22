@@ -187,3 +187,4 @@ const RegistrationCharts = ({ stats }) => {
 
 export default RegistrationCharts;
 
+

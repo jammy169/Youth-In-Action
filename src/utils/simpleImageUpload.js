@@ -79,3 +79,4 @@ export const getRandomEventImage = () => {
   return eventImages[Math.floor(Math.random() * eventImages.length)];
 };
 
+

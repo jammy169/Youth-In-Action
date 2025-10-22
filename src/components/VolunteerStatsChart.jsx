@@ -27,92 +27,90 @@ const VolunteerStatsChart = ({ stats }) => {
       </div>
 
       <div className="dashboard-content">
-        {/* Status Overview with Clear Labels */}
+        {/* Modern Donut Chart */}
         <div className="status-overview">
-          <div className="status-chart-container">
-            <div className="status-chart">
-              <div className="chart-center">
-                <div className="total-number">{total}</div>
-                <div className="total-label">Total Applications</div>
+          <div className="modern-donut-container">
+            <div className="donut-chart">
+              {/* Donut segments */}
+              <div className="donut-segment pending" style={{ 
+                '--percentage': `${pendingPercent}%`,
+                '--start-angle': '0deg',
+                '--end-angle': `${pendingPercent * 3.6}deg`
+              }}></div>
+              <div className="donut-segment approved" style={{ 
+                '--percentage': `${approvedPercent}%`,
+                '--start-angle': `${pendingPercent * 3.6}deg`,
+                '--end-angle': `${(pendingPercent + approvedPercent) * 3.6}deg`
+              }}></div>
+              <div className="donut-segment attended" style={{ 
+                '--percentage': `${attendedPercent}%`,
+                '--start-angle': `${(pendingPercent + approvedPercent) * 3.6}deg`,
+                '--end-angle': `${(pendingPercent + approvedPercent + attendedPercent) * 3.6}deg`
+              }}></div>
+              <div className="donut-segment absent" style={{ 
+                '--percentage': `${absentPercent}%`,
+                '--start-angle': `${(pendingPercent + approvedPercent + attendedPercent) * 3.6}deg`,
+                '--end-angle': `${(pendingPercent + approvedPercent + attendedPercent + absentPercent) * 3.6}deg`
+              }}></div>
+              <div className="donut-segment rejected" style={{ 
+                '--percentage': `${rejectedPercent}%`,
+                '--start-angle': `${(pendingPercent + approvedPercent + attendedPercent + absentPercent) * 3.6}deg`,
+                '--end-angle': `${(pendingPercent + approvedPercent + attendedPercent + absentPercent + rejectedPercent) * 3.6}deg`
+              }}></div>
+              
+              {/* Center content */}
+              <div className="donut-center">
+                <div className="center-content">
+                  <div className="center-number">{total}</div>
+                  <div className="center-label">Total</div>
+                </div>
               </div>
-              
-              {/* Status Segments with Clear Labels */}
+            </div>
+            
+            {/* Status indicators around the donut */}
+            <div className="status-indicators">
               {pending > 0 && (
-                <div 
-                  className="status-segment pending" 
-                  style={{ 
-                    '--percentage': `${pendingPercent}%`,
-                    '--color': '#FFA726'
-                  }}
-                  title={`Pending: ${pending} applications (${pendingPercent.toFixed(1)}%)`}
-                >
-                  <div className="segment-badge">
-                    <span className="segment-label">Pending</span>
-                    <span className="segment-count">{pending}</span>
+                <div className="status-indicator pending">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Pending</span>
+                    <span className="indicator-count">{pending}</span>
                   </div>
                 </div>
               )}
-              
               {approved > 0 && (
-                <div 
-                  className="status-segment approved" 
-                  style={{ 
-                    '--percentage': `${approvedPercent}%`,
-                    '--color': '#4CAF50'
-                  }}
-                  title={`Approved: ${approved} applications (${approvedPercent.toFixed(1)}%)`}
-                >
-                  <div className="segment-badge">
-                    <span className="segment-label">Approved</span>
-                    <span className="segment-count">{approved}</span>
+                <div className="status-indicator approved">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Approved</span>
+                    <span className="indicator-count">{approved}</span>
                   </div>
                 </div>
               )}
-              
               {attended > 0 && (
-                <div 
-                  className="status-segment attended" 
-                  style={{ 
-                    '--percentage': `${attendedPercent}%`,
-                    '--color': '#2196F3'
-                  }}
-                  title={`Attended: ${attended} applications (${attendedPercent.toFixed(1)}%)`}
-                >
-                  <div className="segment-badge">
-                    <span className="segment-label">Attended</span>
-                    <span className="segment-count">{attended}</span>
+                <div className="status-indicator attended">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Attended</span>
+                    <span className="indicator-count">{attended}</span>
                   </div>
                 </div>
               )}
-              
               {absent > 0 && (
-                <div 
-                  className="status-segment absent" 
-                  style={{ 
-                    '--percentage': `${absentPercent}%`,
-                    '--color': '#9E9E9E'
-                  }}
-                  title={`Absent: ${absent} applications (${absentPercent.toFixed(1)}%)`}
-                >
-                  <div className="segment-badge">
-                    <span className="segment-label">Absent</span>
-                    <span className="segment-count">{absent}</span>
+                <div className="status-indicator absent">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Absent</span>
+                    <span className="indicator-count">{absent}</span>
                   </div>
                 </div>
               )}
-              
               {rejected > 0 && (
-                <div 
-                  className="status-segment rejected" 
-                  style={{ 
-                    '--percentage': `${rejectedPercent}%`,
-                    '--color': '#F44336'
-                  }}
-                  title={`Rejected: ${rejected} applications (${rejectedPercent.toFixed(1)}%)`}
-                >
-                  <div className="segment-badge">
-                    <span className="segment-label">Rejected</span>
-                    <span className="segment-count">{rejected}</span>
+                <div className="status-indicator rejected">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Rejected</span>
+                    <span className="indicator-count">{rejected}</span>
                   </div>
                 </div>
               )}

@@ -86,3 +86,4 @@ if (typeof window !== 'undefined') {
 export default { testEmailJSConnection, testSimpleEmail };
 
 
+

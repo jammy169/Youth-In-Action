@@ -69,3 +69,4 @@ export const getEventRegistrationsCount = async (eventId) => {
   }
 };
 
+
