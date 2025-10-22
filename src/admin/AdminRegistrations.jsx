@@ -85,14 +85,6 @@ const AdminRegistrations = () => {
       console.log(`📊 Total registrations found: ${allRegistrations.length}`);
       console.log('📋 Registration data:', allRegistrations);
       
-      // Data validation
-      if (allRegistrations.length > 0) {
-        console.log('✅ Sample registration structure:', allRegistrations[0]);
-        console.log('✅ Registration keys:', Object.keys(allRegistrations[0]));
-        console.log('✅ Has firstName?', !!allRegistrations[0].firstName);
-        console.log('✅ Has first_name?', !!allRegistrations[0].first_name);
-        console.log('✅ Has status?', !!allRegistrations[0].status);
-      }
       
       setRegistrations(allRegistrations);
     } catch (error) {
@@ -400,22 +392,6 @@ const AdminRegistrations = () => {
       </div>
 
 
-      {/* Debug Info */}
-      <div style={{background: '#f0f8ff', padding: '15px', margin: '10px 0', borderRadius: '8px', border: '1px solid #007bff'}}>
-        <h3 style={{color: '#007bff', margin: '0 0 10px 0'}}>🔍 DEBUG: Data Analysis</h3>
-        <p><strong>Total registrations:</strong> {registrations.length}</p>
-        <p><strong>Filtered registrations:</strong> {filteredRegistrations.length}</p>
-        <p><strong>Current filter:</strong> {filter}</p>
-        <p><strong>Search term:</strong> "{searchTerm}"</p>
-        {registrations.length > 0 && (
-          <div style={{marginTop: '10px'}}>
-            <p><strong>First registration sample:</strong></p>
-            <pre style={{fontSize: '10px', background: '#fff', padding: '10px', borderRadius: '5px', overflow: 'auto', maxHeight: '150px'}}>
-              {JSON.stringify(registrations[0], null, 2)}
-            </pre>
-          </div>
-        )}
-      </div>
 
       {/* Registrations List */}
       <div className="registrations-list">
@@ -428,15 +404,8 @@ const AdminRegistrations = () => {
             <p>Filtered count: {filteredRegistrations.length}</p>
           </div>
         ) : (
-          // TEMPORARY: Show data even if filtering fails
-          (filteredRegistrations.length > 0 ? filteredRegistrations : registrations.slice(0, 5)).map(registration => {
-            console.log('🎯 Rendering registration card:', registration);
-            return (
-            <div key={registration.id} className="registration-card" style={{border: '2px solid #28a745', margin: '10px 0'}}>
-              {/* TEST: Simple data display to verify content */}
-              <div style={{background: '#d4edda', padding: '10px', margin: '10px', borderRadius: '5px', border: '1px solid #c3e6cb'}}>
-                <strong>✅ DATA FOUND:</strong> ID: {registration.id} | Name: {(registration.firstName || registration.first_name || 'Unknown')} {(registration.lastName || registration.last_name || 'User')} | Status: {registration.status}
-              </div>
+          filteredRegistrations.map(registration => (
+            <div key={registration.id} className="registration-card">
               
               <div className="registration-header">
                 <div className="participant-info">
@@ -584,7 +553,8 @@ const AdminRegistrations = () => {
                 })()}
               </div>
             </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>
