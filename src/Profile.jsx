@@ -227,16 +227,18 @@ const Profile = () => {
             setUserProfile(registrationData);
             setEditForm(registrationData);
             setLoading(false);
-            // Don't call fetchUserData if we have registration data
-            return;
+            // Still call fetchUserData to load events/registrations
+            await fetchUserData(currentUser.email, currentUser.uid);
+            console.log('✅ fetchUserData completed for user with registration data');
           } else {
             console.log('⚠️ No registration data found, creating basic profile');
             const basicProfile = createBasicProfile(currentUser.email);
             setUserProfile(basicProfile);
             setEditForm(basicProfile);
             setLoading(false);
-            // Only call fetchUserData if we don't have registration data
+            // Call fetchUserData to load events/registrations
             await fetchUserData(currentUser.email, currentUser.uid);
+            console.log('✅ fetchUserData completed for user without registration data');
           }
         } catch (error) {
           console.error('❌ Error getting registration data:', error);
@@ -244,8 +246,9 @@ const Profile = () => {
           setUserProfile(basicProfile);
           setEditForm(basicProfile);
           setLoading(false);
-          // Only call fetchUserData if we don't have registration data
+          // Call fetchUserData to load events/registrations
           await fetchUserData(currentUser.email, currentUser.uid);
+          console.log('✅ fetchUserData completed for user with error handling');
         }
       } else {
         console.log('No user authenticated, redirecting to signin'); // Debug log
@@ -343,6 +346,7 @@ const Profile = () => {
       }
 
       // Always set registrations first
+      console.log('📊 Setting registrations in fetchUserData:', userRegistrations.length, 'registrations');
       setRegistrations(userRegistrations);
 
       // First, try to fetch existing user profile from Firestore
@@ -632,6 +636,7 @@ const Profile = () => {
         }
       }
       
+      console.log('🔄 Setting registrations in refreshRegistrations:', userRegistrations.length, 'registrations');
       setRegistrations(userRegistrations);
       setLoading(false);
       
