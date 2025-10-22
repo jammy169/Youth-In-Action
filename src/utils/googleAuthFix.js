@@ -81,3 +81,4 @@ export const checkDomainAuthorization = () => {
       'Domain needs to be added to Firebase Console'
   };
 };
+

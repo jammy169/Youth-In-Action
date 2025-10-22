@@ -212,3 +212,4 @@ const UserNotificationCharts = ({ registrations }) => {
 };
 
 export default UserNotificationCharts;
+

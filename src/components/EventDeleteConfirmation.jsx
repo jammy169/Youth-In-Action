@@ -176,3 +176,4 @@ const EventDeleteConfirmation = ({
 };
 
 export default EventDeleteConfirmation;
+

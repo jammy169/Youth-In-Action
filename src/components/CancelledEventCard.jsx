@@ -88,3 +88,4 @@ const CancelledEventCard = ({ event, registration }) => {
 };
 
 export default CancelledEventCard;
+

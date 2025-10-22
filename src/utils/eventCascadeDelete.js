@@ -68,3 +68,4 @@ export const getEventRegistrationsCount = async (eventId) => {
     return { success: false, message: error.message };
   }
 };
+

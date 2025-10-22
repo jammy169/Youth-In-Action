@@ -244,6 +244,9 @@ const AdminRegistrations = () => {
   };
 
   const filteredRegistrations = registrations.filter(registration => {
+    // Debug the registration object first
+    console.log('🔍 Processing registration:', registration);
+    
     const matchesFilter = filter === 'all' || registration.status === filter;
     
     // Handle different field name variations
@@ -269,7 +272,8 @@ const AdminRegistrations = () => {
         firstName,
         lastName,
         email,
-        eventTitle
+        eventTitle,
+        fullRegistration: registration
       });
     }
     
@@ -302,6 +306,17 @@ const AdminRegistrations = () => {
 
   const calculateStats = () => {
     return getRegistrationStats(registrations);
+  };
+
+  // Data validation function
+  const validateRegistrationData = (registration) => {
+    const issues = [];
+    if (!registration.id) issues.push('Missing ID');
+    if (!registration.status) issues.push('Missing status');
+    if (!registration.firstName && !registration.first_name) issues.push('Missing first name');
+    if (!registration.lastName && !registration.last_name) issues.push('Missing last name');
+    if (!registration.email) issues.push('Missing email');
+    return issues;
   };
 
   if (loading) return <div className="loading">Loading registrations...</div>;
@@ -406,7 +421,21 @@ const AdminRegistrations = () => {
       <div style={{background: '#f8f9fa', padding: '10px', margin: '10px 0', borderRadius: '5px', fontSize: '12px'}}>
         <strong>🔍 Debug Info:</strong> Total: {registrations.length}, Filtered: {filteredRegistrations.length}, Filter: {filter}, Search: "{searchTerm}"
         {filteredRegistrations.length > 0 && (
-          <div>First registration: {JSON.stringify(filteredRegistrations[0], null, 2)}</div>
+          <div style={{marginTop: '10px'}}>
+            <strong>First registration data:</strong>
+            <pre style={{fontSize: '10px', background: '#fff', padding: '5px', borderRadius: '3px', overflow: 'auto', maxHeight: '200px'}}>
+              {JSON.stringify(filteredRegistrations[0], null, 2)}
+            </pre>
+            <div style={{marginTop: '5px', padding: '5px', background: '#e8f4fd', borderRadius: '3px'}}>
+              <strong>Data validation:</strong> {validateRegistrationData(filteredRegistrations[0]).length > 0 ? 
+                validateRegistrationData(filteredRegistrations[0]).join(', ') : 'All required fields present'}
+            </div>
+          </div>
+        )}
+        {registrations.length > 0 && filteredRegistrations.length === 0 && (
+          <div style={{marginTop: '10px', color: '#e74c3c'}}>
+            <strong>⚠️ Issue:</strong> Data exists but filtering is removing all results. Check filter and search terms.
+          </div>
         )}
       </div>
 
@@ -418,22 +447,51 @@ const AdminRegistrations = () => {
             <p>Total registrations in database: {registrations.length}</p>
             <p>Current filter: {filter}</p>
             <p>Search term: "{searchTerm}"</p>
+            <p>Filtered registrations: {filteredRegistrations.length}</p>
+            {registrations.length > 0 && (
+              <div style={{marginTop: '10px', padding: '10px', background: '#f0f0f0', borderRadius: '5px'}}>
+                <p><strong>Sample registration data:</strong></p>
+                <pre style={{fontSize: '10px', overflow: 'auto'}}>
+                  {JSON.stringify(registrations[0], null, 2)}
+                </pre>
+                <div style={{marginTop: '10px', padding: '10px', background: '#fff3cd', borderRadius: '5px', border: '1px solid #ffeaa7'}}>
+                  <p><strong>🔧 Temporary Fix:</strong> Showing first 3 registrations regardless of filter to test display:</p>
+                  {registrations.slice(0, 3).map(reg => (
+                    <div key={reg.id} style={{margin: '10px 0', padding: '10px', background: '#fff', borderRadius: '5px', border: '1px solid #ddd'}}>
+                      <strong>ID:</strong> {reg.id}<br/>
+                      <strong>Name:</strong> {reg.firstName || reg.first_name || 'Unknown'} {reg.lastName || reg.last_name || 'User'}<br/>
+                      <strong>Email:</strong> {reg.email || 'No email'}<br/>
+                      <strong>Status:</strong> {reg.status || 'No status'}<br/>
+                      <strong>Event:</strong> {reg.eventTitle || reg.event_title || 'Unknown Event'}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         ) : (
-          filteredRegistrations.map(registration => (
+          filteredRegistrations.map(registration => {
+            console.log('🎯 Rendering registration:', registration);
+            return (
             <div key={registration.id} className="registration-card">
               <div className="registration-header">
                 <div className="participant-info">
                   <h3>
-                    {registration.firstName || registration.first_name || 'Unknown'} {' '}
-                    {registration.lastName || registration.last_name || 'User'}
+                    {(registration.firstName || registration.first_name || 'Unknown')} {' '}
+                    {(registration.lastName || registration.last_name || 'User')}
                   </h3>
-                  <p className="email">{registration.email || 'No email'}</p>
+                  <p className="email">{registration.email || 'No email provided'}</p>
                   <p className="event-title">Event: {registration.eventTitle || registration.event_title || 'Unknown Event'}</p>
-                  {/* Debug info - remove this later */}
-                  <div style={{fontSize: '10px', color: '#666', marginTop: '5px'}}>
-                    Debug: firstName="{registration.firstName}", lastName="{registration.lastName}", 
-                    first_name="{registration.first_name}", last_name="{registration.last_name}"
+                  {/* Enhanced debug info */}
+                  <div style={{fontSize: '10px', color: '#666', marginTop: '5px', background: '#f0f0f0', padding: '5px', borderRadius: '3px'}}>
+                    <strong>Debug Info:</strong><br/>
+                    ID: {registration.id}<br/>
+                    Status: {registration.status}<br/>
+                    Collection: {registration.collection}<br/>
+                    firstName: "{registration.firstName}" | first_name: "{registration.first_name}"<br/>
+                    lastName: "{registration.lastName}" | last_name: "{registration.last_name}"<br/>
+                    email: "{registration.email}"<br/>
+                    eventTitle: "{registration.eventTitle}" | event_title: "{registration.event_title}"
                   </div>
                 </div>
                 <div className="registration-status">
@@ -574,7 +632,8 @@ const AdminRegistrations = () => {
                 })()}
               </div>
             </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>

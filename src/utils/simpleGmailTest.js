@@ -47,3 +47,4 @@ console.log('Available functions:');
 console.log('- testGmailSimple() - Test Gmail functionality');
 console.log('- openGmail(to, subject, message) - Open Gmail with custom content');
 
+

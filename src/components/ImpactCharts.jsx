@@ -158,3 +158,4 @@ const ImpactCharts = ({ stats, loading }) => {
 };
 
 export default ImpactCharts;
+

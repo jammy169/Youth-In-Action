@@ -108,3 +108,4 @@ export const getRegistrationStats = async () => {
     return { success: false, message: error.message };
   }
 };
+

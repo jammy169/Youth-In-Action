@@ -141,3 +141,4 @@ export const getDetailedStats = (stats) => {
       : 0
   };
 };
+

@@ -80,3 +80,4 @@ export const getEventStatus = (event) => {
     canRegister: true
   };
 };
+

@@ -158,3 +158,4 @@ const RegistrationChecker = () => {
 };
 
 export default RegistrationChecker;
+
