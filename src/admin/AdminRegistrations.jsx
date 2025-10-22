@@ -406,7 +406,7 @@ const AdminRegistrations = () => {
           </div>
 
           {/* Registrations List */}
-          <div className="registrations-list">
+          <div className="registrations-list" style={{overflow: 'visible', minHeight: 'auto'}}>
             {filteredRegistrations.length === 0 ? (
               <div className="no-registrations" style={{textAlign: 'center', padding: '40px', background: '#f8f9fa', borderRadius: '8px', border: '2px dashed #dee2e6'}}>
                 <h3 style={{color: '#6c757d', margin: '0 0 15px 0'}}>No registrations found</h3>
@@ -414,7 +414,7 @@ const AdminRegistrations = () => {
               </div>
             ) : (
               filteredRegistrations.map(registration => (
-            <div key={registration.id} className="registration-card" style={{background: '#ffffff', border: '1px solid #e0e0e0', borderRadius: '8px', margin: '20px 0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)'}}>
+            <div key={registration.id} className="registration-card" style={{background: '#ffffff', border: '1px solid #e0e0e0', borderRadius: '8px', margin: '20px 0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', minHeight: '400px', overflow: 'visible', position: 'relative'}}>
               
               <div className="registration-header" style={{padding: '20px', borderBottom: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                 <div className="participant-info" style={{flex: '1'}}>
