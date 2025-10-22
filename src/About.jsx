@@ -50,7 +50,7 @@ const About = () => {
     {
       id: 5,
       name: "Zachary Jude Malabanan",
-      role: "Quality Assurance",
+      role: "Tester",
       image: zakImage,
       bio: "Ensuring excellence through rigorous testing and quality control.",
       skills: ["Testing", "QA", "Automation"],
