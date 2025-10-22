@@ -540,6 +540,7 @@
   align-items: center;
   gap: 15px;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .badge-icon {
@@ -551,6 +552,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
+  min-width: 0;
 }
 
 .badge-name {
@@ -564,6 +567,10 @@
   color: #27ae60;
   opacity: 0.8;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 /* Next Badge Progress Section */
@@ -615,6 +622,10 @@
   font-weight: 500;
   text-align: center;
   display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 4px;
 }
 
 /* Badge Preview Section */
