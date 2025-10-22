@@ -26,37 +26,123 @@ const RegistrationCharts = ({ stats }) => {
       </div>
 
       <div className="charts-container">
-        {/* Pie Chart */}
+        {/* Modern Donut Chart */}
         <div className="chart-section">
           <h3>📈 Status Distribution</h3>
-          <div className="pie-chart-container">
-            <div className="pie-chart">
-              <div className="pie-slice pending" style={{ 
-                transform: `rotate(0deg)`, 
-                clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos(pendingAngle * Math.PI / 180)}% ${50 + 50 * Math.sin(pendingAngle * Math.PI / 180)}%)` 
-              }}></div>
-              <div className="pie-slice approved" style={{ 
-                transform: `rotate(${pendingAngle}deg)`, 
-                clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos(approvedAngle * Math.PI / 180)}% ${50 + 50 * Math.sin(approvedAngle * Math.PI / 180)}%)` 
-              }}></div>
-              <div className="pie-slice attended" style={{ 
-                transform: `rotate(${pendingAngle + approvedAngle}deg)`, 
-                clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos(attendedAngle * Math.PI / 180)}% ${50 + 50 * Math.sin(attendedAngle * Math.PI / 180)}%)` 
-              }}></div>
-              <div className="pie-slice absent" style={{ 
-                transform: `rotate(${pendingAngle + approvedAngle + attendedAngle}deg)`, 
-                clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos(absentAngle * Math.PI / 180)}% ${50 + 50 * Math.sin(absentAngle * Math.PI / 180)}%)` 
-              }}></div>
-              <div className="pie-slice rejected" style={{ 
-                transform: `rotate(${pendingAngle + approvedAngle + attendedAngle + absentAngle}deg)`, 
-                clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos(rejectedAngle * Math.PI / 180)}% ${50 + 50 * Math.sin(rejectedAngle * Math.PI / 180)}%)` 
-              }}></div>
-            </div>
-            <div className="pie-chart-center">
-              <div className="center-text">
-                <div className="center-number">{stats.total}</div>
-                <div className="center-label">Total</div>
+          <div className="modern-donut-container">
+            <div className="donut-chart">
+              {/* Donut segments with clear labels */}
+              {pendingPercent > 0 && (
+                <div className="donut-segment pending" style={{ 
+                  '--percentage': `${pendingPercent}%`,
+                  '--start-angle': '0deg',
+                  '--end-angle': `${pendingPercent * 3.6}deg`
+                }}>
+                  <div className="segment-label">Pending</div>
+                  <div className="segment-count">{stats.pending || 0}</div>
+                </div>
+              )}
+              
+              {approvedPercent > 0 && (
+                <div className="donut-segment approved" style={{ 
+                  '--percentage': `${approvedPercent}%`,
+                  '--start-angle': `${pendingPercent * 3.6}deg`,
+                  '--end-angle': `${(pendingPercent + approvedPercent) * 3.6}deg`
+                }}>
+                  <div className="segment-label">Approved</div>
+                  <div className="segment-count">{stats.approved || 0}</div>
+                </div>
+              )}
+              
+              {attendedPercent > 0 && (
+                <div className="donut-segment attended" style={{ 
+                  '--percentage': `${attendedPercent}%`,
+                  '--start-angle': `${(pendingPercent + approvedPercent) * 3.6}deg`,
+                  '--end-angle': `${(pendingPercent + approvedPercent + attendedPercent) * 3.6}deg`
+                }}>
+                  <div className="segment-label">Attended</div>
+                  <div className="segment-count">{stats.attended || 0}</div>
+                </div>
+              )}
+              
+              {absentPercent > 0 && (
+                <div className="donut-segment absent" style={{ 
+                  '--percentage': `${absentPercent}%`,
+                  '--start-angle': `${(pendingPercent + approvedPercent + attendedPercent) * 3.6}deg`,
+                  '--end-angle': `${(pendingPercent + approvedPercent + attendedPercent + absentPercent) * 3.6}deg`
+                }}>
+                  <div className="segment-label">Absent</div>
+                  <div className="segment-count">{stats.absent || 0}</div>
+                </div>
+              )}
+              
+              {rejectedPercent > 0 && (
+                <div className="donut-segment rejected" style={{ 
+                  '--percentage': `${rejectedPercent}%`,
+                  '--start-angle': `${(pendingPercent + approvedPercent + attendedPercent + absentPercent) * 3.6}deg`,
+                  '--end-angle': `${(pendingPercent + approvedPercent + attendedPercent + absentPercent + rejectedPercent) * 3.6}deg`
+                }}>
+                  <div className="segment-label">Rejected</div>
+                  <div className="segment-count">{stats.rejected || 0}</div>
+                </div>
+              )}
+              
+              {/* Center content */}
+              <div className="donut-center">
+                <div className="center-content">
+                  <div className="center-number">{stats.total}</div>
+                  <div className="center-label">Total</div>
+                </div>
               </div>
+            </div>
+            
+            {/* Status indicators */}
+            <div className="status-indicators">
+              {stats.pending > 0 && (
+                <div className="status-indicator pending">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Pending</span>
+                    <span className="indicator-count">{stats.pending}</span>
+                  </div>
+                </div>
+              )}
+              {stats.approved > 0 && (
+                <div className="status-indicator approved">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Approved</span>
+                    <span className="indicator-count">{stats.approved}</span>
+                  </div>
+                </div>
+              )}
+              {stats.attended > 0 && (
+                <div className="status-indicator attended">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Attended</span>
+                    <span className="indicator-count">{stats.attended}</span>
+                  </div>
+                </div>
+              )}
+              {stats.absent > 0 && (
+                <div className="status-indicator absent">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Absent</span>
+                    <span className="indicator-count">{stats.absent}</span>
+                  </div>
+                </div>
+              )}
+              {stats.rejected > 0 && (
+                <div className="status-indicator rejected">
+                  <div className="indicator-dot"></div>
+                  <div className="indicator-text">
+                    <span className="indicator-label">Rejected</span>
+                    <span className="indicator-count">{stats.rejected}</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
