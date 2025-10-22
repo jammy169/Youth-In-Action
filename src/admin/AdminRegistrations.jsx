@@ -32,8 +32,6 @@ const AdminRegistrations = () => {
   const fetchRegistrations = async () => {
     try {
       console.log('🔄 Fetching registrations from database...');
-      const auth = getAuth();
-      console.log('🔐 Current user auth state:', auth.currentUser);
       
       // Try both collections to find registrations
       const collections = ['registrations', 'eventRegistrations'];
@@ -86,17 +84,6 @@ const AdminRegistrations = () => {
       }
       
       console.log(`📊 Total registrations found: ${allRegistrations.length}`);
-      console.log('📋 Registration data:', allRegistrations);
-      
-      // Debug: Check if data has the right structure
-      if (allRegistrations.length > 0) {
-        console.log('🔍 First registration structure:', allRegistrations[0]);
-        console.log('🔍 Available fields:', Object.keys(allRegistrations[0]));
-        console.log('🔍 Has firstName?', !!allRegistrations[0].firstName);
-        console.log('🔍 Has first_name?', !!allRegistrations[0].first_name);
-        console.log('🔍 Has status?', !!allRegistrations[0].status);
-        console.log('🔍 Status value:', allRegistrations[0].status);
-      }
       
       setRegistrations(allRegistrations);
     } catch (error) {
@@ -405,51 +392,6 @@ const AdminRegistrations = () => {
 
 
 
-      {/* Debug Info */}
-      <div style={{background: '#fff3cd', padding: '15px', margin: '10px 0', borderRadius: '8px', border: '2px solid #ffeaa7'}}>
-        <h3 style={{color: '#856404', margin: '0 0 10px 0'}}>🔍 DEBUG: Registration Data Analysis</h3>
-        <p><strong>Total registrations:</strong> {registrations.length}</p>
-        <p><strong>Filtered registrations:</strong> {filteredRegistrations.length}</p>
-        <p><strong>Current filter:</strong> {filter}</p>
-        <p><strong>Search term:</strong> "{searchTerm}"</p>
-        {registrations.length > 0 && (
-          <div style={{marginTop: '10px'}}>
-            <p><strong>Sample registration data:</strong></p>
-            <pre style={{fontSize: '10px', background: '#fff', padding: '10px', borderRadius: '5px', overflow: 'auto', maxHeight: '200px'}}>
-              {JSON.stringify(registrations[0], null, 2)}
-            </pre>
-          </div>
-        )}
-      </div>
-
-      {/* Force Display Test */}
-      {registrations.length > 0 && (
-        <div style={{background: '#d4edda', padding: '15px', margin: '10px 0', borderRadius: '8px', border: '2px solid #c3e6cb'}}>
-          <h3 style={{color: '#155724', margin: '0 0 10px 0'}}>✅ FORCE DISPLAY: First 3 Registrations</h3>
-          {registrations.slice(0, 3).map(reg => (
-            <div key={reg.id} style={{margin: '10px 0', padding: '15px', background: '#fff', borderRadius: '8px', border: '1px solid #ddd'}}>
-              <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                <div>
-                  <h4 style={{margin: '0 0 5px 0', color: '#333'}}>
-                    {reg.firstName || reg.first_name || 'Unknown'} {reg.lastName || reg.last_name || 'User'}
-                  </h4>
-                  <p style={{margin: '0 0 5px 0', color: '#666'}}>Email: {reg.email || 'No email'}</p>
-                  <p style={{margin: '0 0 5px 0', color: '#27ae60', fontWeight: '600'}}>Event: {reg.eventTitle || reg.event_title || 'Unknown Event'}</p>
-                  <p style={{margin: '0', color: '#999', fontSize: '0.9rem'}}>Status: {reg.status || 'No status'}</p>
-                </div>
-                <div style={{textAlign: 'right'}}>
-                  <span style={{padding: '4px 8px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: '600', 
-                    background: reg.status === 'pending' ? '#fff3cd' : reg.status === 'approved' ? '#d4edda' : '#f8d7da',
-                    color: reg.status === 'pending' ? '#856404' : reg.status === 'approved' ? '#155724' : '#721c24'
-                  }}>
-                    {reg.status || 'Unknown'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
 
       {/* Registrations List */}
       <div className="registrations-list">
@@ -462,14 +404,8 @@ const AdminRegistrations = () => {
             <p>Filtered count: {filteredRegistrations.length}</p>
           </div>
         ) : (
-          filteredRegistrations.map(registration => {
-            console.log('🎯 Rendering registration:', registration);
-            return (
-            <div key={registration.id} className="registration-card" style={{border: '2px solid #007bff', margin: '10px 0'}}>
-              {/* TEST: Simple data display */}
-              <div style={{background: '#e3f2fd', padding: '10px', margin: '10px', borderRadius: '5px', border: '1px solid #2196f3'}}>
-                <strong>🔍 TEST DATA:</strong> ID: {registration.id} | Name: {(registration.firstName || registration.first_name || 'Unknown')} {(registration.lastName || registration.last_name || 'User')} | Status: {registration.status}
-              </div>
+          filteredRegistrations.map(registration => (
+            <div key={registration.id} className="registration-card">
               
               <div className="registration-header">
                 <div className="participant-info">
@@ -634,7 +570,7 @@ const AdminRegistrations = () => {
               </div>
             </div>
           );
-        })
+        })}
       </div>
     </div>
   );
