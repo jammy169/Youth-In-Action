@@ -379,32 +379,135 @@ const AdminRegistrations = () => {
           </button>
         </div>
 
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search by name, email, or event..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-        </div>
-      </div>
-
-
-
-
-      {/* Registrations List */}
-      <div className="registrations-list">
-        {filteredRegistrations.length === 0 ? (
-          <div className="no-registrations">
-            <p>No registrations found matching your criteria.</p>
-            <p>Total registrations in database: {registrations.length}</p>
-            <p>Current filter: {filter}</p>
-            <p>Search term: "{searchTerm}"</p>
-            <p>Filtered count: {filteredRegistrations.length}</p>
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="Search by name, email, or event..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+            </div>
+            
+            {/* Reset Filters Button */}
+            <div style={{marginTop: '15px', textAlign: 'center'}}>
+              <button 
+                onClick={() => {
+                  setFilter('all');
+                  setSearchTerm('');
+                }}
+                style={{
+                  background: '#007bff',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontWeight: '600'
+                }}
+              >
+                🔄 Reset Filters & Show All
+              </button>
+            </div>
           </div>
-        ) : (
-          filteredRegistrations.map(registration => (
+
+
+
+
+          {/* Debug Information */}
+          <div style={{background: '#f8f9fa', padding: '20px', margin: '20px 0', borderRadius: '8px', border: '1px solid #dee2e6'}}>
+            <h3 style={{color: '#495057', margin: '0 0 15px 0'}}>🔍 Debug Information</h3>
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px'}}>
+              <div>
+                <strong>Total Registrations:</strong> {registrations.length}
+              </div>
+              <div>
+                <strong>Filtered Count:</strong> {filteredRegistrations.length}
+              </div>
+              <div>
+                <strong>Current Filter:</strong> {filter}
+              </div>
+              <div>
+                <strong>Search Term:</strong> "{searchTerm}"
+              </div>
+            </div>
+            
+            {/* Show first few registrations for debugging */}
+            {registrations.length > 0 && (
+              <div style={{marginTop: '20px', padding: '15px', background: 'white', borderRadius: '6px', border: '1px solid #dee2e6'}}>
+                <h4 style={{color: '#495057', margin: '0 0 10px 0'}}>📋 First 3 Registrations (for debugging):</h4>
+                {registrations.slice(0, 3).map((reg, index) => (
+                  <div key={reg.id} style={{padding: '10px', margin: '5px 0', background: '#f8f9fa', borderRadius: '4px', fontSize: '14px'}}>
+                    <strong>#{index + 1}:</strong> {reg.firstName || reg.first_name || 'Unknown'} {reg.lastName || reg.last_name || 'User'} 
+                    ({reg.email || 'No email'}) - Status: {reg.status || 'Unknown'} - Event: {reg.eventTitle || reg.event_title || 'Unknown'}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Registrations List */}
+          <div className="registrations-list">
+            {filteredRegistrations.length === 0 ? (
+              <div>
+                <div className="no-registrations" style={{textAlign: 'center', padding: '40px', background: '#f8f9fa', borderRadius: '8px', border: '2px dashed #dee2e6', marginBottom: '20px'}}>
+                  <h3 style={{color: '#6c757d', margin: '0 0 15px 0'}}>No registrations found with current filters</h3>
+                  <p style={{color: '#6c757d', margin: '0'}}>Try adjusting your filters or search terms</p>
+                </div>
+                
+                {/* Show ALL registrations as fallback */}
+                {registrations.length > 0 && (
+                  <div style={{background: '#fff3cd', padding: '20px', borderRadius: '8px', border: '1px solid #ffeaa7', marginBottom: '20px'}}>
+                    <h3 style={{color: '#856404', margin: '0 0 15px 0'}}>📋 Showing ALL registrations (fallback)</h3>
+                    <p style={{color: '#856404', margin: '0 0 15px 0'}}>Since filtered results are empty, here are all {registrations.length} registrations:</p>
+                    {registrations.slice(0, 5).map(registration => (
+                      <div key={registration.id} style={{background: 'white', padding: '15px', margin: '10px 0', borderRadius: '6px', border: '1px solid #dee2e6'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                          <div>
+                            <strong style={{color: '#333'}}>
+                              {registration.firstName || registration.first_name || 'Unknown'} {' '}
+                              {registration.lastName || registration.last_name || 'User'}
+                            </strong>
+                            <br />
+                            <span style={{color: '#666'}}>{registration.email || 'No email'}</span>
+                            <br />
+                            <span style={{color: '#27ae60', fontWeight: '600'}}>
+                              Event: {registration.eventTitle || registration.event_title || 'Unknown Event'}
+                            </span>
+                          </div>
+                          <div style={{textAlign: 'right'}}>
+                            <span style={{
+                              padding: '4px 8px',
+                              borderRadius: '4px',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                              backgroundColor: registration.status === 'pending' ? '#ffc107' : 
+                                             registration.status === 'approved' ? '#28a745' : 
+                                             registration.status === 'attended' ? '#17a2b8' : 
+                                             registration.status === 'rejected' ? '#dc3545' : '#6c757d',
+                              color: 'white'
+                            }}>
+                              {registration.status?.toUpperCase() || 'UNKNOWN'}
+                            </span>
+                            <br />
+                            <small style={{color: '#666'}}>
+                              {registration.registrationDate ? new Date(registration.registrationDate).toLocaleDateString() : 'No date'}
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {registrations.length > 5 && (
+                      <p style={{color: '#856404', margin: '10px 0 0 0', fontStyle: 'italic'}}>
+                        ... and {registrations.length - 5} more registrations
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : (
+              filteredRegistrations.map(registration => (
             <div key={registration.id} className="registration-card">
               
               <div className="registration-header">
