@@ -5,7 +5,6 @@ import { collection, getDocs, query, doc, setDoc, getDoc, deleteDoc } from 'fire
 import { db } from './firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import ProfilePictureFallback from './components/ProfilePictureFallback';
-import VolunteerStatsChart from './components/VolunteerStatsChart';
 import './Profile.css';
 import './supabaseConfig'; // Setup Supabase bucket and policies
 
@@ -675,31 +674,6 @@ const Profile = () => {
 
   const progress = calculateProgress();
 
-  // Calculate volunteer statistics for the chart
-  const calculateVolunteerStats = () => {
-    const stats = {
-      total: registrations.length,
-      pending: 0,
-      approved: 0,
-      attended: 0,
-      absent: 0,
-      rejected: 0,
-      totalServiceHours: 0
-    };
-
-    registrations.forEach(registration => {
-      const status = registration.status;
-      if (stats.hasOwnProperty(status)) {
-        stats[status]++;
-      }
-      if (status === 'attended' && registration.serviceHours) {
-        stats.totalServiceHours += registration.serviceHours;
-      }
-    });
-
-    return stats;
-  };
-
   return (
     <div className="profile-container">
       <div className="profile-header">
@@ -934,11 +908,6 @@ const Profile = () => {
               )}
             </div>
           </div>
-        </div>
-
-        {/* Volunteer Statistics Dashboard */}
-        <div className="profile-section volunteer-stats-section">
-          <VolunteerStatsChart stats={calculateVolunteerStats()} />
         </div>
 
         {/* Event Activity Feed */}
