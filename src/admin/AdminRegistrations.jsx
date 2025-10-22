@@ -473,12 +473,16 @@ const AdminRegistrations = () => {
               
               <div className="registration-header">
                 <div className="participant-info">
-                  <h3>
+                  <h3 style={{color: '#333', fontSize: '1.5rem', fontWeight: '600', margin: '0 0 0.5rem 0'}}>
                     {registration.firstName || registration.first_name || 'Unknown'} {' '}
                     {registration.lastName || registration.last_name || 'User'}
                   </h3>
-                  <p className="email">{registration.email || 'No email provided'}</p>
-                  <p className="event-title">Event: {registration.eventTitle || registration.event_title || 'Unknown Event'}</p>
+                  <p className="email" style={{color: '#666', fontSize: '1rem', margin: '0 0 0.5rem 0'}}>
+                    {registration.email || 'No email provided'}
+                  </p>
+                  <p className="event-title" style={{color: '#27ae60', fontWeight: '600', margin: '0'}}>
+                    Event: {registration.eventTitle || registration.event_title || 'Unknown Event'}
+                  </p>
                 </div>
                 <div className="registration-status">
                   {getStatusBadge(registration.status)}
@@ -488,36 +492,36 @@ const AdminRegistrations = () => {
                 </div>
               </div>
 
-              <div className="registration-details">
-                <div className="detail-row">
-                  <span className="label">Phone:</span>
-                  <span className="value">{registration.phone || 'Not provided'}</span>
+              <div className="registration-details" style={{padding: '2rem', borderBottom: '1px solid #f0f0f0'}}>
+                <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
+                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Phone:</span>
+                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.phone || 'Not provided'}</span>
                 </div>
-                <div className="detail-row">
-                  <span className="label">Age:</span>
-                  <span className="value">{registration.age || 'Not provided'}</span>
+                <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
+                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Age:</span>
+                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.age || 'Not provided'}</span>
                 </div>
-                <div className="detail-row">
-                  <span className="label">Experience:</span>
-                  <span className="value">{registration.experience || 'Not specified'}</span>
+                <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
+                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Experience:</span>
+                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.experience || 'Not specified'}</span>
                 </div>
-                <div className="detail-row">
-                  <span className="label">Emergency Contact:</span>
-                  <span className="value">
+                <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
+                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Emergency Contact:</span>
+                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>
                     {registration.emergencyContact || 'Not provided'} 
                     {registration.emergencyPhone && ` (${registration.emergencyPhone})`}
                   </span>
                 </div>
                 {registration.dietaryRestrictions && (
-                  <div className="detail-row">
-                    <span className="label">Dietary Restrictions:</span>
-                    <span className="value">{registration.dietaryRestrictions}</span>
+                  <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
+                    <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Dietary Restrictions:</span>
+                    <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.dietaryRestrictions}</span>
                   </div>
                 )}
                 {registration.motivation && (
-                  <div className="detail-row">
-                    <span className="label">Motivation:</span>
-                    <span className="value">{registration.motivation}</span>
+                  <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
+                    <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Motivation:</span>
+                    <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.motivation}</span>
                   </div>
                 )}
                 
@@ -579,7 +583,7 @@ const AdminRegistrations = () => {
                 )}
               </div>
 
-              <div className="registration-actions">
+              <div className="registration-actions" style={{padding: '1.5rem 2rem', background: '#f8f9fa', display: 'flex', gap: '1rem', justifyContent: 'flex-end'}}>
                 {(() => {
                   // Get available actions based on current status and event
                   // For approved registrations, always show attendance options
@@ -610,6 +614,18 @@ const AdminRegistrations = () => {
                       key={index}
                       className={`action-btn ${action.class}`}
                       onClick={() => updateRegistrationStatus(registration.id, action.action)}
+                      style={{
+                        padding: '0.75rem 1.5rem',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontWeight: '600',
+                        fontSize: '0.9rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem'
+                      }}
                     >
                       {action.label}
                     </button>
