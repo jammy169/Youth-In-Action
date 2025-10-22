@@ -3,7 +3,7 @@
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  background: #f8f9fa;
+  background: #f5f6fa;
   min-height: 100vh;
   overflow: visible;
 }
@@ -154,9 +154,11 @@
 .registration-card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
   overflow: visible;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1.5rem;
 }
 
 .registration-card:hover {
@@ -169,8 +171,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #e9ecef;
   gap: 2rem;
+  background: #ffffff;
 }
 
 .participant-info {
@@ -262,19 +265,24 @@
 /* Registration Details */
 .registration-details {
   padding: 2rem;
-  border-bottom: 1px solid #f0f0f0;
-  background: #fafafa;
+  border-bottom: 1px solid #e9ecef;
+  background: #ffffff;
 }
 
 .detail-row {
   display: flex;
   margin-bottom: 1rem;
   align-items: flex-start;
-  padding: 0.75rem;
-  background: #ffffff;
-  border-radius: 6px;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
   border: 1px solid #e9ecef;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.detail-row:hover {
+  background: #f1f3f4;
+  border-color: #dee2e6;
 }
 
 .detail-row:last-child {
@@ -283,7 +291,7 @@
 
 .detail-row .label {
   font-weight: 600;
-  color: #333;
+  color: #495057;
   min-width: 150px;
   margin-right: 1rem;
   flex-shrink: 0;
@@ -293,21 +301,22 @@
 }
 
 .detail-row .value {
-  color: #666;
+  color: #212529;
   flex: 1;
   line-height: 1.5;
   font-size: 0.95rem;
   word-break: break-word;
+  font-weight: 500;
 }
 
 /* Service Hours Section */
 .service-hours-section {
   margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  padding: 1.5rem;
   border-top: 2px solid #e9ecef;
   background: #f8f9fa;
   border-radius: 8px;
-  padding: 1rem;
+  border: 1px solid #e9ecef;
 }
 
 .service-hours-row {
@@ -433,12 +442,12 @@
 /* Registration Actions */
 .registration-actions {
   padding: 1.5rem 2rem;
-  background: #f8f9fa;
+  background: #ffffff;
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
   align-items: center;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #e9ecef;
 }
 
 .action-btn {

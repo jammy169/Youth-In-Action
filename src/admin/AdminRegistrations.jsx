@@ -394,23 +394,13 @@ const AdminRegistrations = () => {
 
 
 
-          {/* Quick Data Check */}
-          <div style={{background: '#e3f2fd', padding: '15px', margin: '20px 0', borderRadius: '8px', border: '1px solid #2196f3'}}>
-            <h4 style={{color: '#1976d2', margin: '0 0 10px 0'}}>🔍 Data Check</h4>
-            <p style={{margin: '0', color: '#1976d2'}}>
-              <strong>Total Registrations:</strong> {registrations.length} | 
-              <strong> Filtered:</strong> {filteredRegistrations.length} | 
-              <strong> Filter:</strong> {filter} | 
-              <strong> Search:</strong> "{searchTerm}"
-            </p>
-          </div>
 
           {/* Registrations List */}
-          <div className="registrations-list" style={{overflow: 'visible', minHeight: 'auto'}}>
+          <div className="registrations-list">
             {filteredRegistrations.length === 0 ? (
-              <div className="no-registrations" style={{textAlign: 'center', padding: '40px', background: '#f8f9fa', borderRadius: '8px', border: '2px dashed #dee2e6'}}>
-                <h3 style={{color: '#6c757d', margin: '0 0 15px 0'}}>No registrations found</h3>
-                <p style={{color: '#6c757d', margin: '0'}}>Try adjusting your filters or search terms</p>
+              <div className="no-registrations">
+                <h3>No registrations found</h3>
+                <p>Try adjusting your filters or search terms</p>
               </div>
             ) : (
               filteredRegistrations.map(registration => (
