@@ -46,8 +46,10 @@ const VolunteerStatsChart = ({ stats }) => {
                   }}
                   title={`Pending: ${pending} applications (${pendingPercent.toFixed(1)}%)`}
                 >
-                  <div className="segment-label">Pending</div>
-                  <div className="segment-count">{pending}</div>
+                  <div className="segment-badge">
+                    <span className="segment-label">Pending</span>
+                    <span className="segment-count">{pending}</span>
+                  </div>
                 </div>
               )}
               
@@ -60,8 +62,10 @@ const VolunteerStatsChart = ({ stats }) => {
                   }}
                   title={`Approved: ${approved} applications (${approvedPercent.toFixed(1)}%)`}
                 >
-                  <div className="segment-label">Approved</div>
-                  <div className="segment-count">{approved}</div>
+                  <div className="segment-badge">
+                    <span className="segment-label">Approved</span>
+                    <span className="segment-count">{approved}</span>
+                  </div>
                 </div>
               )}
               
@@ -74,8 +78,10 @@ const VolunteerStatsChart = ({ stats }) => {
                   }}
                   title={`Attended: ${attended} applications (${attendedPercent.toFixed(1)}%)`}
                 >
-                  <div className="segment-label">Attended</div>
-                  <div className="segment-count">{attended}</div>
+                  <div className="segment-badge">
+                    <span className="segment-label">Attended</span>
+                    <span className="segment-count">{attended}</span>
+                  </div>
                 </div>
               )}
               
@@ -88,8 +94,10 @@ const VolunteerStatsChart = ({ stats }) => {
                   }}
                   title={`Absent: ${absent} applications (${absentPercent.toFixed(1)}%)`}
                 >
-                  <div className="segment-label">Absent</div>
-                  <div className="segment-count">{absent}</div>
+                  <div className="segment-badge">
+                    <span className="segment-label">Absent</span>
+                    <span className="segment-count">{absent}</span>
+                  </div>
                 </div>
               )}
               
@@ -102,8 +110,10 @@ const VolunteerStatsChart = ({ stats }) => {
                   }}
                   title={`Rejected: ${rejected} applications (${rejectedPercent.toFixed(1)}%)`}
                 >
-                  <div className="segment-label">Rejected</div>
-                  <div className="segment-count">{rejected}</div>
+                  <div className="segment-badge">
+                    <span className="segment-label">Rejected</span>
+                    <span className="segment-count">{rejected}</span>
+                  </div>
                 </div>
               )}
             </div>
