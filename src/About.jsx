@@ -187,27 +187,6 @@ const About = () => {
           </div>
         </div>
 
-        <div className="values-section">
-          <h3>Our Core Values</h3>
-          <div className="values-list">
-            <div className="value-item">
-              <span className="value-icon">💡</span>
-              <span>Innovation - Finding creative solutions to community challenges</span>
-            </div>
-            <div className="value-item">
-              <span className="value-icon">🤝</span>
-              <span>Collaboration - Working together for greater impact</span>
-            </div>
-            <div className="value-item">
-              <span className="value-icon">🌟</span>
-              <span>Excellence - Committed to quality in everything we do</span>
-            </div>
-            <div className="value-item">
-              <span className="value-icon">❤️</span>
-              <span>Service - Putting community needs first</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

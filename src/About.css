@@ -382,51 +382,6 @@
   font-size: 1rem;
 }
 
-.values-section {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.values-section h3 {
-  font-size: 2rem;
-  color: #fff;
-  margin-bottom: 30px;
-  font-weight: 600;
-}
-
-.values-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.value-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 20px;
-  background: rgba(45, 45, 48, 0.4);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.value-item:hover {
-  background: rgba(45, 45, 48, 0.6);
-  transform: translateX(5px);
-}
-
-.value-icon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.value-item span:last-child {
-  color: #e5e7eb;
-  font-size: 1rem;
-  line-height: 1.5;
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {
