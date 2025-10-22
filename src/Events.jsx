@@ -11,7 +11,6 @@ import {
   EVENT_CATEGORIES 
 } from './utils/eventsService';
 import { calculateImpactStats, formatStatsForDisplay } from './utils/impactStats';
-import { debugImpactStats, quickDataCheck } from './utils/debugImpactStats';
 import ImpactCharts from './components/ImpactCharts';
 
 const Events = () => {
@@ -26,7 +25,6 @@ const Events = () => {
     communitiesServed: '0'
   });
   const [statsLoading, setStatsLoading] = useState(true);
-  const [debugInfo, setDebugInfo] = useState(null);
 
   // Load events on component mount
   useEffect(() => {
@@ -80,13 +78,6 @@ const Events = () => {
     loadImpactStats();
   }, []);
 
-  // Debug function to check database contents
-  const handleDebugStats = async () => {
-    console.log('🔍 Running debug check...');
-    const debugResults = await quickDataCheck();
-    setDebugInfo(debugResults);
-    await debugImpactStats();
-  };
 
   const filteredEvents = events.filter(event => 
     filter === 'all' || event.category.toLowerCase() === filter.toLowerCase()
@@ -238,38 +229,6 @@ const Events = () => {
       {/* Impact Charts Section */}
       <ImpactCharts stats={impactStats} loading={statsLoading} />
       
-      {/* Debug Button - Remove this in production */}
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <button 
-          onClick={handleDebugStats}
-          style={{
-            background: '#ff6b6b',
-            color: 'white',
-            border: 'none',
-            padding: '10px 20px',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            fontSize: '14px'
-          }}
-        >
-          🔍 Debug Database (Check Console)
-        </button>
-        {debugInfo && (
-          <div style={{ 
-            marginTop: '10px', 
-            padding: '10px', 
-            background: 'rgba(255,255,255,0.1)', 
-            borderRadius: '5px',
-            fontSize: '12px'
-          }}>
-            <strong>Database Contents:</strong><br/>
-            Events: {debugInfo.events} | 
-            Registrations: {debugInfo.registrations} | 
-            EventRegistrations: {debugInfo.eventRegistrations} | 
-            Users: {debugInfo.users}
-          </div>
-        )}
-      </div>
     </div>
   );
 };
