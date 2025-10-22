@@ -394,6 +394,17 @@ const AdminRegistrations = () => {
 
 
 
+          {/* Quick Data Check */}
+          <div style={{background: '#e3f2fd', padding: '15px', margin: '20px 0', borderRadius: '8px', border: '1px solid #2196f3'}}>
+            <h4 style={{color: '#1976d2', margin: '0 0 10px 0'}}>🔍 Data Check</h4>
+            <p style={{margin: '0', color: '#1976d2'}}>
+              <strong>Total Registrations:</strong> {registrations.length} | 
+              <strong> Filtered:</strong> {filteredRegistrations.length} | 
+              <strong> Filter:</strong> {filter} | 
+              <strong> Search:</strong> "{searchTerm}"
+            </p>
+          </div>
+
           {/* Registrations List */}
           <div className="registrations-list">
             {filteredRegistrations.length === 0 ? (
@@ -403,59 +414,59 @@ const AdminRegistrations = () => {
               </div>
             ) : (
               filteredRegistrations.map(registration => (
-            <div key={registration.id} className="registration-card">
+            <div key={registration.id} className="registration-card" style={{background: '#ffffff', border: '1px solid #e0e0e0', borderRadius: '8px', margin: '20px 0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)'}}>
               
-              <div className="registration-header">
-                <div className="participant-info">
-                  <h3 style={{color: '#333', fontSize: '1.5rem', fontWeight: '600', margin: '0 0 0.5rem 0'}}>
+              <div className="registration-header" style={{padding: '20px', borderBottom: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+                <div className="participant-info" style={{flex: '1'}}>
+                  <h3 style={{color: '#333', fontSize: '1.5rem', fontWeight: '600', margin: '0 0 0.5rem 0', display: 'block'}}>
                     {registration.firstName || registration.first_name || 'Unknown'} {' '}
                     {registration.lastName || registration.last_name || 'User'}
                   </h3>
-                  <p className="email" style={{color: '#666', fontSize: '1rem', margin: '0 0 0.5rem 0'}}>
+                  <p className="email" style={{color: '#666', fontSize: '1rem', margin: '0 0 0.5rem 0', display: 'block'}}>
                     {registration.email || 'No email provided'}
                   </p>
-                  <p className="event-title" style={{color: '#27ae60', fontWeight: '600', margin: '0'}}>
+                  <p className="event-title" style={{color: '#27ae60', fontWeight: '600', margin: '0', display: 'block'}}>
                     Event: {registration.eventTitle || registration.event_title || 'Unknown Event'}
                   </p>
                 </div>
-                <div className="registration-status">
+                <div className="registration-status" style={{textAlign: 'right'}}>
                   {getStatusBadge(registration.status)}
-                  <p className="registration-date">
+                  <p className="registration-date" style={{margin: '10px 0 0 0', fontSize: '0.9rem', color: '#666'}}>
                     Registered: {formatDate(registration.registrationDate)}
                   </p>
                 </div>
               </div>
 
-              <div className="registration-details" style={{padding: '2rem', borderBottom: '1px solid #f0f0f0'}}>
-                <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
-                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Phone:</span>
-                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.phone || 'Not provided'}</span>
+              <div className="registration-details" style={{padding: '20px', borderBottom: '1px solid #f0f0f0', background: '#fafafa'}}>
+                <div className="detail-row" style={{display: 'flex', marginBottom: '15px', alignItems: 'flex-start', padding: '10px', background: '#ffffff', borderRadius: '4px'}}>
+                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem', display: 'block'}}>Phone:</span>
+                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5', display: 'block'}}>{registration.phone || 'Not provided'}</span>
                 </div>
-                <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
-                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Age:</span>
-                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.age || 'Not provided'}</span>
+                <div className="detail-row" style={{display: 'flex', marginBottom: '15px', alignItems: 'flex-start', padding: '10px', background: '#ffffff', borderRadius: '4px'}}>
+                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem', display: 'block'}}>Age:</span>
+                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5', display: 'block'}}>{registration.age || 'Not provided'}</span>
                 </div>
-                <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
-                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Experience:</span>
-                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.experience || 'Not specified'}</span>
+                <div className="detail-row" style={{display: 'flex', marginBottom: '15px', alignItems: 'flex-start', padding: '10px', background: '#ffffff', borderRadius: '4px'}}>
+                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem', display: 'block'}}>Experience:</span>
+                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5', display: 'block'}}>{registration.experience || 'Not specified'}</span>
                 </div>
-                <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
-                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Emergency Contact:</span>
-                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>
+                <div className="detail-row" style={{display: 'flex', marginBottom: '15px', alignItems: 'flex-start', padding: '10px', background: '#ffffff', borderRadius: '4px'}}>
+                  <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem', display: 'block'}}>Emergency Contact:</span>
+                  <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5', display: 'block'}}>
                     {registration.emergencyContact || 'Not provided'} 
                     {registration.emergencyPhone && ` (${registration.emergencyPhone})`}
                   </span>
                 </div>
                 {registration.dietaryRestrictions && (
-                  <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
-                    <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Dietary Restrictions:</span>
-                    <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.dietaryRestrictions}</span>
+                  <div className="detail-row" style={{display: 'flex', marginBottom: '15px', alignItems: 'flex-start', padding: '10px', background: '#ffffff', borderRadius: '4px'}}>
+                    <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem', display: 'block'}}>Dietary Restrictions:</span>
+                    <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5', display: 'block'}}>{registration.dietaryRestrictions}</span>
                   </div>
                 )}
                 {registration.motivation && (
-                  <div className="detail-row" style={{display: 'flex', marginBottom: '1rem', alignItems: 'flex-start'}}>
-                    <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem'}}>Motivation:</span>
-                    <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5'}}>{registration.motivation}</span>
+                  <div className="detail-row" style={{display: 'flex', marginBottom: '15px', alignItems: 'flex-start', padding: '10px', background: '#ffffff', borderRadius: '4px'}}>
+                    <span className="label" style={{fontWeight: '600', color: '#333', minWidth: '150px', marginRight: '1rem', display: 'block'}}>Motivation:</span>
+                    <span className="value" style={{color: '#666', flex: '1', lineHeight: '1.5', display: 'block'}}>{registration.motivation}</span>
                   </div>
                 )}
                 
@@ -517,7 +528,7 @@ const AdminRegistrations = () => {
                 )}
               </div>
 
-              <div className="registration-actions" style={{padding: '1.5rem 2rem', background: '#f8f9fa', display: 'flex', gap: '1rem', justifyContent: 'flex-end'}}>
+              <div className="registration-actions" style={{padding: '20px', background: '#f8f9fa', display: 'flex', gap: '15px', justifyContent: 'flex-end', borderTop: '1px solid #e0e0e0'}}>
                 {(() => {
                   // Get available actions based on current status and event
                   // For approved registrations, always show attendance options
@@ -544,23 +555,30 @@ const AdminRegistrations = () => {
                   
                   
                   return availableActions.map((action, index) => (
-                    <button
-                      key={index}
-                      className={`action-btn ${action.class}`}
-                      onClick={() => updateRegistrationStatus(registration.id, action.action)}
-                      style={{
-                        padding: '0.75rem 1.5rem',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontWeight: '600',
-                        fontSize: '0.9rem',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem'
-                      }}
-                    >
+                        <button
+                          key={index}
+                          className={`action-btn ${action.class}`}
+                          onClick={() => updateRegistrationStatus(registration.id, action.action)}
+                          style={{
+                            padding: '12px 24px',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontWeight: '600',
+                            fontSize: '14px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            backgroundColor: action.class === 'approve-btn' ? '#28a745' : 
+                                          action.class === 'reject-btn' ? '#dc3545' : 
+                                          action.class === 'attended-btn' ? '#17a2b8' : 
+                                          action.class === 'absent-btn' ? '#6c757d' : '#007bff',
+                            color: 'white',
+                            minWidth: '120px',
+                            justifyContent: 'center'
+                          }}
+                        >
                       {action.label}
                     </button>
                   ));
