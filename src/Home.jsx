@@ -70,45 +70,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Impact Section */}
-      <section className="impact">
-        <div className="impact-content">
-          <h2>Join Our Growing Community</h2>
-          <p className="impact-subtitle">Be part of something bigger - where every action creates real change</p>
-          <div className="impact-stats">
-            <div className="stat">
-              <h3>500+</h3>
-              <p>Youth Already Making a Difference</p>
-            </div>
-            <div className="stat">
-              <h3>15+</h3>
-              <p>Communities We're Transforming</p>
-            </div>
-            <div className="stat">
-              <h3>50+</h3>
-              <p>Impactful Projects Completed</p>
-            </div>
-          </div>
-          <div className="impact-benefits">
-            <div className="benefit-item">
-              <span className="benefit-icon">🏆</span>
-              <span>Earn recognition & certificates</span>
-            </div>
-            <div className="benefit-item">
-              <span className="benefit-icon">📱</span>
-              <span>Track your volunteer hours</span>
-            </div>
-            <div className="benefit-item">
-              <span className="benefit-icon">🤝</span>
-              <span>Connect with like-minded youth</span>
-            </div>
-            <div className="benefit-item">
-              <span className="benefit-icon">🌟</span>
-              <span>Build leadership skills</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Call to Action */}
       <section className="cta">
