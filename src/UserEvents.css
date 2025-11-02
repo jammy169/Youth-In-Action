@@ -110,10 +110,13 @@
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   position: relative;
-  overflow: hidden;
-  white-space: nowrap;
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
   min-width: 120px;
   text-align: center;
+  line-height: 1.3;
+  hyphens: auto;
 }
 
 .filter-btn::before {
@@ -383,31 +386,34 @@
   }
   
   .event-filters {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    align-items: stretch;
     margin-bottom: 2rem;
-    overflow-x: auto;
     padding: 0 1rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  
-  .event-filters::-webkit-scrollbar {
-    display: none;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .filter-btn {
-    flex-shrink: 0;
-    min-width: 100px;
-    max-width: 140px;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    padding: 0.75rem 0.8rem;
+    font-size: 0.85rem;
     border-radius: 20px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-overflow: clip;
+    overflow: visible;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 48px;
   }
   
   .event-cards {
@@ -446,17 +452,21 @@
   }
   
   .event-filters {
-    gap: 6px;
+    gap: 8px;
     margin-bottom: 1.5rem;
     padding: 0 0.5rem;
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .filter-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-    min-width: 80px;
-    max-width: 120px;
+    padding: 0.65rem 0.7rem;
+    font-size: 0.82rem;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
     border-radius: 18px;
+    min-height: 44px;
+    line-height: 1.3;
   }
   
   .event-card {
@@ -503,17 +513,21 @@
   }
   
   .event-filters {
-    gap: 4px;
+    gap: 6px;
     margin-bottom: 1.2rem;
     padding: 0 0.3rem;
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .filter-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-    min-width: 70px;
-    max-width: 100px;
+    padding: 0.6rem 0.6rem;
+    font-size: 0.78rem;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
     border-radius: 15px;
+    min-height: 40px;
+    line-height: 1.25;
   }
   
   .event-card-title {
