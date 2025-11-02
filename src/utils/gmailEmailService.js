@@ -168,12 +168,81 @@ export const testRegistrationConfirmationEmail = async () => {
   }
 };
 
+/**
+ * Generic Gmail email sender
+ * Opens Gmail compose window with custom subject and message
+ * 
+ * @param {string} userEmail - Recipient email address
+ * @param {string} subject - Email subject
+ * @param {string} message - Email body/message
+ * @returns {Promise<Object>} - Result object with success status
+ */
+export const sendGmailEmail = async (userEmail, subject, message) => {
+  try {
+    console.log('📧 Sending Gmail email...');
+    console.log('To:', userEmail);
+    console.log('Subject:', subject);
+
+    if (!userEmail || !subject || !message) {
+      console.error('❌ Missing required email parameters');
+      return {
+        success: false,
+        message: 'Missing required email parameters (email, subject, message)'
+      };
+    }
+
+    // Get organization email from config
+    const orgEmail = EMAIL_CONFIG?.settings?.organizationEmail || 'youthinactionpoblacion@gmail.com';
+
+    // Create Gmail compose URL
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(userEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    
+    // Open Gmail compose window
+    console.log(`📧 Opening Gmail compose for: ${userEmail}`);
+    const emailWindow = window.open(gmailUrl, '_blank');
+    
+    // Check if popup was blocked
+    if (!emailWindow || emailWindow.closed || typeof emailWindow.closed === 'undefined') {
+      console.warn('⚠️ Popup blocker may have blocked the email window');
+      return {
+        success: false,
+        message: 'Popup blocked - please allow popups for this site',
+        gmailUrl: gmailUrl
+      };
+    }
+    
+    console.log(`✅ Gmail compose opened successfully`);
+    console.log(`📧 NOTE: To send from ${orgEmail}, you must:`);
+    console.log(`   1. Log into Gmail with ${orgEmail}, OR`);
+    console.log(`   2. Use Gmail's "Send mail as" feature in the compose window's "From" dropdown`);
+    
+    return {
+      success: true,
+      message: 'Gmail compose opened successfully',
+      userEmail: userEmail,
+      subject: subject,
+      gmailUrl: gmailUrl,
+      senderEmail: orgEmail
+    };
+
+  } catch (error) {
+    console.error('❌ Error sending Gmail email:', error);
+    return {
+      success: false,
+      message: error.message || 'Failed to send Gmail email',
+      error: error
+    };
+  }
+};
+
 // Make functions available globally for debugging
 if (typeof window !== 'undefined') {
   window.sendRegistrationConfirmationEmail = sendRegistrationConfirmationEmail;
   window.testRegistrationConfirmationEmail = testRegistrationConfirmationEmail;
+  window.sendGmailEmail = sendGmailEmail;
   
   console.log('📧 Gmail Email Service functions available:');
   console.log('- sendRegistrationConfirmationEmail(registrationData, eventData)');
   console.log('- testRegistrationConfirmationEmail()');
+  console.log('- sendGmailEmail(userEmail, subject, message)');
 }
