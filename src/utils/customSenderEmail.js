@@ -1,9 +1,23 @@
 // Custom Sender Email Service - Change the sender account
 // This allows you to specify a different sender account for emails
 
+import { EMAIL_CONFIG } from '../config/emailConfig';
+
 /**
  * Send emails with custom sender account
  * This opens Gmail compose with a different sender account
+ * 
+ * IMPORTANT NOTE ABOUT GMAIL:
+ * Gmail's compose URL cannot change the "From" address via URL parameters.
+ * The email will always send from the account you're logged into.
+ * 
+ * TO SEND FROM ORGANIZATION EMAIL:
+ * Option 1: Log into Gmail with the organization account (youthinaction.ph@gmail.com)
+ * Option 2: Set up "Send mail as" in Gmail:
+ *   - Go to Gmail Settings > Accounts and Import > Send mail as
+ *   - Click "Add another email address"
+ *   - Add your organization email and verify it
+ *   - When composing, use the "From" dropdown to select the organization account
  */
 export const sendEmailsWithCustomSender = async (eventData, senderEmail = 'youthinaction@gmail.com') => {
   try {
@@ -66,12 +80,19 @@ Best regards,
 YouthInAction Team
         `;
         
-        // Create Gmail compose URL with custom sender
-        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(user.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}&from=${encodeURIComponent(senderEmail)}`;
+        // Create Gmail compose URL
+        // NOTE: Gmail's 'from' parameter doesn't work - it always uses the logged-in account
+        // To send from a different account, you must:
+        // 1. Be logged into that account in Gmail, OR
+        // 2. Set up "Send mail as" in Gmail Settings > Accounts and Import
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(user.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
         
         // Open Gmail compose for this user
         window.open(gmailUrl, '_blank');
-        console.log(`✅ Gmail compose opened for: ${user.email} with sender: ${senderEmail}`);
+        console.log(`✅ Gmail compose opened for: ${user.email}`);
+        console.log(`📧 NOTE: To send from ${senderEmail}, you must:`);
+        console.log(`   1. Log into Gmail with ${senderEmail}, OR`);
+        console.log(`   2. Use Gmail's "Send mail as" feature in the compose window's "From" dropdown`);
         
         results.push({
           email: user.email,
@@ -156,9 +177,19 @@ export const testCustomSenderEmail = async (senderEmail = 'youthinaction@gmail.c
 
 /**
  * Send emails with YouthInAction organization account
+ * IMPORTANT: To actually send from this email, you must configure Gmail's "Send mail as" feature:
+ * 1. Log into the Gmail account you want to send FROM (the organization account)
+ * 2. Go to Settings > Accounts and Import > Send mail as > Add another email address
+ * 3. Add the organization email address and verify it
+ * 4. When composing emails, use the dropdown next to "From" to select the organization account
+ * 
+ * Note: The Gmail URL 'from' parameter doesn't work - Gmail always uses the logged-in account.
+ * You must be logged into the organization account OR use "Send mail as" feature.
  */
 export const sendEmailsWithOrgAccount = async (eventData) => {
-  const orgEmail = 'youthinaction@gmail.com'; // Change this to your organization email
+  // Get organization email from config, or use default
+  const orgEmail = EMAIL_CONFIG?.settings?.organizationEmail || 'youthinaction.ph@gmail.com';
+  console.log('📧 Using organization email:', orgEmail);
   return await sendEmailsWithCustomSender(eventData, orgEmail);
 };
 

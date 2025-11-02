@@ -28,7 +28,9 @@ export const EMAIL_CONFIG = {
     fromName: 'YouthInAction',
     fromEmail: 'noreply@youthinaction.com',
     replyTo: 'info@youthinaction.com',
-    websiteUrl: 'https://youth-in-action.vercel.app'
+    websiteUrl: 'https://youth-in-action.vercel.app',
+    // Organization email for sending event notifications
+    organizationEmail: 'youthinactionpoblacion@gmail.com' // Organization Gmail account
   }
 };
 

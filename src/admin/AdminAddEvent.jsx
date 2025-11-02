@@ -135,14 +135,6 @@ const AdminAddEvent = () => {
       console.log('📧 Sending emails to ALL registered users with organization account...');
       const notificationResult = await sendEmailsWithOrgAccount(eventData);
       
-      if (notificationResult.success) {
-        console.log('✅ Emails sent to ALL registered users with organization account successfully');
-        alert(`Event added successfully! System found ${notificationResult.userCount} registered users and opened ${notificationResult.successCount} Gmail compose windows with organization account (${notificationResult.senderEmail})!`);
-      } else {
-        console.log('⚠️ Email notifications with organization account failed:', notificationResult.message);
-        alert('Event added successfully, but email notifications with organization account failed.');
-      }
-
       // Reset form
       setForm({
         title: '',
@@ -157,7 +149,24 @@ const AdminAddEvent = () => {
       setSelectedFile(null);
       setImagePreview(null);
 
-      navigate('/admin');
+      // Navigate back to admin dashboard with success message
+      if (notificationResult.success) {
+        console.log('✅ Emails sent successfully, navigating to admin dashboard...');
+        navigate('/admin', { 
+          state: { 
+            success: true,
+            message: `Event added successfully!\n\n📧 Gmail compose windows opened for ${notificationResult.successCount} users.\n📝 From: ${notificationResult.senderEmail}\n\n💡 Remember to select the organization email in the "From" dropdown when sending!`
+          } 
+        });
+      } else {
+        console.log('⚠️ Email notifications failed, navigating to admin dashboard...');
+        navigate('/admin', { 
+          state: { 
+            success: false,
+            message: `Event added successfully!\n\n⚠️ Email notifications failed: ${notificationResult.message}`
+          } 
+        });
+      }
     } catch (error) {
       console.error('Error adding document: ', error);
       alert(`Failed to add event: ${error.message}`);

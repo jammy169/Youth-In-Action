@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FaUserCircle, FaPlusSquare, FaUsers, FaClipboardList, FaComments, FaCalendarAlt, FaUserCheck, FaClock, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
@@ -10,6 +10,7 @@ import './AdminDashboard.css';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [searchQuery, setSearchQuery] = useState('');
     const [events, setEvents] = useState([]);
     const [registrations, setRegistrations] = useState([]);
@@ -17,8 +18,23 @@ const AdminDashboard = () => {
     const [feedbackCount, setFeedbackCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [showUserManagement, setShowUserManagement] = useState(false);
+    const [successMessage, setSuccessMessage] = useState(null);
 
     const auth = getAuth(); // <-- NEW: Get the auth service
+
+    // Check for success message from navigation state
+    useEffect(() => {
+        if (location.state?.message) {
+            setSuccessMessage(location.state.message);
+            // Clear the state so message doesn't persist on refresh
+            window.history.replaceState({}, document.title);
+            // Auto-hide message after 8 seconds
+            const timer = setTimeout(() => {
+                setSuccessMessage(null);
+            }, 8000);
+            return () => clearTimeout(timer);
+        }
+    }, [location]);
 
     // Fetch users from Firestore
     const fetchUsers = async () => {
@@ -212,6 +228,46 @@ const AdminDashboard = () => {
 
     return (
         <div className="admin-dashboard-root">
+            {/* Success Message Banner */}
+            {successMessage && (
+                <div className="admin-success-message" style={{
+                    position: 'fixed',
+                    top: '20px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: '#27ae60',
+                    color: 'white',
+                    padding: '20px 30px',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    zIndex: 1000,
+                    maxWidth: '600px',
+                    whiteSpace: 'pre-line',
+                    textAlign: 'center',
+                    fontSize: '14px',
+                    lineHeight: '1.6'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px' }}>
+                        <span style={{ flex: 1 }}>{successMessage}</span>
+                        <button 
+                            onClick={() => setSuccessMessage(null)}
+                            style={{
+                                background: 'rgba(255,255,255,0.2)',
+                                border: 'none',
+                                color: 'white',
+                                cursor: 'pointer',
+                                padding: '5px 10px',
+                                borderRadius: '4px',
+                                fontSize: '18px',
+                                lineHeight: 1
+                            }}
+                        >
+                            ×
+                        </button>
+                    </div>
+                </div>
+            )}
+            
             <header className="admin-header">
                 <div className="admin-header-content">
                     <h1>Admin Dashboard</h1>

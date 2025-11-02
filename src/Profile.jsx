@@ -705,6 +705,21 @@ const Profile = () => {
                 <button className="edit-profile-btn" onClick={handleEditClick}>
                   Edit Profile
                 </button>
+                <button 
+                  className="logout-btn" 
+                  onClick={async () => {
+                    try {
+                      await signOut(auth);
+                      console.log('✅ User signed out successfully');
+                      navigate('/signin');
+                    } catch (error) {
+                      console.error('❌ Error signing out:', error);
+                      alert('Error signing out. Please try again.');
+                    }
+                  }}
+                >
+                  🚪 Sign Out
+                </button>
                 <button className="delete-account-btn" onClick={handleDeleteAccount}>
                   🗑️ Delete Account
                 </button>

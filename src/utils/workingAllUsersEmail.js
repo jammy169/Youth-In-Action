@@ -42,7 +42,7 @@ export const getWorkingAllUsers = async () => {
     return allUsers;
     
   } catch (error) {
-    console.error('❌ Error getting ALL users:', error);
+    console.error('❌ Error getting users:', error);
     return [];
   }
 };
