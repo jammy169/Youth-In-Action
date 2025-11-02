@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 // Import local images
 import meetingImage from './assets/meeting-presentation.jpg';
 import heroBackgroundImage from './assets/hero-background.jpg';
-import heroBackgroundImage from './assets/community.jpg';
-import heroBackgroundImage from './assets/Barangay Recognition.jpg';
+import community from './assets/community.jpg';
+import recognition from './assets/Barangay Recognition.jpg';
 
 
 const Home = () => {
@@ -53,7 +53,7 @@ const Home = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-           <img src={meetingImage} alt="Barangay Recognition" />
+           <img src={recognition} alt="Barangay Recognition" />
             <h3>Barangay Recognition</h3>
             <p>Get acknowledged during barangay programs and events for your volunteer service</p>
           </motion.div>
@@ -63,7 +63,7 @@ const Home = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <img src={meetingImage} alt="Community Service" />
+            <img src={community} alt="Community Service" />
             <h3>Community Service</h3>
             <p>Be part of clean-up drives, tree planting, and activities that directly help our barangay</p>
           </motion.div>
