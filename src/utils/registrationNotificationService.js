@@ -10,7 +10,7 @@ import { STATUS_CONFIG } from './volunteerStatusUtils';
  * 
  * @param {Object} registrationData - Current registration data
  * @param {string} newStatus - New status (pending, approved, rejected, attended, absent)
- * @returns {Promise<Object>} - Result object with success status
+ * @returns {Promise<Object>} - Result object with success status and gmailUrl
  */
 export const sendStatusChangeNotification = async (registrationData, newStatus) => {
   try {
@@ -167,11 +167,8 @@ For inquiries, please contact us through our website or email directly.`;
     // Create Gmail compose URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(userEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
     
-    // Open Gmail compose window
-    console.log(`📧 Opening Gmail compose for status change notification: ${userEmail}`);
-    window.open(gmailUrl, '_blank');
-    
-    console.log(`✅ Status change notification email compose opened successfully`);
+    console.log(`📧 Gmail compose URL created for status change notification: ${userEmail}`);
+    console.log(`📧 URL: ${gmailUrl.substring(0, 100)}...`);
     console.log(`📧 Status: ${currentStatus} → ${newStatus}`);
     console.log(`📧 NOTE: To send from ${orgEmail}, you must:`);
     console.log(`   1. Log into Gmail with ${orgEmail}, OR`);

@@ -143,13 +143,35 @@ const AdminRegistrations = () => {
       await updateDoc(registrationRef, updateData);
 
       // Send notification to user about status change
+      // IMPORTANT: Open window BEFORE async import to avoid popup blocker
+      // Browsers only allow window.open() when directly triggered by user action
+      const notificationWindow = window.open('about:blank', '_blank');
+      
       try {
         const { sendStatusChangeNotification } = await import('../utils/registrationNotificationService');
-        await sendStatusChangeNotification(currentRegistration, newStatus);
+        
+        // Get notification URL and update the already-opened window
+        const notificationResult = await sendStatusChangeNotification(currentRegistration, newStatus);
+        
+        if (notificationWindow && !notificationWindow.closed && notificationResult.gmailUrl) {
+          // Redirect the already-opened window to Gmail
+          notificationWindow.location.href = notificationResult.gmailUrl;
+          console.log('✅ Notification window opened and redirected to Gmail');
+        } else if (!notificationWindow || notificationWindow.closed) {
+          console.warn('⚠️ Notification window was closed or blocked');
+          // Fallback: try opening directly (might still be blocked)
+          window.open(notificationResult.gmailUrl, '_blank');
+        }
+        
         console.log('✅ Notification sent to user about status change');
       } catch (notificationError) {
         console.error('❌ Failed to send notification:', notificationError);
-        // Continue even if notification fails
+        // Close window if it was opened but failed
+        if (notificationWindow && !notificationWindow.closed) {
+          notificationWindow.close();
+        }
+        // Show alert if popup was blocked
+        alert(`⚠️ Email notification could not be opened automatically.\n\nUser: ${currentRegistration.email}\nStatus changed to: ${newStatus}\n\nPlease send an email manually to notify the user.`);
       }
 
       // Create audit log for status change
