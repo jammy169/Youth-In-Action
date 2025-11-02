@@ -73,43 +73,87 @@ const AdminDashboard = () => {
 
             console.log('🗑️ Starting user deletion process for:', userEmail);
 
-            // 1. Delete user data from Firestore
-            try {
-                // Delete from users collection
-                const userDocRef = doc(db, 'users', userId);
-                await deleteDoc(userDocRef);
-                console.log('✅ Deleted user data from users collection');
+            let deletedCount = 0;
+            let errorCount = 0;
+            const errors = [];
 
-                // Delete from registrations collection
+            // 1. Delete from users collection (check if exists first)
+            try {
+                const userDocRef = doc(db, 'users', userId);
+                const userDocSnap = await getDoc(userDocRef);
+                
+                if (userDocSnap.exists()) {
+                    await deleteDoc(userDocRef);
+                    console.log('✅ Deleted user data from users collection');
+                    deletedCount++;
+                } else {
+                    console.log('ℹ️ User document does not exist in users collection (may have been deleted already)');
+                }
+            } catch (userError) {
+                console.error('❌ Error deleting from users collection:', userError);
+                errors.push(`Users collection: ${userError.message}`);
+                errorCount++;
+            }
+
+            // 2. Delete from userProfiles collection (if exists)
+            try {
+                const userProfileRef = doc(db, 'userProfiles', userId);
+                const userProfileSnap = await getDoc(userProfileRef);
+                
+                if (userProfileSnap.exists()) {
+                    await deleteDoc(userProfileRef);
+                    console.log('✅ Deleted user profile from userProfiles collection');
+                    deletedCount++;
+                } else {
+                    console.log('ℹ️ User profile does not exist in userProfiles collection');
+                }
+            } catch (profileError) {
+                console.error('❌ Error deleting from userProfiles collection:', profileError);
+                errors.push(`UserProfiles collection: ${profileError.message}`);
+                errorCount++;
+            }
+
+            // 3. Delete from registrations collection (by email match)
+            try {
                 const registrationsRef = collection(db, 'registrations');
                 const registrationsSnapshot = await getDocs(registrationsRef);
                 
                 const deletePromises = [];
                 registrationsSnapshot.forEach((docSnapshot) => {
                     const data = docSnapshot.data();
-                    if (data.email === userEmail) {
-                        deletePromises.push(deleteDoc(docSnapshot.ref));
+                    if (data.email === userEmail || data.userId === userId) {
+                        deletePromises.push(deleteDoc(docSnapshot.ref).catch(err => {
+                            console.error(`❌ Error deleting registration ${docSnapshot.id}:`, err);
+                            errors.push(`Registration ${docSnapshot.id}: ${err.message}`);
+                            return null; // Return null so Promise.all doesn't fail completely
+                        }));
                     }
                 });
                 
-                if (deletePromises.length > 0) {
-                    await Promise.all(deletePromises);
-                    console.log(`✅ Deleted ${deletePromises.length} user registrations`);
+                const results = await Promise.all(deletePromises);
+                const successfulDeletes = results.filter(r => r !== null).length;
+                
+                if (successfulDeletes > 0) {
+                    console.log(`✅ Deleted ${successfulDeletes} user registrations`);
+                    deletedCount += successfulDeletes;
                 } else {
                     console.log('ℹ️ No registrations found for this user');
                 }
-            } catch (firestoreError) {
-                console.error('❌ Error deleting Firestore data:', firestoreError);
-                alert('❌ Error deleting user data: ' + firestoreError.message);
-                return;
+            } catch (regError) {
+                console.error('❌ Error deleting registrations:', regError);
+                errors.push(`Registrations: ${regError.message}`);
+                errorCount++;
             }
 
-            // 2. Note: We cannot delete Firebase Auth users from client-side
-            // This would need to be done from Firebase Admin SDK on server-side
-            console.log('⚠️ Note: Firebase Auth user deletion requires server-side implementation');
-            console.log('✅ Firestore data deleted successfully');
-
-            alert('✅ User data deleted successfully!\n\nNote: Firebase Auth user still exists and needs to be deleted from Firebase Console or Admin SDK.');
+            // 4. Summary
+            if (errorCount > 0) {
+                const errorMessage = errors.join('\n');
+                alert(`⚠️ Partial deletion completed:\n\n✅ Successfully deleted: ${deletedCount} items\n❌ Errors: ${errorCount}\n\nError details:\n${errorMessage}\n\nNote: Some data may still exist. Firebase Auth user needs to be deleted manually from Firebase Console.`);
+            } else if (deletedCount > 0) {
+                alert(`✅ User data deleted successfully!\n\nDeleted ${deletedCount} items from Firestore.\n\nNote: Firebase Auth user still exists and needs to be deleted from Firebase Console if not already deleted.`);
+            } else {
+                alert('ℹ️ No user data found to delete. User may have already been deleted.\n\nNote: Check Firebase Console to verify if Firebase Auth user exists.');
+            }
 
             // Refresh users list
             await fetchUsers();
