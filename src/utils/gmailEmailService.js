@@ -1,130 +1,179 @@
-// Gmail Email Service - Opens Gmail directly
-// This will open Gmail in your browser instead of your PC's mail app
+// Gmail Email Service - Registration Confirmation Emails
+// Sends registration confirmation emails via Gmail compose
+
+import { EMAIL_CONFIG } from '../config/emailConfig';
 
 /**
- * Send email via Gmail (opens Gmail in browser)
- */
-export const sendGmailEmail = async (to, subject, message) => {
-  try {
-    console.log('📧 SENDING EMAIL VIA GMAIL...');
-    console.log('To:', to);
-    console.log('Subject:', subject);
-    console.log('Message:', message);
-    
-    // Create Gmail compose URL
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-    
-    // Don't open Gmail automatically - let the modal handle the user experience
-    console.log('📧 Gmail compose URL ready (not opening automatically):', gmailUrl);
-    
-    return { 
-      success: true, 
-      message: 'Gmail opened in new tab',
-      gmailUrl: gmailUrl
-    };
-  } catch (error) {
-    console.error('❌ Error opening Gmail:', error);
-    return { success: false, message: error.message };
-  }
-};
-
-/**
- * Send registration confirmation via Gmail
+ * Send registration confirmation email to user
+ * Opens Gmail compose window with pre-filled registration confirmation email
+ * 
+ * @param {Object} registrationData - Registration data from user
+ * @param {Object} eventData - Event data
+ * @returns {Promise<Object>} - Result object with success status
  */
 export const sendRegistrationConfirmationEmail = async (registrationData, eventData) => {
   try {
-    console.log('📧 Sending registration confirmation via Gmail...');
+    console.log('📧 Sending registration confirmation email...');
+    console.log('Registration Data:', registrationData);
+    console.log('Event Data:', eventData);
+
+    if (!registrationData || !eventData) {
+      console.error('❌ Missing registration or event data');
+      return {
+        success: false,
+        message: 'Missing registration or event data'
+      };
+    }
+
+    const userEmail = registrationData.email;
+    const userName = `${registrationData.firstName || ''} ${registrationData.lastName || ''}`.trim() || 'Volunteer';
     
-    const subject = `Registration Confirmation - ${eventData.title}`;
-    const message = `
-Hello ${registrationData.firstName}!
+    // Format event date
+    let eventDateStr = 'Date TBD';
+    if (eventData.startDateTime) {
+      try {
+        const eventDate = new Date(eventData.startDateTime);
+        eventDateStr = eventDate.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      } catch (dateError) {
+        console.warn('⚠️ Error formatting date:', dateError);
+      }
+    } else if (eventData.date) {
+      eventDateStr = eventData.date;
+    }
 
-Thank you for registering for our volunteer event:
+    // Get organization email from config
+    const orgEmail = EMAIL_CONFIG?.settings?.organizationEmail || 'youthinactionpoblacion@gmail.com';
+    const websiteUrl = EMAIL_CONFIG?.settings?.websiteUrl || 'https://youth-in-action.vercel.app';
 
-Event: ${eventData.title}
-Date: ${new Date(eventData.startDateTime).toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    })}
-Location: ${eventData.location}
-Organizer: ${eventData.organizer}
+    // Create email subject
+    const subject = `✅ Registration Confirmation: ${eventData.title || 'Event'}`;
 
-Description: ${eventData.description}
+    // Create email body
+    const message = `Hello ${userName}!
 
-Registration Status: Pending Approval
-We will review your registration and notify you of the approval status.
+Thank you for registering for our volunteer event! Your registration has been received and is pending admin approval.
 
-You can view your events at: https://youth-in-action.vercel.app/userevents
+📋 REGISTRATION DETAILS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 EVENT: ${eventData.title || 'Volunteer Event'}
+📅 DATE & TIME: ${eventDateStr}
+📍 LOCATION: ${eventData.location || 'TBD'}
+👤 ORGANIZER: ${eventData.organizer || 'YouthInAction Team'}
+📝 DESCRIPTION: ${eventData.description || 'Community service event'}
 
-If you have any questions, please contact us at info@youthinaction.com
+👤 YOUR INFORMATION:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Name: ${userName}
+Email: ${userEmail}
+Phone: ${registrationData.phone || 'N/A'}
+Age: ${registrationData.age || 'N/A'}
+
+📊 REGISTRATION STATUS: Pending Approval
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Your registration is now pending admin approval. You will be notified via email once your status changes.
+
+⏰ APPROVAL PROCESS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• We typically review registrations within 24 hours
+• You'll receive an email notification when your status changes
+• Check your email regularly for updates
+
+🔗 NEXT STEPS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Check your email for approval status updates
+• View your event registrations: ${websiteUrl}/userevents
+• Contact us if you have questions
+
+💚 Thank you for your interest in volunteering with YouthInAction!
 
 Best regards,
 YouthInAction Team
-    `;
+${orgEmail}
+
+---
+This is an automated confirmation email. Please do not reply directly to this email.
+For inquiries, please contact us through our website or email directly.`;
+
+    // Create Gmail compose URL
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(userEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
     
-    const result = await sendGmailEmail(registrationData.email, subject, message);
-    return result;
+    // Open Gmail compose window
+    console.log(`📧 Opening Gmail compose for: ${userEmail}`);
+    window.open(gmailUrl, '_blank');
+    
+    console.log(`✅ Registration confirmation email compose opened successfully`);
+    console.log(`📧 NOTE: To send from ${orgEmail}, you must:`);
+    console.log(`   1. Log into Gmail with ${orgEmail}, OR`);
+    console.log(`   2. Use Gmail's "Send mail as" feature in the compose window's "From" dropdown`);
+    
+    return {
+      success: true,
+      message: 'Registration confirmation email compose opened',
+      userEmail: userEmail,
+      userName: userName,
+      eventTitle: eventData.title,
+      gmailUrl: gmailUrl,
+      senderEmail: orgEmail
+    };
+
   } catch (error) {
-    console.error('Error sending Gmail registration confirmation:', error);
-    return { success: false, message: error.message };
+    console.error('❌ Error sending registration confirmation email:', error);
+    return {
+      success: false,
+      message: error.message || 'Failed to send registration confirmation email',
+      error: error
+    };
   }
 };
 
 /**
- * Test Gmail email functionality
+ * Test registration confirmation email
  */
-export const testGmailEmail = async () => {
+export const testRegistrationConfirmationEmail = async () => {
   try {
-    console.log('🧪 Testing Gmail email functionality...');
+    console.log('🧪 Testing registration confirmation email...');
     
-    const testMessage = `
-This is a test email from YouthInAction to verify the email system is working.
-
-If you receive this email, the email notification system is functioning correctly!
-
-Timestamp: ${new Date().toISOString()}
-
-Best regards,
-YouthInAction Team
-    `;
+    const testRegistration = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'test@example.com',
+      phone: '123-456-7890',
+      age: '25'
+    };
     
-    const result = await sendGmailEmail(
-      'jamestellore@gmail.com',
-      'Test Email from YouthInAction',
-      testMessage
-    );
+    const testEvent = {
+      title: 'Community Clean-up Drive - TEST',
+      description: 'This is a test event for email confirmation',
+      startDateTime: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      location: 'Test Location, Toledo City',
+      organizer: 'YouthInAction Team'
+    };
     
+    const result = await sendRegistrationConfirmationEmail(testRegistration, testEvent);
     return result;
   } catch (error) {
-    console.error('Error testing Gmail email:', error);
-    return { success: false, message: error.message };
+    console.error('❌ Error testing registration confirmation email:', error);
+    return {
+      success: false,
+      message: error.message,
+      error: error
+    };
   }
 };
 
-// Make functions available globally
+// Make functions available globally for debugging
 if (typeof window !== 'undefined') {
-  window.sendGmailEmail = sendGmailEmail;
   window.sendRegistrationConfirmationEmail = sendRegistrationConfirmationEmail;
-  window.testGmailEmail = testGmailEmail;
+  window.testRegistrationConfirmationEmail = testRegistrationConfirmationEmail;
   
-  // Add a simple test function that's easier to call
-  window.testGmail = () => {
-    console.log('🧪 Testing Gmail email functionality...');
-    const testEmail = 'jamestellore@gmail.com';
-    const testSubject = 'Test Email from YouthInAction (Gmail)';
-    const testMessage = 'This is a test email to verify the Gmail system is working!';
-    return sendGmailEmail(testEmail, testSubject, testMessage);
-  };
-  
-  console.log('🧪 Gmail email functions available in console:');
-  console.log('- testGmail() - Test Gmail email functionality (simple)');
-  console.log('- testGmailEmail() - Test Gmail email functionality (full)');
-  console.log('- sendGmailEmail(to, subject, message) - Send email via Gmail');
-  console.log('- sendRegistrationConfirmationEmail(registrationData, eventData) - Send registration confirmation via Gmail');
+  console.log('📧 Gmail Email Service functions available:');
+  console.log('- sendRegistrationConfirmationEmail(registrationData, eventData)');
+  console.log('- testRegistrationConfirmationEmail()');
 }
-
-// Functions are already exported individually above
