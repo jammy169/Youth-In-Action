@@ -11,24 +11,20 @@ service cloud.firestore {
     }
     
     // Allow users to read and write their own profile
+    // Allow admins to delete any user profile
     match /userProfiles/{userId} {
       allow read: if request.auth != null;
-      allow write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
+      allow write: if request.auth != null && request.auth.uid == userId;
       allow delete: if (request.auth != null && request.auth.uid == userId) || isAdmin();
     }
     
     // Allow users to read and write their own user document
+    // Allow authenticated users to read user emails for notifications (for email system)
     // Allow admins to delete any user document
     match /users/{userId} {
       allow read: if request.auth != null;
       allow write: if request.auth != null && request.auth.uid == userId;
-      allow delete: if request.auth != null && (request.auth.uid == userId || isAdmin());
-    }
-    
-    // Allow authenticated users to read user emails for notifications
-    // This allows the email notification system to get user emails
-    match /users/{userId} {
-      allow read: if request.auth != null;
+      allow delete: if (request.auth != null && request.auth.uid == userId) || isAdmin();
     }
     
     // Allow users to read and write their own event registrations

@@ -82,21 +82,41 @@ const SignUp = () => {
       console.log('✅ Google sign-in successful:', user.email);
       
       // Save user data to Firestore
+      // Extract firstName and lastName from displayName
+      const displayName = user.displayName || user.email.split('@')[0];
+      const nameParts = displayName.split(' ');
+      const firstName = nameParts[0] || 'User';
+      const lastName = nameParts.slice(1).join(' ') || 'Name';
+      
       try {
         await ensureUserData(user, {
-          username: user.displayName?.split(' ')[0] || user.email.split('@')[0],
-          displayName: user.displayName || user.email.split('@')[0],
-          age: null, // Google doesn't provide age
+          // Profile fields (what Profile page expects)
+          firstName: firstName,
+          lastName: lastName,
+          displayName: displayName,
+          username: firstName.toLowerCase(),
           email: user.email,
-          phone: user.phoneNumber || '',
+          age: '20', // Default age (as string, not null)
+          phone: user.phoneNumber || '00 000 000 0000',
           sitio: '',
           barangay: '',
           // Google-specific data
           provider: 'google',
           googleId: user.uid,
-          profileImage: user.photoURL || null
+          profileImage: user.photoURL || null,
+          photoURL: user.photoURL || null,
+          // Timestamp
+          createdAt: new Date().toISOString(),
+          joinedYear: new Date().getFullYear().toString()
         });
-        console.log('✅ Google user data saved to Firestore');
+        console.log('✅ Google user data saved to Firestore with proper format');
+        console.log('📝 Saved data:', {
+          firstName,
+          lastName,
+          email: user.email,
+          age: '20',
+          phone: user.phoneNumber || '00 000 000 0000'
+        });
       } catch (firestoreError) {
         console.warn('⚠️ Firestore write failed, but user is signed in:', firestoreError);
       }
