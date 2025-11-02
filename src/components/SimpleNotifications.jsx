@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import UserNotificationCharts from './UserNotificationCharts';
 import './SimpleNotifications.css';
 
@@ -12,18 +12,37 @@ const SimpleNotifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
   const auth = getAuth();
 
   useEffect(() => {
-    if (auth.currentUser) {
-      loadUserNotifications();
-    }
-  }, [auth.currentUser]);
+    // Use onAuthStateChanged to properly handle auth state changes
+    // This ensures it works on page refresh when Firebase is restoring the session
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        loadUserNotifications(currentUser);
+      } else {
+        setLoading(false);
+        setError('Please sign in to view notifications');
+      }
+    });
 
-  const loadUserNotifications = async () => {
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []); // Empty dependency array - only run once on mount
+
+  const loadUserNotifications = async (currentUser = user || auth.currentUser) => {
+    if (!currentUser) {
+      setLoading(false);
+      setError('Please sign in to view notifications');
+      return;
+    }
+
     try {
       setLoading(true);
-      console.log('🔄 Loading notifications for:', auth.currentUser.email);
+      setError(null);
+      console.log('🔄 Loading notifications for:', currentUser.email);
       
       // Get all registrations and filter client-side to avoid index requirements
       const registrationsRef = collection(db, 'registrations');
@@ -32,7 +51,7 @@ const SimpleNotifications = () => {
       const userRegistrations = [];
       snapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.email === auth.currentUser.email) {
+        if (data.email === currentUser.email) {
           userRegistrations.push({
             id: doc.id,
             ...data
