@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 // Import local images
 import meetingImage from './assets/meeting-presentation.jpg';
+import heroBackgroundImage from './assets/hero-background.jpg';
 
 
 const Home = () => {
@@ -11,7 +12,12 @@ const Home = () => {
   return (
     <div className="home">
       {/* Hero Section */}
-      <section className="hero">
+      <section 
+        className="hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${heroBackgroundImage})`
+        }}
+      >
         <div className="hero-overlay"></div>
         <motion.div 
           className="hero-content"
