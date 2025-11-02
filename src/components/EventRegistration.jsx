@@ -5,7 +5,6 @@ import { doc, getDoc, collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { getEventRegistrationStatus } from '../utils/eventRegistrationUtils';
-import { sendRegistrationConfirmationEmail } from '../utils/gmailEmailService';
 import RegistrationSuccessModal from './RegistrationSuccessModal';
 import './EventRegistration.css';
 
@@ -87,19 +86,9 @@ const EventRegistration = () => {
 
       await addDoc(collection(db, 'registrations'), registrationData);
 
-      // Send email confirmation
-      console.log('📧 Sending registration confirmation email...');
-      try {
-        const emailResult = await sendRegistrationConfirmationEmail(registrationData, event);
-        if (emailResult.success) {
-          console.log('✅ Registration confirmation email sent successfully');
-        } else {
-          console.log('⚠️ Email sending failed:', emailResult.message);
-        }
-      } catch (emailError) {
-        console.error('❌ Email sending error:', emailError);
-        // Continue with registration even if email fails
-      }
+      // Note: Email confirmation will be sent by admin from the Admin Dashboard
+      // Admin can use the "📧 Send Confirmation Email" button in Manage Registrations
+      console.log('✅ Registration saved successfully. Admin will send confirmation email from dashboard.');
 
       // Show beautiful success modal instead of basic alert
       setShowSuccessModal(true);

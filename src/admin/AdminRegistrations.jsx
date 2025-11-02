@@ -1,6 +1,6 @@
 // AdminRegistrations.jsx
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, doc, updateDoc, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, query, orderBy, getDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { db } from '../firebaseConfig';
 import { 
@@ -14,6 +14,7 @@ import {
 } from '../utils/volunteerStatusUtils';
 import { updateServiceHours } from '../utils/userDataUtils';
 import { validateVolunteerStatusChange, getSafeDefaultHours, createAuditLog } from '../utils/volunteerValidationUtils';
+import { sendRegistrationConfirmationEmail } from '../utils/gmailEmailService';
 import RegistrationCharts from '../components/RegistrationCharts';
 import './AdminRegistrations.css';
 
@@ -263,6 +264,66 @@ const AdminRegistrations = () => {
 
   const handleServiceHoursInputChange = (registrationId, value) => {
     setServiceHoursInputs(prev => ({ ...prev, [registrationId]: value }));
+  };
+
+  // Send confirmation email to user
+  const handleSendConfirmationEmail = async (registration) => {
+    try {
+      console.log('📧 Admin sending confirmation email for registration:', registration.id);
+      
+      // Prepare registration data for email
+      const registrationData = {
+        firstName: registration.firstName || registration.first_name || 'User',
+        lastName: registration.lastName || registration.last_name || 'Name',
+        email: registration.email,
+        phone: registration.phone || '',
+        age: registration.age || ''
+      };
+
+      // Fetch event data if eventId exists
+      let eventData = {
+        title: registration.eventTitle || registration.event_title || 'Event',
+        location: registration.location || 'TBD',
+        organizer: registration.organizer || 'YouthInAction Team',
+        description: registration.description || 'Community service event'
+      };
+
+      // Try to fetch full event details if eventId exists
+      if (registration.eventId) {
+        try {
+          const eventDocRef = doc(db, 'events', registration.eventId);
+          const eventDocSnap = await getDoc(eventDocRef);
+          if (eventDocSnap.exists()) {
+            const eventInfo = eventDocSnap.data();
+            eventData = {
+              ...eventData,
+              title: eventInfo.title || eventData.title,
+              location: eventInfo.location || eventData.location,
+              organizer: eventInfo.organizer || eventData.organizer,
+              description: eventInfo.description || eventData.description,
+              startDateTime: eventInfo.startDateTime || eventInfo.date || null,
+              date: eventInfo.date || null
+            };
+          }
+        } catch (eventError) {
+          console.warn('⚠️ Could not fetch event details, using registration data:', eventError);
+        }
+      }
+
+      // Send the confirmation email
+      const emailResult = await sendRegistrationConfirmationEmail(registrationData, eventData);
+      
+      if (emailResult.success) {
+        alert(`✅ Confirmation email compose opened for ${registrationData.email}!\n\nCheck the Gmail compose window to send the email.`);
+        console.log('✅ Confirmation email compose opened successfully');
+      } else {
+        alert(`⚠️ Could not open email compose: ${emailResult.message}`);
+        console.error('❌ Failed to open email compose:', emailResult);
+      }
+    } catch (error) {
+      console.error('❌ Error sending confirmation email:', error);
+      alert(`❌ Failed to send confirmation email: ${error.message}`);
+    }
   };
 
   const filteredRegistrations = registrations.filter(registration => {
@@ -541,6 +602,15 @@ const AdminRegistrations = () => {
               </div>
 
               <div className="registration-actions">
+                {/* Send Confirmation Email Button - Available for all registrations */}
+                <button
+                  className="action-btn email-btn"
+                  onClick={() => handleSendConfirmationEmail(registration)}
+                  title="Send confirmation email to user"
+                >
+                  📧 Send Confirmation Email
+                </button>
+                
                 {(() => {
                   // Get available actions based on current status and event
                   // For approved registrations, always show attendance options

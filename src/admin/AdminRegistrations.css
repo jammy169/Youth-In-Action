@@ -517,6 +517,18 @@
   transform: translateY(-2px);
 }
 
+.email-btn {
+  background: #3498db;
+  color: #fff;
+  border: none;
+}
+
+.email-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
 /* No Registrations */
 .no-registrations {
   text-align: center;
