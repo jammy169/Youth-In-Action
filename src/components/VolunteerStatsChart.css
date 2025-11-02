@@ -266,22 +266,24 @@
 .volunteer-stats {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  margin-top: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
 }
 
 .stat-card {
   background: #ffffff;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  padding: 16px;
+  border: none;
+  border-left: 4px solid #27ae60;
+  border-radius: 12px;
+  padding: 24px 20px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   transition: all 0.3s ease;
-  min-height: 70px;
+  min-height: 90px;
   position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .stat-card:hover {
@@ -302,44 +304,43 @@
 }
 
 .stat-icon {
-  font-size: 20px;
-  width: 36px;
-  height: 36px;
+  font-size: 28px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f8f9fa;
-  border-radius: 8px;
+  border-radius: 10px;
   flex-shrink: 0;
 }
 
 .stat-content {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .stat-number {
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 700;
   color: #2c3e50;
-  line-height: 1;
-  margin-bottom: 4px;
+  line-height: 1.1;
+  margin: 0;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .stat-label {
-  font-size: 10px;
+  font-size: 11px;
   color: #7f8c8d;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  line-height: 1.2;
+  line-height: 1.3;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* Legend */
@@ -413,21 +414,28 @@
   }
   
   .volunteer-stats {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
   }
   
   .stat-card {
-    padding: 14px;
-    min-height: 65px;
+    padding: 20px 16px;
+    min-height: 85px;
+    gap: 14px;
+  }
+  
+  .stat-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
   }
   
   .stat-number {
-    font-size: 18px;
+    font-size: 24px;
   }
   
   .stat-label {
-    font-size: 9px;
+    font-size: 10px;
   }
   
   .status-legend {
@@ -489,27 +497,28 @@
   }
   
   .volunteer-stats {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
   }
   
   .stat-card {
-    padding: 12px;
-    min-height: 60px;
+    padding: 18px 14px;
+    min-height: 80px;
+    gap: 12px;
   }
   
   .stat-number {
-    font-size: 16px;
+    font-size: 22px;
   }
   
   .stat-label {
-    font-size: 8px;
-    line-height: 1.2;
+    font-size: 9px;
+    line-height: 1.3;
   }
   
   .stat-icon {
-    font-size: 16px;
-    width: 28px;
-    height: 28px;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
   }
 }
