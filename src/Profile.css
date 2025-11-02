@@ -368,6 +368,14 @@
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 500;
+  display: inline-block;
+}
+
+.unverified-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .unverified-badge {
@@ -377,6 +385,33 @@
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 500;
+  display: inline-block;
+}
+
+.resend-verification-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 250px;
+}
+
+.resend-verification-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.resend-verification-btn:active {
+  transform: translateY(0);
 }
 
 .edit-inputs {

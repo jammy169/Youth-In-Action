@@ -1,6 +1,6 @@
 // src/components/Profile.jsx
 import React, { useEffect, useState, useRef } from 'react';
-import { getAuth, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider, sendEmailVerification } from 'firebase/auth';
 import { collection, getDocs, query, doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import { useNavigate } from 'react-router-dom';
@@ -836,7 +836,35 @@ const Profile = () => {
                     {user.emailVerified ? (
                       <span className="verified-badge">✅ Verified</span>
                     ) : (
-                      <span className="unverified-badge">⚠️ Unverified - Check your Gmail</span>
+                      <div className="unverified-section">
+                        <span className="unverified-badge">⚠️ Unverified - Check your Gmail</span>
+                        <button 
+                          className="resend-verification-btn"
+                          onClick={async () => {
+                            try {
+                              const currentUser = auth.currentUser;
+                              if (!currentUser) {
+                                alert('❌ No user logged in');
+                                return;
+                              }
+                              
+                              console.log('📧 Resending email verification to:', currentUser.email);
+                              await sendEmailVerification(currentUser);
+                              alert(`✅ Verification email sent!\n\nPlease check your inbox at ${currentUser.email}\n\nIf you don't see it, check your spam folder.`);
+                            } catch (error) {
+                              console.error('❌ Error sending verification email:', error);
+                              if (error.code === 'auth/too-many-requests') {
+                                alert('⚠️ Too many verification emails sent. Please wait a few minutes before requesting another.');
+                              } else {
+                                alert(`❌ Failed to send verification email: ${error.message}`);
+                              }
+                            }
+                          }}
+                          title="Click to resend verification email"
+                        >
+                          📧 Resend Verification Email
+                        </button>
+                      </div>
                     )}
                   </div>
                 )}
