@@ -108,10 +108,16 @@ const Profile = () => {
       await deleteUser(currentUser);
       console.log('✅ Deleted Firebase Auth user');
 
-      // 3. Sign out and redirect
+      // 3. Sign out and redirect to sign in with success message
       await signOut(auth);
-      alert('✅ Account successfully deleted!');
-      navigate('/');
+      
+      // Navigate to sign in page with success message
+      navigate('/signin', { 
+        state: { 
+          accountDeleted: true,
+          message: '✅ Your account has been successfully deleted. All your data has been permanently removed.'
+        } 
+      });
       
     } catch (error) {
       console.error('❌ Error deleting account:', error);
