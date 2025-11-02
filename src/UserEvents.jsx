@@ -13,6 +13,8 @@ import {
   getCategoryIcon,
   EVENT_CATEGORIES 
 } from './utils/eventsService';
+// Import local background image
+import heroBackgroundImage from './assets/hero-background.jpg';
 
 const UserEvents = () => {
   const [events, setEvents] = useState([]);
@@ -58,7 +60,12 @@ const UserEvents = () => {
   return (
     <div className="user-events-root">
       {/* Hero Banner Section */}
-      <section className="user-events-hero">
+      <section 
+        className="user-events-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${heroBackgroundImage})`
+        }}
+      >
         <div className="user-events-hero-overlay"></div>
         <div className="user-events-hero-content">
           <h1>Why Wait? Get involved today by volunteering at our next event and be a positive force for change in your community!</h1>

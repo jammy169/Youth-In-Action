@@ -714,7 +714,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://scontent.fceb1-5.fna.fbcdn.net/v/t1.15752-9/550739900_1920819388650542_2960841421357627488_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFOJ7Y5AbwSjxdIleZWo5D6Uu_yQj4OoGZS7_JCPg6gZidT3_eOQnyUVwRzs8DoNh7Inh_O6DLAAOydutqR9EHA&_nc_ohc=B1YbR4tooBIQ7kNvwFN2jhi&_nc_oc=Adnub0OTfxEcD5ZdaaFC4CAV5n0l0RjmCCGj1_HHzxtMJ53o95t-Wd9TiKMgsUoxojk&_nc_zt=23&_nc_ht=scontent.fceb1-5.fna&oh=03_Q7cD3QEeihsEBotd0iO5ve3X7WHtWITIfbN1ToePaox4SvNwhQ&oe=68FEB71B') center/cover no-repeat;
+  /* Background image is set via inline style in UserEvents.jsx */
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
