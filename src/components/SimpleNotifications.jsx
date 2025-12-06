@@ -32,8 +32,11 @@ const SimpleNotifications = () => {
     return () => unsubscribe();
   }, []); // Empty dependency array - only run once on mount
 
-  const loadUserNotifications = async (currentUser = user || auth.currentUser) => {
-    if (!currentUser) {
+  const loadUserNotifications = async (currentUser = null) => {
+    // Get the current user - prefer passed user, then state, then auth.currentUser
+    const activeUser = currentUser || user || auth.currentUser;
+    
+    if (!activeUser) {
       setLoading(false);
       setError('Please sign in to view notifications');
       return;
@@ -42,7 +45,7 @@ const SimpleNotifications = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log('🔄 Loading notifications for:', currentUser.email);
+      console.log('🔄 Loading notifications for:', activeUser.email);
       
       // Get all registrations and filter client-side to avoid index requirements
       const registrationsRef = collection(db, 'registrations');
@@ -51,7 +54,7 @@ const SimpleNotifications = () => {
       const userRegistrations = [];
       snapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.email === currentUser.email) {
+        if (data.email === activeUser.email) {
           userRegistrations.push({
             id: doc.id,
             ...data
@@ -169,7 +172,26 @@ const SimpleNotifications = () => {
       <div className="notifications-header">
         <h1>🔔 Your Notifications</h1>
         <p>Stay updated on your event registrations and status changes</p>
-        <button onClick={loadUserNotifications} className="refresh-btn">
+        <button 
+          onClick={() => {
+            // Ensure we have a user before refreshing
+            const currentUser = user || auth.currentUser;
+            if (currentUser) {
+              loadUserNotifications(currentUser);
+            } else {
+              // If no user, wait a bit for auth to initialize
+              setTimeout(() => {
+                const retryUser = auth.currentUser;
+                if (retryUser) {
+                  loadUserNotifications(retryUser);
+                } else {
+                  setError('Please sign in to view notifications');
+                }
+              }, 500);
+            }
+          }} 
+          className="refresh-btn"
+        >
           🔄 Refresh
         </button>
       </div>

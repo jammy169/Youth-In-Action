@@ -100,3 +100,5 @@ If you don't want to select it each time:
 
 **Summary**: Set up "Send mail as" once, then select the organization email from the "From" dropdown in each compose window.
 
+
+

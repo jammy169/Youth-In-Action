@@ -69,3 +69,5 @@ This looks more professional but requires:
 
 **Tip**: After creating the account, log into it once to verify it works, then set up "Send mail as" in your main Gmail account!
 
+
+

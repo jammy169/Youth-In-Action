@@ -91,3 +91,5 @@ This allows you to send from the organization email while logged into your perso
 - You must manually select the sender address each time, OR
 - Use a dedicated email service like EmailJS, SendGrid, or AWS SES
 
+
+

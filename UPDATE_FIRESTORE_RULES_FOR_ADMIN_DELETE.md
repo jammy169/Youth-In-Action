@@ -109,3 +109,5 @@ If you need to add more admin emails, update the `isAdmin()` function in the rul
 - The improved deletion function now handles this gracefully and checks if documents exist before attempting to delete
 - The function will delete from multiple collections: `users`, `userProfiles`, and `registrations`
 
+
+

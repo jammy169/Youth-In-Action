@@ -77,3 +77,5 @@ The dropdown will only appear AFTER you add another email address via "Send mail
 
 **Once you complete these steps, the dropdown (▼) will appear!**
 
+
+
