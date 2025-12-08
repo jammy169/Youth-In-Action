@@ -55,8 +55,14 @@ export const sendRegistrationConfirmationEmail = async (registrationData, eventD
     // Create email subject
     const subject = `✅ Registration Confirmation: ${eventData.title || 'Event'}`;
 
-    // Create email body
-    const message = `Hello ${userName}!
+    // Create email body with prominent warning at top
+    const message = `⚠️⚠️⚠️ CRITICAL: CHECK "FROM" FIELD BEFORE SENDING! ⚠️⚠️⚠️
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MUST SEND FROM: ${orgEmail}
+DO NOT SEND FROM: jamestellore@gmail.com or any other account!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hello ${userName}!
 
 Thank you for registering for our volunteer event! Your registration has been received and is pending admin approval.
 
@@ -104,14 +110,45 @@ For inquiries, please contact us through our website or email directly.`;
     // Create Gmail compose URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(userEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
     
+    // Show critical warning about sender account - use confirm to force acknowledgment
+    const warningMessage = `🚨 CRITICAL: SENDER ACCOUNT CHECK REQUIRED 🚨
+
+BEFORE SENDING, YOU MUST:
+1. Check the "From" dropdown in Gmail (next to your name at top)
+2. It MUST show: ${orgEmail}
+3. If it shows jamestellore@gmail.com or another account, CLICK the dropdown and SELECT ${orgEmail}
+
+⚠️ WARNING: Sending from wrong account = email goes to wrong sent folder!
+
+Click OK only after you've verified the From field shows ${orgEmail}`;
+
+    // Use confirm to force user to acknowledge
+    const userAcknowledged = confirm(warningMessage);
+    if (!userAcknowledged) {
+      return {
+        success: false,
+        message: 'Email cancelled - please verify sender account before sending'
+      };
+    }
+    
     // Open Gmail compose window
     console.log(`📧 Opening Gmail compose for: ${userEmail}`);
-    window.open(gmailUrl, '_blank');
+    console.log(`⚠️ CRITICAL: User must select ${orgEmail} from the "From" dropdown before sending!`);
+    const emailWindow = window.open(gmailUrl, '_blank');
+    
+    // Check if popup was blocked
+    if (!emailWindow || emailWindow.closed || typeof emailWindow.closed === 'undefined') {
+      console.warn('⚠️ Popup blocker may have blocked the email window');
+      alert('⚠️ Popup blocked! Please allow popups for this site and try again.');
+      return {
+        success: false,
+        message: 'Popup blocked - please allow popups for this site',
+        gmailUrl: gmailUrl
+      };
+    }
     
     console.log(`✅ Registration confirmation email compose opened successfully`);
-    console.log(`📧 NOTE: To send from ${orgEmail}, you must:`);
-    console.log(`   1. Log into Gmail with ${orgEmail}, OR`);
-    console.log(`   2. Use Gmail's "Send mail as" feature in the compose window's "From" dropdown`);
+    console.log(`📧 CRITICAL REMINDER: User must select ${orgEmail} from the "From" dropdown before sending!`);
     
     return {
       success: true,
@@ -194,16 +231,39 @@ export const sendGmailEmail = async (userEmail, subject, message) => {
     // Get organization email from config
     const orgEmail = EMAIL_CONFIG?.settings?.organizationEmail || 'youthinactionpoblacion@gmail.com';
 
+    // Show critical warning about sender account - use confirm to force acknowledgment
+    const warningMessage = `🚨 CRITICAL: SENDER ACCOUNT CHECK REQUIRED 🚨
+
+BEFORE SENDING, YOU MUST:
+1. Check the "From" dropdown in Gmail (next to your name at top)
+2. It MUST show: ${orgEmail}
+3. If it shows jamestellore@gmail.com or another account, CLICK the dropdown and SELECT ${orgEmail}
+
+⚠️ WARNING: Sending from wrong account = email goes to wrong sent folder!
+
+Click OK only after you've verified the From field shows ${orgEmail}`;
+
+    // Use confirm to force user to acknowledge
+    const userAcknowledged = confirm(warningMessage);
+    if (!userAcknowledged) {
+      return {
+        success: false,
+        message: 'Email cancelled - please verify sender account before sending'
+      };
+    }
+
     // Create Gmail compose URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(userEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
     
     // Open Gmail compose window
     console.log(`📧 Opening Gmail compose for: ${userEmail}`);
+    console.log(`⚠️ CRITICAL: User must select ${orgEmail} from the "From" dropdown before sending!`);
     const emailWindow = window.open(gmailUrl, '_blank');
     
     // Check if popup was blocked
     if (!emailWindow || emailWindow.closed || typeof emailWindow.closed === 'undefined') {
       console.warn('⚠️ Popup blocker may have blocked the email window');
+      alert('⚠️ Popup blocked! Please allow popups for this site and try again.');
       return {
         success: false,
         message: 'Popup blocked - please allow popups for this site',
@@ -212,9 +272,7 @@ export const sendGmailEmail = async (userEmail, subject, message) => {
     }
     
     console.log(`✅ Gmail compose opened successfully`);
-    console.log(`📧 NOTE: To send from ${orgEmail}, you must:`);
-    console.log(`   1. Log into Gmail with ${orgEmail}, OR`);
-    console.log(`   2. Use Gmail's "Send mail as" feature in the compose window's "From" dropdown`);
+    console.log(`📧 CRITICAL REMINDER: User must select ${orgEmail} from the "From" dropdown before sending!`);
     
     return {
       success: true,

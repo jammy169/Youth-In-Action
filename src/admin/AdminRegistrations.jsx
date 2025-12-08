@@ -314,8 +314,9 @@ const AdminRegistrations = () => {
       const emailResult = await sendRegistrationConfirmationEmail(registrationData, eventData);
       
       if (emailResult.success) {
-        alert(`✅ Confirmation email compose opened for ${registrationData.email}!\n\nCheck the Gmail compose window to send the email.`);
+        // Don't show duplicate alert - warning already shown in email service
         console.log('✅ Confirmation email compose opened successfully');
+        console.log('📧 Reminder: Verify the "From" field shows youthinactionpoblacion@gmail.com before sending!');
       } else {
         alert(`⚠️ Could not open email compose: ${emailResult.message}`);
         console.error('❌ Failed to open email compose:', emailResult);

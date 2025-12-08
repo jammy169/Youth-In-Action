@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { uploadEventImage } from '../utils/supabaseUpload';
-import { uploadEventImageSimple, getRandomEventImage } from '../utils/simpleImageUpload';
+import { uploadEventImage, uploadEventImageToFirebase } from '../utils/supabaseUpload';
+import { getRandomEventImage } from '../utils/simpleImageUpload';
 import { addEvent, EVENT_CATEGORIES } from '../utils/eventsService';
 import { requireAdminAuth, getCurrentUser } from '../utils/adminAuth';
 import { addEventWithAdminPrivileges } from '../utils/firebaseAdmin';
@@ -99,20 +99,23 @@ const AdminAddEvent = () => {
       if (selectedFile) {
         try {
           // Try Supabase upload first
+          console.log('🔄 Attempting Supabase upload...');
           imageUrl = await uploadEventImage(selectedFile);
-          console.log('Image uploaded successfully:', imageUrl);
-        } catch (uploadError) {
-          console.error('Supabase upload failed:', uploadError);
-          console.log('🔄 Trying simple image upload...');
+          console.log('✅ Supabase upload successful:', imageUrl);
+        } catch (supabaseError) {
+          console.error('❌ Supabase upload failed:', supabaseError);
+          console.log('🔄 Trying Firebase Storage as fallback...');
           
           try {
-            // Fallback to simple upload
-            imageUrl = await uploadEventImageSimple(selectedFile);
-            console.log('Simple image upload successful:', imageUrl);
-          } catch (simpleError) {
-            console.error('Simple upload also failed:', simpleError);
-            console.log('⚠️ Using random placeholder image...');
-            imageUrl = getRandomEventImage();
+            // Fallback to Firebase Storage
+            imageUrl = await uploadEventImageToFirebase(selectedFile);
+            console.log('✅ Firebase Storage upload successful:', imageUrl);
+          } catch (firebaseError) {
+            console.error('❌ Firebase Storage upload also failed:', firebaseError);
+            // Show error to user instead of silently using placeholder
+            alert(`❌ Image upload failed!\n\nSupabase Error: ${supabaseError.message}\nFirebase Error: ${firebaseError.message}\n\nPlease try:\n1. Check your internet connection\n2. Try a smaller image file (< 5MB)\n3. Or enter an image URL manually instead\n\nThe event will be created without an image.`);
+            // Don't use placeholder - let user decide
+            imageUrl = '';
           }
         }
       } else if (!form.image) {

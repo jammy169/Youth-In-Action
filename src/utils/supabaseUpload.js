@@ -1,4 +1,49 @@
 import { supabase } from './supabaseClient'
+import { storage } from '../firebaseConfig'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+
+/**
+ * Upload an event image to Firebase Storage (fallback method)
+ * @param {File} file - The image file to upload
+ * @returns {Promise<string>} - The public URL of the uploaded image
+ */
+export const uploadEventImageToFirebase = async (file) => {
+  try {
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      throw new Error('File must be an image')
+    }
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024 // 5MB in bytes
+    if (file.size > maxSize) {
+      throw new Error('File size must be less than 5MB')
+    }
+
+    // Generate unique filename with timestamp
+    const timestamp = Date.now()
+    const fileExtension = file.name.split('.').pop()
+    const fileName = `event-images/event-${timestamp}.${fileExtension}`
+
+    console.log('📤 Uploading to Firebase Storage:', fileName)
+
+    // Create a reference to the file location
+    const storageRef = ref(storage, fileName)
+
+    // Upload the file
+    const snapshot = await uploadBytes(storageRef, file)
+    console.log('✅ Firebase upload successful:', snapshot.metadata.fullPath)
+
+    // Get the download URL
+    const downloadURL = await getDownloadURL(snapshot.ref)
+    console.log('✅ Firebase download URL:', downloadURL)
+
+    return downloadURL
+  } catch (error) {
+    console.error('❌ Firebase Storage upload error:', error)
+    throw new Error(`Firebase upload failed: ${error.message}`)
+  }
+}
 
 /**
  * Upload an event image to Supabase Storage
