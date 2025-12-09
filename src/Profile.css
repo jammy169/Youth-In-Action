@@ -1022,6 +1022,13 @@
 }
 
 @media (max-width: 768px) {
+  /* Force a single-column flow on small screens to avoid overlap */
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
   .profile-container {
     padding: 15px;
   }
@@ -1034,6 +1041,24 @@
   .progress-section,
   .activity-feed {
     padding: 20px;
+  }
+
+  /* Remove sticky/height constraints so the badge card doesn't float over the profile card */
+  .progress-section {
+    position: static;
+    top: auto;
+    max-height: none;
+  }
+  
+  /* Let badge helper text wrap instead of spilling over nearby UI */
+  .progress-text {
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* Extra breathing room under the avatar when stacked */
+  .joined-date {
+    margin-top: 6px;
   }
   
   .personal-info,
