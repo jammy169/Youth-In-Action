@@ -55,7 +55,7 @@ const Home = () => {
           >
            <img src={recognition} alt="Barangay Recognition" />
             <h3>Barangay Recognition</h3>
-            <p>Get acknowledged during barangay programs and events for your volunteer serviceeeeeeeeeeeee</p>
+            <p>Get acknowledged during barangay programs and events for your volunteer service</p>
           </motion.div>
 
           <motion.div 
