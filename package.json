@@ -3,12 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "engines": {
-    "node": "20.x"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.46.2"
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
