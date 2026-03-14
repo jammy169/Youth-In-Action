@@ -1,60 +1,68 @@
 .about-container {
-    font-family: 'Arial', sans-serif;
-    background-color: #1C1C1E; /* dark background */
-    color: #f4f4f9;
-    min-height: 100vh;
-    width: 100%;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .about-container section {
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 3rem;
-  }
-  
-  .about-container h1 {
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #ffffff;
-  }
-  
-  .about-container h2 {
-    color: #f4f4f9;
-    margin-bottom: 0.5rem;
-    text-align: center;
-  }
-  
-  .about-container p {
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #bbb;
-  }
-  
-  .about-container .team-members {
+  font-family: 'Arial', sans-serif;
+  background-color: #1C1C1E;
+  color: #f4f4f9;
+  min-height: 100vh;
+  width: 100vw;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.about-container section {
+  width: 100%;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.about-container h1,
+.about-container h2,
+.about-container p {
+  text-align: center;
+}
+
+.about-container .team-members {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-container .team-member {
+  background-color: #2e2e3e;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-container .team-member img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+}
+    
+  .about-container .team {
     display: flex;
     justify-content: center;
     gap: 2rem;
     flex-wrap: wrap;
-  }
-  
-  .about-container .team-member {
-    background-color: #2e2e3e;
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 200px;
-  }
-  
-  .about-container .team-member img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    margin-bottom: 1rem;
   }
   

@@ -1,22 +1,43 @@
 Home Page Styles
 .home {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background: #fff;
 }
 
 /* Hero Section */
 .hero {
   position: relative;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
+  left: 0;
   background: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 0;
+  margin: 0px;
   padding: 0;
+  padding-top: 70px; /* Height of the nav bar */
+  margin-top: -25px; /* Pull the hero up behind the nav */
+  box-sizing: border-box;
+}
+
+/* Desktop: hero fills entire viewport, background covers fully */
+@media (min-width: 769px) {
+  .hero {
+    min-height: 100vh;
+    height: 100vh;
+    width: 100%;
+    max-width: 100vw;
+    background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 .hero-overlay {

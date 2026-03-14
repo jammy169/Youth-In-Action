@@ -1,0 +1,51 @@
+body{
+  color: #4CAF50;
+}
+layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.public-tab-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  color: #fff;
+  
+}
+.public-tab-nav{
+  background-color: #1C1C1E !important;
+}
+
+.public-tab-nav.hide {
+  transform: translateY(-100%);
+}
+
+.public-tab-nav a {
+  text-decoration: none;
+  color: #fdf1f1;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.public-tab-nav a.active {
+  color: #4CAF50;
+  border-bottom: 2px solid #4CAF50;
+}
+
+.main-content {
+  padding: 1rem;
+  margin-top: 80px; /* To avoid being hidden under fixed nav */
+  flex: 1;
+}

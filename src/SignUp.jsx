@@ -34,7 +34,7 @@ const SignUp = () => {
         age 
       });
       console.log('User created:', response.data);
-      navigate('/UserPage');
+      navigate('/UserEvents');
     } catch (error) {
       console.error('Error signing up:', error.response ? error.response.data : error.message);
       setErrorMessage('Error during sign-up process');

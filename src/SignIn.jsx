@@ -4,24 +4,25 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import facebookLogo from './assets/facebook.png';
 import GoogleLogo from './assets/Google.png';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showReset, setShowReset] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetMessage, setResetMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const auth = getAuth();
     try {
-      const response = await axios.post('http://localhost:3000/signin', { 
-        email, 
-        password 
-      });
-      console.log('User signed in:', response.data);
-      navigate('/user');
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/UserEvents');
     } catch (error) {
-      console.error('Error signing in:', error.response ? error.response.data : error.message);
+      console.error('Sign in error:', error.code, error.message);
       setErrorMessage('Invalid email or password');
     }
   };
@@ -54,6 +55,49 @@ const SignIn = () => {
             />
             <button type="submit" className="auth-button">Sign In</button>
           </form>
+          <p>
+            <button
+              type="button"
+              className="forgot-password-link"
+              onClick={() => setShowReset(true)}
+              style={{ background: "none", border: "none", color: "#007bff", cursor: "pointer", padding: 0 }}
+            >
+              Forgot Password?
+            </button>
+          </p>
+          {showReset && (
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setResetMessage('');
+                try {
+                  await sendPasswordResetEmail(getAuth(), resetEmail);
+                  setResetMessage('Password reset email sent! Check your inbox.');
+                } catch (error) {
+                  setResetMessage('Error sending reset email. Please check the email address.');
+                }
+              }}
+              className="auth-form"
+              style={{ marginTop: "1em" }}
+            >
+              <input
+                type="email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
+              <button type="submit" className="auth-button">Send Reset Email</button>
+              <button
+                type="button"
+                onClick={() => setShowReset(false)}
+                style={{ marginLeft: "1em" }}
+              >
+                Cancel
+              </button>
+              {resetMessage && <p className="info-message">{resetMessage}</p>}
+            </form>
+          )}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
       </div>

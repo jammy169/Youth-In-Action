@@ -1,10 +1,12 @@
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f9;
+  background-color: #1C1C1E;
   color: #333;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
 }
 
 .auth-container {
@@ -13,6 +15,7 @@ body {
   align-items: center;
   height: 100vh;
   background: linear-gradient(135deg, #1C1C1E);
+
 }
 
 .auth-box {
@@ -24,6 +27,8 @@ body {
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
+  margin-bottom: 80px;
+  
 }
 
 .auth-box:hover {

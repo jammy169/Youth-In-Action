@@ -1,0 +1,75 @@
+  /* src/components/UserLayout.css */
+  .layout-container {
+      display: flex;
+      flex-direction: column;
+      /* height: 100vh; */
+      /* overflow: hidden; */
+      min-height: 100vh;
+      width: 100vw;
+    }
+
+    
+    .tab-nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .tab-nav a.active {
+      color: #007bff;
+    }
+    .logo-upper-left {
+      width: 48px !important;
+      height: 48px !important;
+      object-fit: contain;
+      margin-right: 0 !important;
+      margin-top: -10px;
+    }
+    .logo-title {
+      font-size: 20px;
+    font-weight: bold;
+     color: white;
+  margin: 0; /* important! */
+  padding: 0;
+      
+
+    }
+    
+    /* src/components/UserLayout.css */
+
+  .tab-nav {
+      display: flex;
+      justify-content: center;     /* Center the tab items */
+      align-items: center;         /* Vertically center items */
+      gap: 2rem;                   /* Space between tabs */
+      background-color: #1C1C1E;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    
+    .tab-nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      transition: color 0.3s;
+    }
+    
+    .tab-nav a.active {
+      color: #4CAF50;
+    }
+
+.logo-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 10.5 rem;
+}
+    
