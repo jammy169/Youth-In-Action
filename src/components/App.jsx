@@ -15,9 +15,9 @@ import UserContact from "../UserContact";
 import Profile from "../Profile";
 
 // Components
-import EventCard from '../components/eventcard';
-import EventList from '../components/EventList';
-import EventDetails from '../components/EventDetails';
+import EventCard from './EventCard';
+import EventList from './EventList';
+import EventDetails from './EventDetails';
 
 // Admin Pages
 import AdminAddEvent from '../admin/AdminAddEvent';
