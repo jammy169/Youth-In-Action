@@ -39,9 +39,23 @@ layout-container {
   transition: color 0.3s ease-in-out;
 }
 
-.public-tab-nav a.active {
-  color: #4CAF50;
-  border-bottom: 2px solid #4CAF50;
+/* Desktop nav: same friendly style as mobile (button-like tabs, green active) */
+.desktop-nav a {
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.desktop-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.desktop-nav a.active {
+  background-color: #4CAF50;
+  color: white;
+  border-bottom: none;
 }
 
 .main-content {
