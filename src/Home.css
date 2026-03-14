@@ -1,13 +1,9 @@
-/* Home Page Styles - full-bleed so hero and sections fill entire screen (no dark margins) */
+/* Home Page Styles - full width (parent padding removed via .main-content:has(.home) in PublicNav.css) */
 .home {
   min-height: 100vh;
-  width: calc(100% + 3rem);
-  max-width: 100vw;
-  margin-left: -1.5rem;
-  margin-right: -1.5rem;
+  width: 100%;
   overflow-x: hidden;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
   background: linear-gradient(180deg, #0f1f1c 0%, #1a3329 100%);

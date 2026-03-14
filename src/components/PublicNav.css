@@ -50,6 +50,12 @@ layout-container {
   flex: 1;
 }
 
+/* Home page: no horizontal padding so hero/sections fill entire screen */
+.main-content:has(.home) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /* Desktop Navigation Styles */
 .desktop-nav {
   display: flex;
