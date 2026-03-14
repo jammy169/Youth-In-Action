@@ -58,16 +58,12 @@ layout-container {
   border-bottom: none;
 }
 
+/* Full-width content area: no horizontal padding so section backgrounds span edge-to-edge */
 .main-content {
-  padding: 1rem;
-  margin-top: 80px; /* To avoid being hidden under fixed nav */
+  padding: 0;
+  margin-top: 80px; /* Clear fixed nav */
   flex: 1;
-}
-
-/* Home page: no horizontal padding so hero/sections fill entire screen */
-.main-content:has(.home) {
-  padding-left: 0;
-  padding-right: 0;
+  width: 100%;
 }
 
 /* Desktop Navigation Styles */
