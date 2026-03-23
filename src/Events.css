@@ -137,7 +137,9 @@
   padding: 50px 20px;
   max-width: 1400px;
   margin: 0 auto;
-  align-items: start;
+  /* Make grid items stretch so card heights feel uniform */
+  align-items: stretch;
+  justify-items: stretch;
 }
 
 .event-card {
@@ -154,7 +156,9 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
   display: flex;
   flex-direction: column;
-  height: fit-content;
+  /* Consistent sizing within each grid row */
+  height: 100%;
+  justify-content: space-between;
   color: #1a1a1a;
 }
 
@@ -214,6 +218,9 @@
   overflow: hidden;
   border-radius: 20px 20px 0 0;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .event-image {
@@ -309,7 +316,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 16px;
+  /* Parent gap controls spacing */
+  margin-bottom: 0;
 }
 
 .event-title {
@@ -327,7 +335,7 @@
 }
 
 .event-countdown {
-  margin-bottom: 15px;
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
   animation: countdownFadeIn 0.6s ease-out;
@@ -434,14 +442,19 @@
   font-size: 1rem;
   color: #4a5568;
   line-height: 1.6;
-  margin-bottom: 25px;
-  min-height: 60px;
+  margin-bottom: 0;
+  min-height: 0;
   font-weight: 400;
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   padding: 16px;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   position: relative;
+  /* Clamp so cards have more uniform height */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .event-description::before {
@@ -650,12 +663,16 @@
 
 /* Public Message Styles */
 .public-message {
-  margin-top: 20px;
+  /* Push the message + CTA to the bottom of the card */
+  margin-top: auto;
   padding: 16px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .public-info {
@@ -663,7 +680,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   color: #4a5568;
   font-size: 0.9rem;
 }
@@ -683,6 +700,13 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 240px;
+  align-self: center;
 }
 
 .signup-cta:hover {
@@ -818,6 +842,11 @@
   .event-content {
     padding: 15px;
     gap: 10px;
+  }
+
+  /* Allow more text on mobile but keep the overall card balanced */
+  .event-description {
+    -webkit-line-clamp: 6;
   }
   
   .event-title {
