@@ -1,4 +1,4 @@
-<img width="1909" height="959" alt="image" src="https://github.com/user-attachments/assets/fd79f353-5ec2-494a-b37c-d6566575ea8b" /># 🌟 YouthInAction
+# 🌟 YouthInAction
 
 📌 Overview
 
@@ -48,4 +48,15 @@ npm run dev
 Watch the full demo here: https://youtu.be/5RAkK0P-pEA?si=hWWubTNabkMFwAkN
 
 ## 📸 Screenshots
-📸 Screenshots
+<img width="1901" height="960" alt="image" src="https://github.com/user-attachments/assets/0fe2fce4-39b0-438a-8f15-cd0a50b23b48" />
+
+## 🧠 What I Learned
+- Building full-stack web applications from scratch
+- Implementing authentication systems using Firebase
+- Handling file uploads and storage with Supabase
+- Structuring backend APIs using Node.js 
+- Improving system design and separation of concerns
+
+# 🙋‍♂️ Author
+- GitHub: https://github.com/jammy169
+- Email: jamfloydestellore@gmail.com
