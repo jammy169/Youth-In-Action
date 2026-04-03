@@ -1,4 +1,4 @@
-# 🌟 YouthInAction
+<img width="1909" height="959" alt="image" src="https://github.com/user-attachments/assets/fd79f353-5ec2-494a-b37c-d6566575ea8b" /># 🌟 YouthInAction
 
 📌 Overview
 
@@ -30,3 +30,22 @@ Backend:
 - Firebase handles secure user authentication
 - Supabase handles image storage for event-related media
 - Node.js + Express manages server-side logic and API requests
+  
+## ⚙️ Installation\
+# Clone repository
+git clone https://github.com/your-username/youthinaction.git
+
+# Go into project folder
+cd youthinaction
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+## 🎥 Project Demo
+Watch the full demo here: https://youtu.be/5RAkK0P-pEA?si=hWWubTNabkMFwAkN
+
+## 📸 Screenshots
+📸 Screenshots
