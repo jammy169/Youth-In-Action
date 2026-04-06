@@ -2,24 +2,19 @@
   .layout-container {
       display: flex;
       flex-direction: column;
-      /* height: 100vh; */
-      /* overflow: hidden; */
       min-height: 100vh;
       width: 100%;
       max-width: 100vw;
       overflow-x: hidden;
     }
 
-    
-    .tab-nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-    
-    .tab-nav a.active {
-      color: #007bff;
-    }
+  /* Clear fixed nav (PublicNav.css may not load on user routes) */
+  .layout-container .main-content {
+    margin-top: 80px;
+    flex: 1;
+    width: 100%;
+  }
+
     .logo-upper-left {
       width: 48px !important;
       height: 48px !important;
@@ -43,16 +38,13 @@
       display: inline-block; /* Ensure proper inline behavior */
     }
     
-    /* src/components/UserLayout.css */
-
+  /* Match PublicNav: centered tabs, white text, green pill active (logged-in area) */
   .tab-nav {
       display: flex;
-      justify-content: space-between; /* Move logo left, nav right */
-      align-items: center;         /* Vertically center items */
-      gap: 2rem;                   /* Space between tabs */
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
       background-color: #1C1C1E;
-      background-size: cover;
-      background-position: center;
       color: #fff;
       padding: 1rem;
       position: fixed;
@@ -60,34 +52,56 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      flex-wrap: wrap;
-    }
-    
-    .tab-nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      transition: color 0.3s;
-    }
-    
-    .tab-nav a.active {
-      color: #4CAF50;
+      flex-wrap: nowrap;
+      min-height: 56px;
+      box-sizing: border-box;
     }
 
 .logo-nav-group {
   display: flex;
-  align-items: center; /* Ensure horizontal alignment */
-  gap: 20px; /* Significantly increase gap for clear separation */
-  margin-right: 0; /* Remove margin since we're using space-between */
-  flex-direction: row; /* Ensure horizontal layout */
+  align-items: center;
+  gap: 20px;
+  flex-direction: row;
 }
 
-/* Desktop Navigation Styles */
+/* Desktop: logo left, nav links centered (fixed bar stays position:fixed) */
+@media (min-width: 769px) {
+  .logo-nav-group {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    z-index: 1;
+  }
+}
+
+/* Desktop Navigation — same pill treatment as PublicNav.desktop-nav */
 .desktop-nav {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
+  justify-content: center;
+}
+
+.tab-nav .desktop-nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tab-nav .desktop-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.tab-nav .desktop-nav a.active {
+  background-color: #4CAF50;
+  color: #fff;
+  border-bottom: none;
 }
 
 .mobile-menu-toggle {
@@ -201,7 +215,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.8rem 1rem;
-    position: relative;
+    position: fixed;
     flex-wrap: nowrap;
     min-height: 60px; /* Ensure adequate height for logo and text */
   }

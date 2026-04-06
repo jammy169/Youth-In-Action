@@ -17,21 +17,25 @@ DROP POLICY IF EXISTS "Allow public downloads" ON storage.objects;
 -- Create policy for public read access to event-images bucket
 CREATE POLICY "Public read access for event-images"
 ON storage.objects FOR SELECT
+TO anon, authenticated
 USING (bucket_id = 'event-images');
 
 -- Create policy for public upload access to event-images bucket
 CREATE POLICY "Public upload access for event-images"
 ON storage.objects FOR INSERT
+TO anon, authenticated
 WITH CHECK (bucket_id = 'event-images');
 
 -- Create policy for public update access to event-images bucket
 CREATE POLICY "Public update access for event-images"
 ON storage.objects FOR UPDATE
+TO anon, authenticated
 USING (bucket_id = 'event-images');
 
 -- Create policy for public delete access to event-images bucket
 CREATE POLICY "Public delete access for event-images"
 ON storage.objects FOR DELETE
+TO anon, authenticated
 USING (bucket_id = 'event-images');
 
 -- Alternative: If you want to allow all operations on the bucket, you can use this single policy instead:

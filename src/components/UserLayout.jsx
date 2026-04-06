@@ -44,7 +44,7 @@ const UserLayout = () => {
         {/* Desktop Navigation */}
         <div className="desktop-nav">
           <NavLink  
-            to="/UserEvents"
+            to="/userevents"
             className={({ isActive }) => (isActive ? 'active' : '')}
           >
             Events
@@ -87,7 +87,7 @@ const UserLayout = () => {
       )}
       <div className={`mobile-dropdown ${isMobileMenuOpen ? 'open' : ''}`}>
         <NavLink  
-          to="/UserEvents"
+          to="/userevents"
           className={({ isActive }) => (isActive ? 'active' : '')}
           onClick={closeMobileMenu}
         >
