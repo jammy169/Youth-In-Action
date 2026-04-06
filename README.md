@@ -4,6 +4,8 @@
 
 # YouthInAction is a full-stack web application built to help communities (especially barangays) manage volunteer programs efficiently. It allows organizers to create events and enables users to participate, track, and engage in meaningful activities.
 
+# Website link: https://youth-in-action.vercel.app/
+
 # 🚀 Features
 - 👤 User Authentication (Login & Registration)
 - 📅 Event Creation and Management
@@ -49,6 +51,10 @@ Watch the full demo here: https://youtu.be/5RAkK0P-pEA?si=hWWubTNabkMFwAkN
 
 ## 📸 Screenshots
 <img width="1901" height="960" alt="image" src="https://github.com/user-attachments/assets/0fe2fce4-39b0-438a-8f15-cd0a50b23b48" />
+<img width="1920" height="903" alt="image" src="https://github.com/user-attachments/assets/42ec9987-7b55-472a-8aeb-87a8c9365801" />
+<img width="1909" height="945" alt="image" src="https://github.com/user-attachments/assets/689491bc-8a31-45b7-a576-51de60998334" />
+
+
 
 ## 🧠 What I Learned
 - Building full-stack web applications from scratch
