@@ -13,11 +13,13 @@
 
 .profile-container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .profile-header {
@@ -990,6 +992,7 @@
   .profile-content {
     grid-template-columns: 1fr;
     gap: 20px;
+    justify-items: stretch;
   }
   
   .profile-content.editing {
@@ -999,10 +1002,23 @@
   .user-profile {
     flex-direction: column;
     text-align: center;
+    align-items: center;
+  }
+
+  .user-profile:not(.editing) .profile-info {
+    width: 100%;
+    max-width: 100%;
+    align-self: stretch;
+    text-align: center;
   }
   
   .user-profile.editing {
     flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .user-profile.editing .profile-info {
     text-align: left;
   }
   
@@ -1027,10 +1043,16 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    /* Base grid uses align-items: start; as flex that shrinks children — stretch full width */
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .profile-container {
     padding: 15px;
+    max-width: 100%;
   }
   
   .profile-header h1 {
@@ -1041,6 +1063,37 @@
   .progress-section,
   .activity-feed {
     padding: 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .user-profile .profile-avatar-section {
+    width: 100%;
+    align-items: center;
+  }
+
+  .user-profile .profile-actions {
+    width: 100%;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: stretch;
+  }
+
+  .user-profile .profile-actions button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .user-profile:not(.editing) .profile-info .info-item {
+    text-align: center;
+    align-items: center;
+  }
+
+  .user-profile.editing .profile-info .info-item {
+    text-align: left;
+    align-items: stretch;
   }
 
   /* Remove sticky/height constraints so the badge card doesn't float over the profile card */
